@@ -22,6 +22,7 @@ const MaterialsCatalog = lazy(() => import('./pages/info/MaterialsCatalog'));
 const Partners = lazy(() => import('./pages/info/Partners'));
 const Projects = lazy(() => import('./pages/info/Projects'));
 const NotFound = lazy(() => import('./pages/error/NotFound'));
+const DinuDev = lazy(() => import('./pages/dev/DinuDev'));
 
 // Premium minimal loader fallback
 const LoadingFallback = () => (
@@ -102,6 +103,7 @@ export default function App() {
               <Route path="/catalog-materiale-stofe" element={<MaterialsCatalog />} />
               <Route path="/parteneri" element={<Partners />} />
               <Route path="/proiecte-globale" element={<Projects />} />
+              <Route path="/dinudev" element={<DinuDev />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
