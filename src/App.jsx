@@ -15,6 +15,7 @@ import ProductWarranty from './pages/ProductWarranty';
 import MaterialsCatalog from './pages/MaterialsCatalog';
 import Partners from './pages/Partners';
 import Projects from './pages/Projects';
+import NotFound from './pages/NotFound';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/WishlistDrawer';
 
@@ -61,6 +62,7 @@ export default function App() {
             <Route path="/catalog-materiale-stofe" element={<MaterialsCatalog />} />
             <Route path="/parteneri" element={<Partners />} />
             <Route path="/proiecte-globale" element={<Projects />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
