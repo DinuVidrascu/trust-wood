@@ -29,7 +29,9 @@ export default function Catalog() {
     'MDF Lăcuit'
   ];
 
-  const availableColors = ['Bej', 'Gri', 'Verde'];
+  const availableColors = Array.from(new Set(
+    products.flatMap(p => p.availableColors || [])
+  ));
 
   const availableSizes = Array.from(new Set(
     products.flatMap(p => p.availableSizes || [])
