@@ -36,7 +36,7 @@ export const products = [
       "In",
       "Bouclé"
     ],
-    availableColors: [],
+    availableColors: ["Bej"],
     availableSizes: [
       "200cm",
       "240cm",
@@ -84,7 +84,7 @@ export const products = [
       "In",
       "Bouclé"
     ],
-    availableColors: [],
+    availableColors: ["Bej"],
     availableSizes: [
       "200cm",
       "240cm",
@@ -132,7 +132,7 @@ export const products = [
       "In",
       "Bouclé"
     ],
-    availableColors: [],
+    availableColors: ["Verde"],
     availableSizes: [
       "200cm",
       "240cm",
@@ -180,7 +180,7 @@ export const products = [
       "In",
       "Bouclé"
     ],
-    availableColors: [],
+    availableColors: ["Gri"],
     availableSizes: [
       "200cm",
       "240cm",
@@ -228,7 +228,7 @@ export const products = [
       "In",
       "Bouclé"
     ],
-    availableColors: [],
+    availableColors: ["Verde"],
     availableSizes: [
       "200cm",
       "240cm",
@@ -276,7 +276,7 @@ export const products = [
       "In",
       "Bouclé"
     ],
-    availableColors: [],
+    availableColors: ["Gri"],
     availableSizes: [
       "200cm",
       "240cm",
