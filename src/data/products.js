@@ -1307,7 +1307,7 @@ export const products = [
     ]
   },
   {
-    id: 50,
+    id: 60,
     category: "Pufuri",
     type: "Puf Design",
     name: "Bongo (Yellow)",
@@ -1329,14 +1329,14 @@ export const products = [
       {
         name: "Mustard Yellow",
         code: "#D4A373",
-        productId: 50,
+        productId: 60,
         textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea densă și fină într-o nuanță plăcută de galben muștar."
       },
       {
         name: "Forest Green",
         code: "#1C3F35",
-        productId: 51,
+        productId: 61,
         textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea premium de culoare verde smarald, rezistentă la uzură."
       }
@@ -1353,7 +1353,7 @@ export const products = [
     ]
   },
   {
-    id: 51,
+    id: 61,
     category: "Pufuri",
     type: "Puf Design",
     name: "Bongo (Green)",
@@ -1375,14 +1375,14 @@ export const products = [
       {
         name: "Mustard Yellow",
         code: "#D4A373",
-        productId: 50,
+        productId: 60,
         textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea densă și fină într-o nuanță plăcută de galben muștar."
       },
       {
         name: "Forest Green",
         code: "#1C3F35",
-        productId: 51,
+        productId: 61,
         textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea premium de culoare verde smarald, rezistentă la uzură."
       }
@@ -1399,7 +1399,7 @@ export const products = [
     ]
   },
   {
-    id: 52,
+    id: 62,
     category: "Pufuri",
     type: "Puf Premium",
     name: "Luno (Cream)",
@@ -1421,14 +1421,14 @@ export const products = [
       {
         name: "Cream Bouclé",
         code: "#EAE6DF",
-        productId: 52,
+        productId: 62,
         textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé modern și călduros, plăcut la atingere."
       },
       {
         name: "Terracotta Velvet",
         code: "#A55B45",
-        productId: 53,
+        productId: 63,
         textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea premium în tonuri pământii de teracotă."
       }
@@ -1445,7 +1445,7 @@ export const products = [
     ]
   },
   {
-    id: 53,
+    id: 63,
     category: "Pufuri",
     type: "Puf Premium",
     name: "Luno (Terracotta)",
@@ -1467,14 +1467,14 @@ export const products = [
       {
         name: "Cream Bouclé",
         code: "#EAE6DF",
-        productId: 52,
+        productId: 62,
         textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé modern și călduros, plăcut la atingere."
       },
       {
         name: "Terracotta Velvet",
         code: "#A55B45",
-        productId: 53,
+        productId: 63,
         textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea premium în tonuri pământii de teracotă."
       }
