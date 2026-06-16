@@ -85,7 +85,7 @@ export default function Navbar() {
     <>
       <nav className={`nav ${scrolled ? 'scrolled' : ''}`} id="navbar">
         <Link to="/" className="nav-logo" onClick={handleLogoClick} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img src="/logo.png" alt="Trustera Logo" style={{ height: '36px', width: 'auto', borderRadius: '4px' }} />
+          <img loading="lazy" src="/logo.png" alt="Trustera Logo" style={{ height: '36px', width: 'auto', borderRadius: '4px' }} />
           <span>Trustera</span>
         </Link>
         <ul className="nav-links">
@@ -131,7 +131,7 @@ export default function Navbar() {
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <div className="mm-header">
           <Link to="/" className="mm-logo" onClick={handleLogoClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <img src="/logo.png" alt="Trustera Logo" style={{ height: '32px', width: 'auto', borderRadius: '4px' }} />
+            <img loading="lazy" src="/logo.png" alt="Trustera Logo" style={{ height: '32px', width: 'auto', borderRadius: '4px' }} />
             <span>Trustera</span>
           </Link>
           <button className="mm-close" onClick={closeAll} aria-label="Închide meniu">✕</button>
@@ -186,7 +186,7 @@ export default function Navbar() {
                   navigate(`/produs/${p.id}`);
                 }}
               >
-                <img src={p.img} alt={p.name} />
+                <img loading="lazy" src={p.img} alt={p.name} />
                 <div className="ss-item-details">
                   <div className="ss-item-name">{p.type} {p.name}</div>
                   <div className="ss-item-price">{p.price} MDL</div>

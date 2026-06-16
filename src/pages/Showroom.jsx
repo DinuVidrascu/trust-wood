@@ -61,7 +61,7 @@ export default function Showroom() {
           {/* Left Column: Photos */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }} className="showroom-side-col">
             <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '200px', border: '1px solid var(--border)' }}>
-              <img 
+              <img loading="lazy" 
                 src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fm=webp&fit=crop&w=800&q=80" 
                 alt="Zona Canapele Showroom" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
@@ -76,7 +76,7 @@ export default function Showroom() {
             </div>
 
             <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '200px', border: '1px solid var(--border)' }}>
-              <img 
+              <img loading="lazy" 
                 src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fm=webp&fit=crop&w=800&q=80" 
                 alt="Mostre Materiale Showroom" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
@@ -104,7 +104,7 @@ export default function Showroom() {
           {/* Right Column: Photo + Address Card */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }} className="showroom-side-col">
             <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '200px', border: '1px solid var(--border)' }}>
-              <img 
+              <img loading="lazy" 
                 src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fm=webp&fit=crop&w=800&q=80" 
                 alt="Mese Dining Showroom" 
                 style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}

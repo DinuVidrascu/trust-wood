@@ -274,7 +274,7 @@ export default function ProductDetails() {
             
             <div className="lightbox-img-container" onClick={(e) => e.stopPropagation()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%', maxHeight: '100%' }}>
-                <img 
+                <img loading="lazy" 
                   src={productImages[lightboxIdx] ? productImages[lightboxIdx].replace('w=800', 'w=1400') : ''} 
                   alt={`${product.name} - vizualizare mărită ${lightboxIdx + 1}`} 
                   style={{ maxWidth: '100%', maxHeight: '80vh', width: 'auto', height: 'auto', display: 'block' }}
@@ -339,7 +339,7 @@ export default function ProductDetails() {
                           onClick={() => setActiveImageIdx(idx)}
                           aria-label={`Vezi imaginea ${idx + 1}`}
                         >
-                          <img src={thumbUrl} alt={`${product.name} - vizualizare ${idx + 1}`} />
+                          <img loading="lazy" src={thumbUrl} alt={`${product.name} - vizualizare ${idx + 1}`} />
                         </button>
                       );
                     })}
@@ -352,7 +352,7 @@ export default function ProductDetails() {
                   setLightboxOpen(true);
                 }} style={{ cursor: 'zoom-in', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                   <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%', maxHeight: '100%' }}>
-                    <img 
+                    <img loading="lazy" 
                       src={productImages[activeImageIdx]} 
                       alt={product.name} 
                       style={{ maxWidth: '100%', maxHeight: '100%', width: '100%', height: '100%', objectFit: 'contain', display: 'block', transition: 'transform 0.5s ease' }}

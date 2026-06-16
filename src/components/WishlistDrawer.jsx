@@ -100,7 +100,7 @@ export default function WishlistDrawer() {
                   {wishlist.map((item, idx) => (
                     <div key={idx} className="wd-item">
                       <div className="wd-item-img-container">
-                        <img src={item.img} alt={item.name} className="wd-item-img" />
+                        <img loading="lazy" src={item.img} alt={item.name} className="wd-item-img" />
                       </div>
                       <div className="wd-item-details">
                         <div className="wd-item-title-row">
