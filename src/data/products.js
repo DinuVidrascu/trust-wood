@@ -1431,6 +1431,13 @@ export const products = [
         productId: 63,
         textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea premium în tonuri pământii de teracotă."
+      },
+      {
+        name: "Black Leather",
+        code: "#1C1C1C",
+        productId: 64,
+        textureImg: "/img/textures/texture_black_leather.webp",
+        textureDesc: "Piele ecologică premium neagră, cu textură fină și structură rezistentă."
       }
     ],
     features: [
@@ -1477,6 +1484,13 @@ export const products = [
         productId: 63,
         textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea premium în tonuri pământii de teracotă."
+      },
+      {
+        name: "Black Leather",
+        code: "#1C1C1C",
+        productId: 64,
+        textureImg: "/img/textures/texture_black_leather.webp",
+        textureDesc: "Piele ecologică premium neagră, cu textură fină și structură rezistentă."
       }
     ],
     features: [
@@ -1488,6 +1502,60 @@ export const products = [
     img: "/img/pouf_luno_terracotta.webp",
     images: [
       "/img/pouf_luno_terracotta.webp"
+    ]
+  },
+  {
+    id: 64,
+    category: "Pufuri",
+    type: "Puf Premium",
+    name: "Luno (Black Leather)",
+    availableMaterials: [
+      "Piele",
+      "Bouclé",
+      "Catifea"
+    ],
+    availableColors: [
+      "Negru"
+    ],
+    availableSizes: [
+      "40x40cm",
+      "50x50cm"
+    ],
+    price: "3 600",
+    inStock: true,
+    desc: "Pufuletul Luno din piele ecologică neagră oferă un aspect industrial-chic sofisticat. Textura sa fină și structura trainică sunt completate de o cusătură impecabilă de înaltă precizie.",
+    swatches: [
+      {
+        name: "Cream Bouclé",
+        code: "#EAE6DF",
+        productId: 62,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé modern și călduros, plăcut la atingere."
+      },
+      {
+        name: "Terracotta Velvet",
+        code: "#A55B45",
+        productId: 63,
+        textureImg: "/img/textures/texture_beige_velvet.webp",
+        textureDesc: "Catifea premium în tonuri pământii de teracotă."
+      },
+      {
+        name: "Black Leather",
+        code: "#1C1C1C",
+        productId: 64,
+        textureImg: "/img/textures/texture_black_leather.webp",
+        textureDesc: "Piele ecologică premium neagră, cu textură fină și structură rezistentă."
+      }
+    ],
+    features: [
+      "Tapițerie premium din piele ecologică texturată",
+      "Formă geometrică modernă cu colțuri rotunjite",
+      "Ușor de integrat în decoruri loft, minimaliste sau office",
+      "Structură rigidă durabilă"
+    ],
+    img: "/img/pouf_luno_black.webp",
+    images: [
+      "/img/pouf_luno_black.webp"
     ]
   }
 ];
