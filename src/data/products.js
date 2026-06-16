@@ -51,21 +51,21 @@ export const products = [
         name: "Beige Velvet",
         code: "#D9C3B0",
         productId: 0,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea Premium densă, fină și moale, tratată hidrofob Easy Clean."
       },
       {
         name: "Emerald Green",
         code: "#1C3F35",
         productId: 13,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea Premium catifelată, cu reflex discret în lumină și tratament anti-pată."
       },
       {
         name: "Charcoal Grey",
         code: "#2E2D2C",
         productId: 14,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea Premium într-o nuanță profundă de cărbune, rezistentă la uzură intensă."
       }
     ],
@@ -84,8 +84,8 @@ export const products = [
     img: "/img/armchair_beige.webp",
     images: [
       "/img/armchair_beige.webp",
-      "/img/armchair_beige_side.png",
-      "/img/armchair_beige_back.png"
+      "/img/armchair_beige_side.webp",
+      "/img/armchair_beige_back.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -107,21 +107,21 @@ export const products = [
         name: "Beige Boucle",
         code: "#EAE6DF",
         productId: 3,
-        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé texturat premium, cu bucle tridimensionale moi și confortabile."
       },
       {
         name: "Emerald Green",
         code: "#1C3F35",
         productId: 15,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea Premium catifelată, cu reflex discret în lumină și tratament anti-pată."
       },
       {
         name: "Charcoal Grey",
         code: "#2E2D2C",
         productId: 16,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea Premium într-o nuanță profundă de cărbune, rezistentă la uzură intensă."
       }
     ],
@@ -161,21 +161,21 @@ export const products = [
         name: "Beige Velvet",
         code: "#D9C3B0",
         productId: 0,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea Premium densă, fină și moale, tratată hidrofob Easy Clean."
       },
       {
         name: "Emerald Green",
         code: "#1C3F35",
         productId: 13,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea Premium catifelată, cu reflex discret în lumină și tratament anti-pată."
       },
       {
         name: "Charcoal Grey",
         code: "#2E2D2C",
         productId: 14,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea Premium într-o nuanță profundă de cărbune, rezistentă la uzură intensă."
       }
     ],
@@ -215,21 +215,21 @@ export const products = [
         name: "Beige Velvet",
         code: "#D9C3B0",
         productId: 0,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea Premium densă, fină și moale, tratată hidrofob Easy Clean."
       },
       {
         name: "Emerald Green",
         code: "#1C3F35",
         productId: 13,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea Premium catifelată, cu reflex discret în lumină și tratament anti-pată."
       },
       {
         name: "Charcoal Grey",
         code: "#2E2D2C",
         productId: 14,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea Premium într-o nuanță profundă de cărbune, rezistentă la uzură intensă."
       }
     ],
@@ -269,21 +269,21 @@ export const products = [
         name: "Beige Boucle",
         code: "#EAE6DF",
         productId: 3,
-        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé texturat premium, cu bucle tridimensionale moi și confortabile."
       },
       {
         name: "Emerald Green",
         code: "#1C3F35",
         productId: 15,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea Premium catifelată, cu reflex discret în lumină și tratament anti-pată."
       },
       {
         name: "Charcoal Grey",
         code: "#2E2D2C",
         productId: 16,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea Premium într-o nuanță profundă de cărbune, rezistentă la uzură intensă."
       }
     ],
@@ -323,21 +323,21 @@ export const products = [
         name: "Beige Boucle",
         code: "#EAE6DF",
         productId: 3,
-        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé texturat premium, cu bucle tridimensionale moi și confortabile."
       },
       {
         name: "Emerald Green",
         code: "#1C3F35",
         productId: 15,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea Premium catifelată, cu reflex discret în lumină și tratament anti-pată."
       },
       {
         name: "Charcoal Grey",
         code: "#2E2D2C",
         productId: 16,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea Premium într-o nuanță profundă de cărbune, rezistentă la uzură intensă."
       }
     ],
@@ -369,21 +369,21 @@ export const products = [
         name: "Cream White",
         code: "#F2F0E6",
         productId: 20,
-        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé alb fildeș texturat, aspect modern și organic."
       },
       {
         name: "Dusty Rose",
         code: "#C9908A",
         productId: 23,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea fină densă în nuanță pastelată trandafirie."
       },
       {
         name: "Terracotta",
         code: "#C4633A",
         productId: 24,
-        textureImg: "/img/textures/texture_burgundy.png",
+        textureImg: "/img/textures/texture_burgundy.webp",
         textureDesc: "Catifea moale fină în nuanță caldă de teracotă pământie."
       }
     ],
@@ -420,21 +420,21 @@ export const products = [
         name: "Cream White",
         code: "#F2F0E6",
         productId: 20,
-        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé alb fildeș texturat, aspect modern și organic."
       },
       {
         name: "Dusty Rose",
         code: "#C9908A",
         productId: 23,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea fină densă în nuanță pastelată trandafirie."
       },
       {
         name: "Terracotta",
         code: "#C4633A",
         productId: 24,
-        textureImg: "/img/textures/texture_burgundy.png",
+        textureImg: "/img/textures/texture_burgundy.webp",
         textureDesc: "Catifea moale fină în nuanță caldă de teracotă pământie."
       }
     ],
@@ -471,21 +471,21 @@ export const products = [
         name: "Cream White",
         code: "#F2F0E6",
         productId: 20,
-        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé alb fildeș texturat, aspect modern și organic."
       },
       {
         name: "Dusty Rose",
         code: "#C9908A",
         productId: 23,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea fină densă în nuanță pastelată trandafirie."
       },
       {
         name: "Terracotta",
         code: "#C4633A",
         productId: 24,
-        textureImg: "/img/textures/texture_burgundy.png",
+        textureImg: "/img/textures/texture_burgundy.webp",
         textureDesc: "Catifea moale fină în nuanță caldă de teracotă pământie."
       }
     ],
@@ -522,21 +522,21 @@ export const products = [
         name: "Midnight Blue",
         code: "#1C2938",
         productId: 21,
-        textureImg: "/img/textures/texture_midnight_blue.png",
+        textureImg: "/img/textures/texture_midnight_blue.webp",
         textureDesc: "Catifea premium bleumarin, aspect nobil și elegant."
       },
       {
         name: "Sage Green",
         code: "#7D9E8C",
         productId: 25,
-        textureImg: "/img/textures/texture_sage_green.png",
+        textureImg: "/img/textures/texture_sage_green.webp",
         textureDesc: "Stofă plată tip Flatweave, rezistentă la zgârieturi și pet-friendly."
       },
       {
         name: "Burgundy",
         code: "#6B1E2E",
         productId: 26,
-        textureImg: "/img/textures/texture_burgundy.png",
+        textureImg: "/img/textures/texture_burgundy.webp",
         textureDesc: "Catifea premium grena/burgundy, deosebit de elegantă."
       }
     ],
@@ -573,21 +573,21 @@ export const products = [
         name: "Midnight Blue",
         code: "#1C2938",
         productId: 21,
-        textureImg: "/img/textures/texture_midnight_blue.png",
+        textureImg: "/img/textures/texture_midnight_blue.webp",
         textureDesc: "Catifea premium bleumarin, aspect nobil și elegant."
       },
       {
         name: "Sage Green",
         code: "#7D9E8C",
         productId: 25,
-        textureImg: "/img/textures/texture_sage_green.png",
+        textureImg: "/img/textures/texture_sage_green.webp",
         textureDesc: "Stofă plată tip Flatweave, rezistentă la zgârieturi și pet-friendly."
       },
       {
         name: "Burgundy",
         code: "#6B1E2E",
         productId: 26,
-        textureImg: "/img/textures/texture_burgundy.png",
+        textureImg: "/img/textures/texture_burgundy.webp",
         textureDesc: "Catifea premium grena/burgundy, deosebit de elegantă."
       }
     ],
@@ -624,21 +624,21 @@ export const products = [
         name: "Midnight Blue",
         code: "#1C2938",
         productId: 21,
-        textureImg: "/img/textures/texture_midnight_blue.png",
+        textureImg: "/img/textures/texture_midnight_blue.webp",
         textureDesc: "Catifea premium bleumarin, aspect nobil și elegant."
       },
       {
         name: "Sage Green",
         code: "#7D9E8C",
         productId: 25,
-        textureImg: "/img/textures/texture_sage_green.png",
+        textureImg: "/img/textures/texture_sage_green.webp",
         textureDesc: "Stofă plată tip Flatweave, rezistentă la zgârieturi și pet-friendly."
       },
       {
         name: "Burgundy",
         code: "#6B1E2E",
         productId: 26,
-        textureImg: "/img/textures/texture_burgundy.png",
+        textureImg: "/img/textures/texture_burgundy.webp",
         textureDesc: "Catifea premium grena/burgundy, deosebit de elegantă."
       }
     ],
@@ -675,21 +675,21 @@ export const products = [
         name: "Forest Green",
         code: "#2A3A2F",
         productId: 22,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea densă verde pădure, rezistență la uzură intensă."
       },
       {
         name: "Caramel",
         code: "#B5712A",
         productId: 27,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea caldă fină în tonuri pământii de caramel."
       },
       {
         name: "Dusty Mauve",
         code: "#9B7B8C",
         productId: 28,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea moale fină în tonuri stinse de mov prăfuit."
       }
     ],
@@ -726,21 +726,21 @@ export const products = [
         name: "Forest Green",
         code: "#2A3A2F",
         productId: 22,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea densă verde pădure, rezistență la uzură intensă."
       },
       {
         name: "Caramel",
         code: "#B5712A",
         productId: 27,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea caldă fină în tonuri pământii de caramel."
       },
       {
         name: "Dusty Mauve",
         code: "#9B7B8C",
         productId: 28,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea moale fină în tonuri stinse de mov prăfuit."
       }
     ],
@@ -777,21 +777,21 @@ export const products = [
         name: "Forest Green",
         code: "#2A3A2F",
         productId: 22,
-        textureImg: "/img/textures/texture_emerald_velvet.png",
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
         textureDesc: "Catifea densă verde pădure, rezistență la uzură intensă."
       },
       {
         name: "Caramel",
         code: "#B5712A",
         productId: 27,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea caldă fină în tonuri pământii de caramel."
       },
       {
         name: "Dusty Mauve",
         code: "#9B7B8C",
         productId: 28,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_charcoal_velvet.webp",
         textureDesc: "Catifea moale fină în tonuri stinse de mov prăfuit."
       }
     ],
@@ -832,14 +832,14 @@ export const products = [
         name: "Natural Oak",
         code: "#C4A265",
         productId: 30,
-        textureImg: "/img/textures/texture_natural_oak.png",
+        textureImg: "/img/textures/texture_natural_oak.webp",
         textureDesc: "Stejar masiv natural finisat cu lac mat ecologic."
       },
       {
         name: "Smoked Black",
         code: "#2A2520",
         productId: 31,
-        textureImg: "/img/textures/texture_smoked_oak.png",
+        textureImg: "/img/textures/texture_smoked_oak.webp",
         textureDesc: "Stejar masiv afumat tratat termic pentru o culoare închisă elegantă."
       }
     ],
@@ -879,14 +879,14 @@ export const products = [
         name: "Natural Oak",
         code: "#C4A265",
         productId: 30,
-        textureImg: "/img/textures/texture_natural_oak.png",
+        textureImg: "/img/textures/texture_natural_oak.webp",
         textureDesc: "Stejar masiv natural finisat cu lac mat ecologic."
       },
       {
         name: "Smoked Black",
         code: "#2A2520",
         productId: 31,
-        textureImg: "/img/textures/texture_smoked_oak.png",
+        textureImg: "/img/textures/texture_smoked_oak.webp",
         textureDesc: "Stejar masiv afumat tratat termic pentru o culoare închisă elegantă."
       }
     ],
@@ -906,9 +906,9 @@ export const products = [
     category: "Fotolii",
     type: "Fotoliu Premium",
     name: "Aura (Cream)",
-    img: "/img/armchair_aura_cream.png",
+    img: "/img/armchair_aura_cream.webp",
     images: [
-      "/img/armchair_aura_cream.png"
+      "/img/armchair_aura_cream.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -927,7 +927,7 @@ export const products = [
         name: "Cream White",
         code: "#F5F2EB",
         productId: 32,
-        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé alb fildeș texturat, aspect modern și organic."
       }
     ],
@@ -943,9 +943,9 @@ export const products = [
     category: "Fotolii",
     type: "Fotoliu Premium",
     name: "Iris (Rose)",
-    img: "/img/armchair_aura_rose.png",
+    img: "/img/armchair_aura_rose.webp",
     images: [
-      "/img/armchair_aura_rose.png"
+      "/img/armchair_aura_rose.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -964,7 +964,7 @@ export const products = [
         name: "Dusty Rose",
         code: "#DDA7A5",
         productId: 33,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_beige_velvet.webp",
         textureDesc: "Catifea fină densă în nuanță pastelată trandafirie."
       }
     ],

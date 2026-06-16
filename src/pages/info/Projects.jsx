@@ -10,7 +10,7 @@ const projectsData = [
     categoryName: 'Rezidențial',
     desc: 'Un spațiu industrial reconvertit într-un loft modern, axat pe nuanțe pământii și texturi bogate. Zona de living se învârte în jurul canapelei noastre modulare configurate special în catifea verde smarald.',
     products: ['Canapea Modulară Deseda', 'Fotoliu Bliss (Emerald Green)'],
-    imgSrc: '/img/sofa_green.png'
+    imgSrc: '/img/sofa_green.webp'
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const projectsData = [
     categoryName: 'HORECA / Comercial',
     desc: 'Un bistro local ce pune accentul pe ingrediente naturale și design biofilic. Mesele noastre rotunde din stejar masiv cu picior central din oțel negru oferă o atmosferă primitoare alături de scaunele Luxe tapițate în catifea.',
     products: ['Mese Dining Rovo (Stejar Natural)', 'Scaune Luxe (Verde Pădure)'],
-    imgSrc: '/img/table_rovo_oak.png'
+    imgSrc: '/img/table_rovo_oak.webp'
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const projectsData = [
     categoryName: 'Rezidențial',
     desc: 'Amenajarea unui living luminos cu ferestre înalte într-o zonă rezidențială exclusivistă. S-a optat pentru nuanțe de bej și crem, folosind canapeaua Deseda modulară și fotoliul Bliss în stofă ecologică bouclé.',
     products: ['Canapea Modulară Deseda (Bej)', 'Fotoliu Bliss (Beige Bouclé)'],
-    imgSrc: '/img/sofa_beige.png'
+    imgSrc: '/img/sofa_beige.webp'
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const projectsData = [
     categoryName: 'HORECA / Comercial',
     desc: 'Zona de protocol și sala de conferințe a unei companii internaționale. Masa Rovo în varianta Smoked Black și scaunele din catifea bleumarin transmit forță, profesionalism și confort.',
     products: ['Mese Dining Rovo (Smoked Black)', 'Scaune Nova (Midnight Blue)'],
-    imgSrc: '/img/table_rovo_black.png'
+    imgSrc: '/img/table_rovo_black.webp'
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ const projectsData = [
     categoryName: 'Rezidențial',
     desc: 'Proiect rezidențial la înălțime cu vedere panoramică asupra orașului. Canapeaua modulară gri oferă echilibrul cromatic perfect în contrast cu accentele din metal negru și sticlă.',
     products: ['Canapea Modulară Deseda (Gri)', 'Fotoliu Bliss (Charcoal Grey)'],
-    imgSrc: '/img/sofa_grey.png'
+    imgSrc: '/img/sofa_grey.webp'
   }
 ];
 
