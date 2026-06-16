@@ -972,7 +972,7 @@ button, input, select, textarea {
 
 /* ─── FOOTER ─── */
 .footer {
-  background: var(--brand-green);
+  background: #1C1B19;
   color: #FAF8F5;
   padding: 100px 40px 40px;
   border-top: 1px solid rgba(255,255,255,0.05);
