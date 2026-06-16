@@ -185,111 +185,95 @@ export default function Catalog() {
         </div>
 
         {/* SEARCH, FILTER & SORT BAR */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '12px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '40px',
-          padding: '16px 20px',
-          background: 'var(--bg-card)',
-          borderRadius: '4px',
-          border: '1px solid var(--border)'
-        }} className="catalog-filter-bar">
+        <div className="catalog-filter-bar">
           
           {/* Inner Search */}
-          <div style={{ position: 'relative', width: '200px', maxWidth: '100%', flexShrink: 0 }}>
+          <div className="catalog-search-wrap">
             <input 
               type="text" 
               placeholder="Caută în catalog..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 16px 10px 36px',
-                border: '1px solid var(--border-dark)',
-                borderRadius: '20px',
-                fontSize: '13px',
-                background: 'var(--bg-primary)'
-              }}
+              className="catalog-search-input"
             />
-            <svg style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg className="catalog-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
             </svg>
           </div>
 
           {/* Advanced Filters */}
-          {availableMaterials.length > 0 && (
-            <select 
-              value={activeMaterial} 
-              onChange={e => setActiveMaterial(e.target.value)} 
-              className="catalog-select"
-            >
-              <option value="Toate">Tip Material</option>
-              {availableMaterials.map(mat => (
-                <option key={mat} value={mat}>{mat}</option>
-              ))}
-            </select>
-          )}
-
-          <select 
-            value={activeWood} 
-            onChange={e => setActiveWood(e.target.value)} 
-            className="catalog-select"
-          >
-            <option value="Toate">Tip Lemn</option>
-            {availableWoodTypes.map(wood => (
-              <option key={wood} value={wood}>{wood}</option>
-            ))}
-          </select>
-
-          {availableColors.length > 0 && (
-            <select 
-              value={activeColor} 
-              onChange={e => setActiveColor(e.target.value)} 
-              className="catalog-select"
-            >
-              <option value="Toate">Culoare (Orice)</option>
-              {availableColors.map(color => (
-                <option key={color} value={color}>{color}</option>
-              ))}
-            </select>
-          )}
-
-          <select 
-            value={activeSize} 
-            onChange={e => setActiveSize(e.target.value)} 
-            className="catalog-select"
-          >
-            <option value="Toate">Mărime (Orice)</option>
-            {activeCategory === 'Toate' ? (
-              <>
-                <optgroup label="Canapele & Fotolii">
-                  <option value="200cm">200cm</option>
-                  <option value="240cm">240cm</option>
-                  <option value="280cm">280cm</option>
-                  <option value="Personalizat">Personalizat</option>
-                </optgroup>
-                <optgroup label="Mese (Diametru)">
-                  <option value="Ø90cm">Ø90cm</option>
-                  <option value="Ø110cm">Ø110cm</option>
-                  <option value="Ø130cm">Ø130cm</option>
-                </optgroup>
-                <optgroup label="Scaune">
-                  <option value="Standard">Standard</option>
-                </optgroup>
-              </>
-            ) : (
-              availableSizes.map(size => (
-                <option key={size} value={size}>{size}</option>
-              ))
+          <div className="catalog-dropdowns-group">
+            {availableMaterials.length > 0 && (
+              <select 
+                value={activeMaterial} 
+                onChange={e => setActiveMaterial(e.target.value)} 
+                className="catalog-select"
+              >
+                <option value="Toate">Tip Material</option>
+                {availableMaterials.map(mat => (
+                  <option key={mat} value={mat}>{mat}</option>
+                ))}
+              </select>
             )}
-          </select>
+
+            <select 
+              value={activeWood} 
+              onChange={e => setActiveWood(e.target.value)} 
+              className="catalog-select"
+            >
+              <option value="Toate">Tip Lemn</option>
+              {availableWoodTypes.map(wood => (
+                <option key={wood} value={wood}>{wood}</option>
+              ))}
+            </select>
+
+            {availableColors.length > 0 && (
+              <select 
+                value={activeColor} 
+                onChange={e => setActiveColor(e.target.value)} 
+                className="catalog-select"
+              >
+                <option value="Toate">Culoare (Orice)</option>
+                {availableColors.map(color => (
+                  <option key={color} value={color}>{color}</option>
+                ))}
+              </select>
+            )}
+
+            <select 
+              value={activeSize} 
+              onChange={e => setActiveSize(e.target.value)} 
+              className="catalog-select"
+            >
+              <option value="Toate">Mărime (Orice)</option>
+              {activeCategory === 'Toate' ? (
+                <>
+                  <optgroup label="Canapele & Fotolii">
+                    <option value="200cm">200cm</option>
+                    <option value="240cm">240cm</option>
+                    <option value="280cm">280cm</option>
+                    <option value="Personalizat">Personalizat</option>
+                  </optgroup>
+                  <optgroup label="Mese (Diametru)">
+                    <option value="Ø90cm">Ø90cm</option>
+                    <option value="Ø110cm">Ø110cm</option>
+                    <option value="Ø130cm">Ø130cm</option>
+                  </optgroup>
+                  <optgroup label="Scaune">
+                    <option value="Standard">Standard</option>
+                  </optgroup>
+                </>
+              ) : (
+                availableSizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))
+              )}
+            </select>
+          </div>
 
           {/* Sort Selection */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
-            <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>ORDONEAZĂ:</span>
+          <div className="catalog-sort-wrap">
+            <span className="catalog-sort-label">ORDONEAZĂ:</span>
             <select 
               value={sortBy} 
               onChange={(e) => setSortBy(e.target.value)}
@@ -301,40 +285,17 @@ export default function Catalog() {
             </select>
           </div>
 
-          {/* Reset Button (Cute Circle) */}
+          {/* Reset Button */}
           {(activeMaterial !== 'Toate' || activeWood !== 'Toate' || activeColor !== 'Toate' || activeSize !== 'Toate' || searchQuery.trim().length > 0 || activeCategory !== 'Toate' || sortBy !== 'featured') && (
             <button 
               onClick={resetFilters}
               title="Resetează filtrele"
-              style={{
-                background: 'var(--bg-primary)',
-                border: '1px solid var(--border-dark)',
-                color: 'var(--text-primary)',
-                width: '38px',
-                height: '38px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.2s ease',
-                padding: 0,
-                flexShrink: 0
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--accent)';
-                e.currentTarget.style.color = 'var(--accent)';
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--border-dark)';
-                e.currentTarget.style.color = 'var(--text-primary)';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
+              className="catalog-reset-btn"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M18 6L6 18M6 6l12 12"/>
               </svg>
+              <span>Resetează</span>
             </button>
           )}
         </div>
