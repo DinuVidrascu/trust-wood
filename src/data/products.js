@@ -18,6 +18,11 @@ export const categories = [
     name: "Mese",
     count: "4 Modele",
     img: "/img/table_rovo_oak.webp"
+  },
+  {
+    name: "Pufuri",
+    count: "2 Modele",
+    img: "/img/pouf_bongo_yellow.webp"
   }
 ];
 
