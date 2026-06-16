@@ -55,7 +55,6 @@ export default function Footer() {
         <div>
           <div className="footer-heading">Internațional</div>
           <div className="footer-links">
-            <a href="#">Showroom România</a>
             <a href="#">Parteneri Europa</a>
             <a href="#">Proiecte Globale</a>
           </div>
