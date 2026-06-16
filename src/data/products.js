@@ -1,22 +1,22 @@
 export const categories = [
   {
     name: "Canapele",
-    count: "3 Modele",
+    count: "5 Modele",
     img: "/img/sofa_green.webp"
   },
   {
     name: "Scaune",
-    count: "9 Modele",
+    count: "11 Modele",
     img: "/img/chair_aura_white.webp"
   },
   {
     name: "Fotolii",
-    count: "3 Modele",
+    count: "6 Modele",
     img: "/img/armchair_grey.webp"
   },
   {
     name: "Mese",
-    count: "2 Modele",
+    count: "4 Modele",
     img: "/img/table_rovo_oak.webp"
   }
 ];
@@ -965,6 +965,13 @@ export const products = [
     desc: "Fotoliul Iris se distinge prin liniile sale rotunjite și spătarul înalt ergonomic. Tapițat cu materiale premium și susținut de picioare elegante din stejar natural, aduce o notă de eleganță caldă în orice decor.",
     swatches: [
       {
+        name: "Cream White",
+        code: "#F5F2EB",
+        productId: 52,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé moale de culoare crem fildeș, confortabil și elegant."
+      },
+      {
         name: "Dusty Rose",
         code: "#DDA7A5",
         productId: 33,
@@ -1165,6 +1172,322 @@ export const products = [
     img: "/img/sofa_nuvola_blue.webp",
     images: [
       "/img/sofa_nuvola_blue.webp"
+    ]
+  },
+  {
+    id: 50,
+    category: "Fotolii",
+    type: "Fotoliu Premium",
+    name: "Stella (Sage)",
+    img: "/img/armchair_stella_sage.webp",
+    images: [
+      "/img/armchair_stella_sage.webp"
+    ],
+    availableMaterials: [
+      "Catifea",
+      "In",
+      "Bouclé"
+    ],
+    availableColors: ["Sage Green"],
+    availableSizes: [
+      "Standard"
+    ],
+    price: "7 900",
+    inStock: true,
+    desc: "Fotoliul Stella în nuanța verde salvie oferă un echilibru perfect între estetica modernă și confortul clasic. Este o alegere ideală pentru colțul tău de lectură.",
+    swatches: [
+      {
+        name: "Sage Green",
+        code: "#7D8472",
+        productId: 50,
+        textureImg: "/img/textures/texture_sage_green.webp",
+        textureDesc: "Stofă premium cu finisaj mat, culoare verde salvie cald."
+      },
+      {
+        name: "Burgundy",
+        code: "#6B1E2E",
+        productId: 51,
+        textureImg: "/img/textures/texture_burgundy.webp",
+        textureDesc: "Catifea densă de lux de culoare roșu închis burgund."
+      }
+    ],
+    features: [
+      "Design curbat ergonomic",
+      "Picioare din lemn masiv finisaj stejar",
+      "Șezut moale confortabil",
+      "Tapițerie rezistentă la uzură"
+    ]
+  },
+  {
+    id: 51,
+    category: "Fotolii",
+    type: "Fotoliu Premium",
+    name: "Stella (Burgundy)",
+    img: "/img/armchair_stella_burgundy.webp",
+    images: [
+      "/img/armchair_stella_burgundy.webp"
+    ],
+    availableMaterials: [
+      "Catifea",
+      "In",
+      "Bouclé"
+    ],
+    availableColors: ["Burgundy"],
+    availableSizes: [
+      "Standard"
+    ],
+    price: "7 900",
+    inStock: true,
+    desc: "Fotoliul Stella Burgundy emană eleganță și lux clasic. Culoarea roșu închis profundă aduce personalitate spațiului de locuit.",
+    swatches: [
+      {
+        name: "Sage Green",
+        code: "#7D8472",
+        productId: 50,
+        textureImg: "/img/textures/texture_sage_green.webp",
+        textureDesc: "Stofă premium cu finisaj mat, culoare verde salvie cald."
+      },
+      {
+        name: "Burgundy",
+        code: "#6B1E2E",
+        productId: 51,
+        textureImg: "/img/textures/texture_burgundy.webp",
+        textureDesc: "Catifea densă de lux de culoare roșu închis burgund."
+      }
+    ],
+    features: [
+      "Design elegant tapițat",
+      "Cadru rezistent din lemn de fag",
+      "Stofă catifea fină la atingere",
+      "Picioare cu finisaj natural"
+    ]
+  },
+  {
+    id: 52,
+    category: "Fotolii",
+    type: "Fotoliu Premium",
+    name: "Iris (Cream)",
+    img: "/img/armchair_iris_cream.webp",
+    images: [
+      "/img/armchair_iris_cream.webp"
+    ],
+    availableMaterials: [
+      "Bouclé",
+      "Catifea",
+      "In"
+    ],
+    availableColors: ["Cream"],
+    availableSizes: [
+      "Standard"
+    ],
+    price: "8 500",
+    inStock: true,
+    desc: "Fotoliul Iris în varianta Cream Bouclé oferă o textură tactilă premium și o formă minimalistă curbată, perfectă pentru amenajările moderne scandinave.",
+    swatches: [
+      {
+        name: "Cream White",
+        code: "#F5F2EB",
+        productId: 52,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé moale de culoare crem fildeș, confortabil și elegant."
+      },
+      {
+        name: "Dusty Rose",
+        code: "#DDA7A5",
+        productId: 33,
+        textureImg: "/img/textures/texture_beige_velvet.webp",
+        textureDesc: "Catifea fină densă în nuanță pastelată trandafirie."
+      }
+    ],
+    features: [
+      "Design organic minimalist",
+      "Tapițerie bouclé premium",
+      "Picioare zvelte din lemn de stejar",
+      "Șezut de înaltă densitate"
+    ]
+  },
+  {
+    id: 50,
+    category: "Pufuri",
+    type: "Puf Design",
+    name: "Bongo (Yellow)",
+    availableMaterials: [
+      "Catifea",
+      "Bouclé"
+    ],
+    availableColors: [
+      "Galben"
+    ],
+    availableSizes: [
+      "Ø45cm",
+      "Ø60cm"
+    ],
+    price: "2 800",
+    inStock: true,
+    desc: "Pufuletul Bongo este piesa de accent ideală pentru orice living modern. Forma sa rotundă și tapițeria fină din catifea aduc o notă veselă de culoare și confort suplimentar.",
+    swatches: [
+      {
+        name: "Mustard Yellow",
+        code: "#D4A373",
+        productId: 50,
+        textureImg: "/img/textures/texture_beige_velvet.webp",
+        textureDesc: "Catifea densă și fină într-o nuanță plăcută de galben muștar."
+      },
+      {
+        name: "Forest Green",
+        code: "#1C3F35",
+        productId: 51,
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
+        textureDesc: "Catifea premium de culoare verde smarald, rezistentă la uzură."
+      }
+    ],
+    features: [
+      "Design rotund compact și elegant",
+      "Structură stabilă din MDF",
+      "Tapițerie extrem de catifelată",
+      "Șezut moale cu densitate ridicată"
+    ],
+    img: "/img/pouf_bongo_yellow.webp",
+    images: [
+      "/img/pouf_bongo_yellow.webp"
+    ]
+  },
+  {
+    id: 51,
+    category: "Pufuri",
+    type: "Puf Design",
+    name: "Bongo (Green)",
+    availableMaterials: [
+      "Catifea",
+      "Bouclé"
+    ],
+    availableColors: [
+      "Verde"
+    ],
+    availableSizes: [
+      "Ø45cm",
+      "Ø60cm"
+    ],
+    price: "2 800",
+    inStock: true,
+    desc: "Bongo în varianta Forest Green completează livingul cu o eleganță discretă inspirată de tonurile naturii.",
+    swatches: [
+      {
+        name: "Mustard Yellow",
+        code: "#D4A373",
+        productId: 50,
+        textureImg: "/img/textures/texture_beige_velvet.webp",
+        textureDesc: "Catifea densă și fină într-o nuanță plăcută de galben muștar."
+      },
+      {
+        name: "Forest Green",
+        code: "#1C3F35",
+        productId: 51,
+        textureImg: "/img/textures/texture_emerald_velvet.webp",
+        textureDesc: "Catifea premium de culoare verde smarald, rezistentă la uzură."
+      }
+    ],
+    features: [
+      "Design rotund compact și elegant",
+      "Structură stabilă din MDF",
+      "Tapițerie extrem de catifelată",
+      "Șezut moale cu densitate ridicată"
+    ],
+    img: "/img/pouf_bongo_green.webp",
+    images: [
+      "/img/pouf_bongo_green.webp"
+    ]
+  },
+  {
+    id: 52,
+    category: "Pufuri",
+    type: "Puf Premium",
+    name: "Luno (Cream)",
+    availableMaterials: [
+      "Bouclé",
+      "Catifea"
+    ],
+    availableColors: [
+      "Cream"
+    ],
+    availableSizes: [
+      "40x40cm",
+      "50x50cm"
+    ],
+    price: "3 200",
+    inStock: true,
+    desc: "Pufuletul Luno de formă pătrată, tapițat cu stofă organică de tip bouclé, definește stilul contemporan scandinav și adaugă textură decorului tău.",
+    swatches: [
+      {
+        name: "Cream Bouclé",
+        code: "#EAE6DF",
+        productId: 52,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé modern și călduros, plăcut la atingere."
+      },
+      {
+        name: "Terracotta Velvet",
+        code: "#A55B45",
+        productId: 53,
+        textureImg: "/img/textures/texture_beige_velvet.webp",
+        textureDesc: "Catifea premium în tonuri pământii de teracotă."
+      }
+    ],
+    features: [
+      "Formă geometrică modernă cu colțuri rotunjite",
+      "Tapițerie premium bouclé",
+      "Ușor de mutat și extrem de versatil",
+      "Structură rezistentă de rezistență"
+    ],
+    img: "/img/pouf_luno_cream.webp",
+    images: [
+      "/img/pouf_luno_cream.webp"
+    ]
+  },
+  {
+    id: 53,
+    category: "Pufuri",
+    type: "Puf Premium",
+    name: "Luno (Terracotta)",
+    availableMaterials: [
+      "Catifea",
+      "Bouclé"
+    ],
+    availableColors: [
+      "Terracotta"
+    ],
+    availableSizes: [
+      "40x40cm",
+      "50x50cm"
+    ],
+    price: "3 200",
+    inStock: true,
+    desc: "Modelul Luno în nuanța caldă Terracotta aduce profunzime cromatică și o senzație extra de confort în orice cameră.",
+    swatches: [
+      {
+        name: "Cream Bouclé",
+        code: "#EAE6DF",
+        productId: 52,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé modern și călduros, plăcut la atingere."
+      },
+      {
+        name: "Terracotta Velvet",
+        code: "#A55B45",
+        productId: 53,
+        textureImg: "/img/textures/texture_beige_velvet.webp",
+        textureDesc: "Catifea premium în tonuri pământii de teracotă."
+      }
+    ],
+    features: [
+      "Formă geometrică modernă cu colțuri rotunjite",
+      "Tapițerie din catifea fină și moale",
+      "Ușor de mutat și extrem de versatil",
+      "Structură durabilă"
+    ],
+    img: "/img/pouf_luno_terracotta.webp",
+    images: [
+      "/img/pouf_luno_terracotta.webp"
     ]
   }
 ];
