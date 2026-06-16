@@ -7,7 +7,7 @@ export const categories = [
   {
     name: "Scaune",
     count: "9 Modele",
-    img: "/img/armchair_green.png"
+    img: "/img/chair_aura_white.png"
   },
   {
     name: "Fotolii",

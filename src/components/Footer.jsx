@@ -16,7 +16,7 @@ export default function Footer() {
           </Link>
           <div className="footer-contact">
             <p style={{ marginBottom: '15px' }}>Bulevardul Mircea cel Bătrân 25/2, Chișinău, MD-2075</p>
-            <a href="tel:+37378255155">0782 55 155</a><br />
+            <a href="tel:+37360535665">060 535 665</a><br />
             <p style={{ marginTop: '15px', opacity: 0.6 }}>Luni – Vineri: 09:00 – 17:00<br />Sâmbătă – Duminică: Închis</p>
           </div>
           <div className="footer-social">

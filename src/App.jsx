@@ -54,7 +54,7 @@ export default function App() {
         {/* WHATSAPP FLOATING FLOATER */}
         <a 
           className="wa-widget" 
-          href="https://wa.me/37378255155" 
+          href="https://wa.me/37360535665" 
           target="_blank" 
           rel="noopener noreferrer" 
           aria-label="Contactează-ne pe WhatsApp"

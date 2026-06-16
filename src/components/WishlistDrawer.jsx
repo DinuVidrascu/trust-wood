@@ -37,7 +37,7 @@ export default function WishlistDrawer() {
     message += `*Total Estimat:* ${total.toLocaleString('ro-RO')} MDL`;
     
     const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/37378255155?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/37360535665?text=${encoded}`, '_blank');
   };
 
   if (!drawerOpen) return null;

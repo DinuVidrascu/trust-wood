@@ -66,7 +66,7 @@ export default function Contact() {
               <div style={{ fontSize: '14px', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <div><strong>Luni – Vineri:</strong> 09:00 – 17:00</div>
                 <div><strong>Sâmbătă – Duminică:</strong> Închis</div>
-                <div><strong>Număr de Telefon:</strong> <a href="tel:+37378255155" style={{ fontWeight: '600', color: 'var(--accent)' }}>0782 55 155</a></div>
+                <div><strong>Număr de Telefon:</strong> <a href="tel:+37360535665" style={{ fontWeight: '600', color: 'var(--accent)' }}>060 535 665</a></div>
               </div>
             </div>
 
