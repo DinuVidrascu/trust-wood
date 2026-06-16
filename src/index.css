@@ -12,8 +12,8 @@
   --shadow-sm: 0 2px 8px rgba(28, 27, 25, 0.04);
   --shadow-md: 0 8px 30px rgba(28, 27, 25, 0.08);
   --shadow-lg: 0 16px 40px rgba(28, 27, 25, 0.12);
-  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Roboto', system-ui, -apple-system, sans-serif;
   --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   --glass-bg: rgba(250, 248, 245, 0.85);
   --glass-border: rgba(28, 27, 25, 0.06);
