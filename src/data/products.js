@@ -396,7 +396,9 @@ export const products = [
     id: 20,
     img: "/img/chair_aura_white.webp",
     images: [
-      "/img/chair_aura_white.webp"
+      "/img/chair_aura_white.webp",
+      "/img/chair_aura_white_side.webp",
+      "/img/chair_aura_white_back.webp"
     ]
   },
   {
@@ -600,7 +602,9 @@ export const products = [
     id: 25,
     img: "/img/chair_nova_sage.webp",
     images: [
-      "/img/chair_nova_sage.webp"
+      "/img/chair_nova_sage.webp",
+      "/img/chair_nova_sage_side.webp",
+      "/img/chair_nova_sage_back.webp"
     ]
   },
   {
@@ -1067,6 +1071,100 @@ export const products = [
     img: "/img/table_linden_walnut.webp",
     images: [
       "/img/table_linden_walnut.webp"
+    ]
+  },
+  {
+    id: 40,
+    category: "Canapele",
+    type: "Canapea Premium",
+    name: "Nuvola (Cream)",
+    availableMaterials: [
+      "Bouclé",
+      "Catifea"
+    ],
+    availableColors: [
+      "Cream"
+    ],
+    availableSizes: [
+      "210cm",
+      "250cm",
+      "Personalizat"
+    ],
+    price: "24 500",
+    inStock: true,
+    desc: "Canapeaua Nuvola impresionează prin formele sale organice și rotunjite, oferind o prezență sculpturală în livingul tău. Tapițată cu stofă texturată tip Bouclé, oferă un confort absolut.",
+    swatches: [
+      {
+        name: "Cream Bouclé",
+        code: "#EAE6DF",
+        productId: 40,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé premium texturat, extrem de moale și cald."
+      },
+      {
+        name: "Royal Blue",
+        code: "#1C3F60",
+        productId: 41,
+        textureImg: "/img/textures/texture_midnight_blue.webp",
+        textureDesc: "Catifea densă și fină într-o nuanță profundă de albastru regal."
+      }
+    ],
+    features: [
+      "Structură din lemn masiv și carcasă metalică",
+      "Design organic cu linii curbe",
+      "Șezut ultra-confortabil cu spumă de înaltă rezistență",
+      "Picioare ascunse cu efect plutitor"
+    ],
+    img: "/img/sofa_nuvola_cream.webp",
+    images: [
+      "/img/sofa_nuvola_cream.webp"
+    ]
+  },
+  {
+    id: 41,
+    category: "Canapele",
+    type: "Canapea Premium",
+    name: "Nuvola (Blue)",
+    availableMaterials: [
+      "Catifea",
+      "Bouclé"
+    ],
+    availableColors: [
+      "Royal Blue"
+    ],
+    availableSizes: [
+      "210cm",
+      "250cm",
+      "Personalizat"
+    ],
+    price: "24 500",
+    inStock: true,
+    desc: "Nuvola în varianta Royal Blue îmbină designul curbat contemporan cu o tapițerie deosebită din catifea de lux, aducând o pată elegantă de culoare în spațiul tău.",
+    swatches: [
+      {
+        name: "Cream Bouclé",
+        code: "#EAE6DF",
+        productId: 40,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé premium texturat, extrem de moale și cald."
+      },
+      {
+        name: "Royal Blue",
+        code: "#1C3F60",
+        productId: 41,
+        textureImg: "/img/textures/texture_midnight_blue.webp",
+        textureDesc: "Catifea densă și fină într-o nuanță profundă de albastru regal."
+      }
+    ],
+    features: [
+      "Tapițerie premium din catifea fină",
+      "Design organic curbat",
+      "Șezut ultra-confortabil",
+      "Structură rigidă din lemn masiv"
+    ],
+    img: "/img/sofa_nuvola_blue.webp",
+    images: [
+      "/img/sofa_nuvola_blue.webp"
     ]
   }
 ];
