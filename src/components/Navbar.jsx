@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { products } from '../data/products';
 import { useWishlist } from '../context/WishlistContext';
+import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const { wishlist, toggleDrawer } = useWishlist();
+  const { cart, toggleCart } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -108,6 +110,15 @@ export default function Navbar() {
             </svg>
             {wishlist.length > 0 && (
               <span className="wishlist-badge">{wishlist.length}</span>
+            )}
+          </button>
+          <button className="nav-icon" onClick={toggleCart} aria-label="Coș cumpărături" style={{ position: 'relative' }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            {cart.length > 0 && (
+              <span className="cart-badge">{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>
             )}
           </button>
           <button className="nav-icon" onClick={toggleSearch} aria-label="Caută în catalog">

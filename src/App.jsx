@@ -18,6 +18,8 @@ import Projects from './pages/Projects';
 import NotFound from './pages/NotFound';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/WishlistDrawer';
+import { CartProvider } from './context/CartContext';
+import CartDrawer from './components/CartDrawer';
 
 export default function App() {
   const [bttVisible, setBttVisible] = useState(false);
@@ -38,13 +40,17 @@ export default function App() {
   return (
     <Router>
       <WishlistProvider>
-        <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-          
-          {/* GLOBAL HEADER/NAVBAR */}
-          <Navbar />
+        <CartProvider>
+          <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            
+            {/* GLOBAL HEADER/NAVBAR */}
+            <Navbar />
 
-          {/* WISHLIST DRAWER */}
-          <WishlistDrawer />
+            {/* WISHLIST DRAWER */}
+            <WishlistDrawer />
+
+            {/* CART DRAWER */}
+            <CartDrawer />
 
         {/* MAIN PAGE ROUTES */}
         <main style={{ flexGrow: 1 }}>
@@ -95,6 +101,7 @@ export default function App() {
         </button>
 
         </div>
+        </CartProvider>
       </WishlistProvider>
     </Router>
   );
