@@ -4,17 +4,16 @@
   --bg-card: #FFFFFF;
   --text-primary: #1C1B19;
   --text-secondary: #7C7874;
-  --brand-green: #052E1D; /* Dark Royal Green - Brandbook */
-  --accent: #D09B3E;      /* Golden Yellow - Brandbook */
-  --accent-hover: #B3802F;
-  --accent-light: #FBF7EE;
+  --accent: #C5A880;
+  --accent-hover: #B4966E;
+  --accent-light: #F3EFEA;
   --border: #E8E5E0;
   --border-dark: #D4CEC6;
   --shadow-sm: 0 2px 8px rgba(28, 27, 25, 0.04);
   --shadow-md: 0 8px 30px rgba(28, 27, 25, 0.08);
   --shadow-lg: 0 16px 40px rgba(28, 27, 25, 0.12);
-  --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Roboto', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
   --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   --glass-bg: rgba(250, 248, 245, 0.85);
   --glass-border: rgba(28, 27, 25, 0.06);
