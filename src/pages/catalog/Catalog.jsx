@@ -22,7 +22,7 @@ export default function Catalog() {
 
   const availableMaterials = Array.from(new Set(
     activeProductsForFilters
-      .filter(p => ['Canapele', 'Scaune', 'Paturi', 'Fotolii'].includes(p.category))
+      .filter(p => ['Canapele', 'Scaune', 'Paturi', 'Fotolii', 'Pufuri'].includes(p.category))
       .flatMap(p => p.availableMaterials || [])
   ));
 
@@ -302,7 +302,7 @@ export default function Catalog() {
 
         {/* CATEGORY TAGS */}
         <div className="filter-tags" style={{ marginBottom: '40px', justifyContent: 'center' }}>
-          {['Toate', 'Canapele', 'Scaune', 'Fotolii', 'Mese'].map((category) => (
+          {['Toate', 'Canapele', 'Scaune', 'Fotolii', 'Mese', 'Pufuri'].map((category) => (
             <button 
               key={category}
               className={`filter-btn ${activeCategory === category ? 'active' : ''}`}

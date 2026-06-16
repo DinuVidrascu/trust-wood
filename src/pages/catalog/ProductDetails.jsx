@@ -276,7 +276,7 @@ export default function ProductDetails() {
     setSingleBookingItem(null);
   };
 
-  const hasDimensions = ['Canapele', 'Scaune', 'Paturi', 'Mese'].includes(product.category);
+  const hasDimensions = ['Canapele', 'Scaune', 'Paturi', 'Mese', 'Pufuri'].includes(product.category);
   
   // If the product has swatches with images, we treat the active swatch as the "product" being viewed
   const productImages = (activeSwatch && activeSwatch.img) 
