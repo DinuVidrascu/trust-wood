@@ -428,7 +428,7 @@ export default function ProductDetails() {
                     La Comandă (15-25 zile)
                   </span>
                 )}
-                <span className="pm-premium-badge" style={{ background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid rgba(197, 168, 128, 0.2)', fontSize: '11px', fontWeight: '700', padding: '5px 14px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span className="pm-premium-badge" style={{ display: 'inline-flex', alignItems: 'center', alignSelf: 'flex-start', background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid rgba(197, 168, 128, 0.2)', fontSize: '11px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Finisaj Premium
                 </span>
               </div>
