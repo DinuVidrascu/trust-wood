@@ -15,6 +15,27 @@ export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
 
+  // Extract dynamic filters from product data
+  const availableMaterials = Array.from(new Set(
+    products
+      .filter(p => ['Canapele', 'Scaune', 'Paturi', 'Fotolii'].includes(p.category))
+      .flatMap(p => p.availableMaterials || [])
+  ));
+
+  const availableWoodTypes = Array.from(new Set(
+    products
+      .filter(p => p.category === 'Mese')
+      .flatMap(p => p.availableMaterials || [])
+  ));
+
+  const availableColors = Array.from(new Set(
+    products.flatMap(p => p.availableColors || [])
+  ));
+
+  const availableSizes = Array.from(new Set(
+    products.flatMap(p => p.availableSizes || [])
+  ));
+
   // Set active category when query param changes
   useEffect(() => {
     if (catParam) {
@@ -166,9 +187,9 @@ export default function Catalog() {
               style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
             >
               <option value="Toate">Tip Material</option>
-              <option value="Catifea">Catifea</option>
-              <option value="In">In</option>
-              <option value="Bouclé">Bouclé</option>
+              {availableMaterials.map(mat => (
+                <option key={mat} value={mat}>{mat}</option>
+              ))}
             </select>
 
             <select 
@@ -177,9 +198,9 @@ export default function Catalog() {
               style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
             >
               <option value="Toate">Tip Lemn</option>
-              <option value="Lemn Masiv">Lemn Masiv</option>
-              <option value="MDF">MDF</option>
-              <option value="Ceramică">Ceramică</option>
+              {availableWoodTypes.map(wood => (
+                <option key={wood} value={wood}>{wood}</option>
+              ))}
             </select>
 
             <select 
@@ -188,13 +209,9 @@ export default function Catalog() {
               style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
             >
               <option value="Toate">Culoare (Orice)</option>
-              <option value="Bej">Bej</option>
-              <option value="Gri">Gri</option>
-              <option value="Verde">Verde</option>
-              <option value="Albastru">Albastru</option>
-              <option value="Negru">Negru</option>
-              <option value="Natur">Natur</option>
-              <option value="Nuc">Nuc</option>
+              {availableColors.map(color => (
+                <option key={color} value={color}>{color}</option>
+              ))}
             </select>
 
             <select 
@@ -203,17 +220,9 @@ export default function Catalog() {
               style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
             >
               <option value="Toate">Mărime (Orice)</option>
-              <option value="Standard">Standard</option>
-              <option value="Mare">Mare</option>
-              <option value="180cm">180cm</option>
-              <option value="200cm">200cm</option>
-              <option value="220cm">220cm</option>
-              <option value="240cm">240cm</option>
-              <option value="280cm">280cm</option>
-              <option value="160x200cm">160x200cm</option>
-              <option value="180x200cm">180x200cm</option>
-              <option value="200x200cm">200x200cm</option>
-              <option value="Personalizat">Personalizat</option>
+              {availableSizes.map(size => (
+                <option key={size} value={size}>{size}</option>
+              ))}
             </select>
           </div>
 
