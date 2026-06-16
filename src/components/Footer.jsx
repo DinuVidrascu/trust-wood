@@ -47,7 +47,7 @@ export default function Footer() {
           <div className="footer-heading">Informații Client</div>
           <div className="footer-links">
             <Link to="/contact" onClick={scrollToTop}>Contacte Rapide</Link>
-            <a href="#">Ghid de Livrare & Montaj</a>
+            <Link to="/ghid-livrare-montaj" onClick={scrollToTop}>Ghid de Livrare & Montaj</Link>
             <a href="#">Garanția Produselor</a>
             <a href="#">Catalog Materiale & Stofe</a>
           </div>

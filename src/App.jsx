@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import Showroom from './pages/Showroom';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
+import DeliveryGuide from './pages/DeliveryGuide';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/WishlistDrawer';
 
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="/showroom" element={<Showroom />} />
             <Route path="/politica-confidentialitate" element={<PrivacyPolicy />} />
             <Route path="/termeni-conditii" element={<TermsAndConditions />} />
+            <Route path="/ghid-livrare-montaj" element={<DeliveryGuide />} />
           </Routes>
         </main>
 
