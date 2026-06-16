@@ -27,14 +27,39 @@ export default function Partners() {
     }));
   };
 
+  const partnerTypeLabels = {
+    designer: 'Designer de Interior',
+    architect: 'Arhitect',
+    retailer: 'Distribuitor / Salon',
+    contractor: 'Antreprenor / Constructor',
+    other: 'Altul'
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Validate required fields
     if (!formData.name || !formData.email || !formData.company) {
       alert('Vă rugăm să completați câmpurile obligatorii (Nume, Companie, E-mail).');
       return;
     }
-    // Simulate API request
+
+    const typeLabel = partnerTypeLabels[formData.partnerType] || formData.partnerType;
+
+    let message = `*TRUSTERA – Solicitare Parteneriat B2B*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `👤 *Nume:* ${formData.name}\n`;
+    message += `🏢 *Companie:* ${formData.company}\n`;
+    message += `🤝 *Tip Partener:* ${typeLabel}\n`;
+    message += `📧 *Email:* ${formData.email}\n`;
+    if (formData.phone) message += `📞 *Telefon:* ${formData.phone}\n`;
+    if (formData.website) message += `🌐 *Website:* ${formData.website}\n`;
+    if (formData.message) {
+      message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `💬 *Mesaj:*\n${formData.message}\n`;
+    }
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/37360535665?text=${encoded}`, '_blank');
+
     setFormSubmitted(true);
   };
 

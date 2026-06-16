@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="footer-grid">
         <div>
           <Link to="/" onClick={scrollToTop} className="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-            <img loading="lazy" src="/logo.png" alt="Trustera Logo" style={{ height: '36px', width: 'auto', borderRadius: '4px' }} />
+            <img loading="lazy" src="/logo.svg" alt="Trustera Logo" style={{ height: '36px', width: 'auto', borderRadius: '4px' }} />
             <span>TRUSTERA</span>
           </Link>
           <div className="footer-contact">
