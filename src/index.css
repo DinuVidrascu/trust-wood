@@ -2700,3 +2700,23 @@ button, input, select, textarea {
     justify-content: center;
   }
 }
+
+/* ─── MACRO TEXTURE SWATCHES PREVIEW STYLES ─── */
+.macro-texture-container {
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.macro-thumbnail-btn {
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.macro-thumbnail-btn:hover {
+  transform: scale(1.06);
+  border-color: var(--text-primary) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.macro-thumbnail-btn:hover .macro-hover-overlay {
+  opacity: 1 !important;
+}

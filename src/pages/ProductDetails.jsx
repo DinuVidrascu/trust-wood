@@ -15,6 +15,7 @@ export default function ProductDetails() {
   const product = products.find(p => p.id === parseInt(id));
 
   const [activeSwatch, setActiveSwatch] = useState(null);
+  const [textureLightboxOpen, setTextureLightboxOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [singleBookingItem, setSingleBookingItem] = useState(null);
 
@@ -262,6 +263,38 @@ export default function ProductDetails() {
 
   return (
     <>
+      {/* MACRO TEXTURE LIGHTBOX */}
+      {textureLightboxOpen && activeSwatch?.textureImg && (
+        <div className="lightbox-overlay" onClick={() => setTextureLightboxOpen(false)}>
+          <div className="lightbox-bg"></div>
+          
+          <div className="lightbox-header" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-counter" style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.05em' }}>
+              Textură Macro: {activeSwatch.name}
+            </div>
+            <button className="lightbox-control-btn" onClick={() => setTextureLightboxOpen(false)} aria-label="Închide">
+              ✕
+            </button>
+          </div>
+
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-img-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+              <div style={{ position: 'relative', display: 'inline-block', maxWidth: '90vw', maxHeight: '75vh', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
+                <img 
+                  src={activeSwatch.textureImg} 
+                  alt={`Textură macro ${activeSwatch.name}`} 
+                  style={{ maxWidth: '100%', maxHeight: '75vh', width: 'auto', height: 'auto', display: 'block', objectFit: 'contain' }}
+                />
+              </div>
+              <div style={{ color: '#FAF8F5', textAlign: 'center', maxWidth: '500px', padding: '0 20px' }}>
+                <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '20px', fontWeight: '500', marginBottom: '8px', color: 'var(--accent)' }}>{activeSwatch.name}</h4>
+                <p style={{ fontSize: '14px', color: 'rgba(250,248,245,0.75)', lineHeight: '1.6' }}>{activeSwatch.textureDesc}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* GALLERY LIGHTBOX OVERLAY - Placed outside page-entrance to bypass parent CSS transforms */}
       {lightboxOpen && (
         <div className="lightbox-overlay" onClick={() => setLightboxOpen(false)}>
@@ -467,7 +500,7 @@ export default function ProductDetails() {
                     <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
                       Nuanță Tapițerie: <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeSwatch?.name}</span>
                     </div>
-                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '14px' }}>
                       {product.swatches.map((swatch, idx) => (
                         <button 
                           key={idx}
@@ -493,6 +526,48 @@ export default function ProductDetails() {
                         ></button>
                       ))}
                     </div>
+
+                    {/* MACRO TEXTURE CLOSE-UP WIDGET */}
+                    {activeSwatch?.textureImg && (
+                      <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)', marginTop: '14px' }}>
+                        <button 
+                          className="macro-thumbnail-btn" 
+                          onClick={() => setTextureLightboxOpen(true)}
+                          style={{
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '6px',
+                            overflow: 'hidden',
+                            border: '1.5px solid var(--accent)',
+                            padding: 0,
+                            cursor: 'pointer',
+                            position: 'relative',
+                            flexShrink: 0
+                          }}
+                          title="Apasă pentru zoom textură macro"
+                        >
+                          <img src={activeSwatch.textureImg} alt={activeSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                          <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'rgba(0,0,0,0.15)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            opacity: 0,
+                            transition: 'opacity 0.2s'
+                          }} className="macro-hover-overlay">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5">
+                              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>
+                            </svg>
+                          </div>
+                        </button>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                          <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)' }}>Previzualizare Textură Material</span>
+                          <span style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{activeSwatch.textureDesc}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
