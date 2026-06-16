@@ -180,29 +180,30 @@ export default function Catalog() {
           borderRadius: '4px',
           border: '1px solid var(--border)'
         }}>
-          {/* Inner Search */}
-          <div style={{ position: 'relative', width: '300px', maxWidth: '100%' }}>
-            <input 
-              type="text" 
-              placeholder="Caută în catalog..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 16px 10px 36px',
-                border: '1px solid var(--border-dark)',
-                borderRadius: '20px',
-                fontSize: '13px',
-                background: 'var(--bg-primary)'
-              }}
-            />
-            <svg style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
-            </svg>
-          </div>
+          {/* Left Group: Search & Filters */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', flexGrow: 1 }}>
+            {/* Inner Search */}
+            <div style={{ position: 'relative', width: '280px', maxWidth: '100%' }}>
+              <input 
+                type="text" 
+                placeholder="Caută în catalog..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '10px 16px 10px 36px',
+                  border: '1px solid var(--border-dark)',
+                  borderRadius: '20px',
+                  fontSize: '13px',
+                  background: 'var(--bg-primary)'
+                }}
+              />
+              <svg style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </div>
 
-          {/* Advanced Filters */}
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', flexGrow: 1, justifyContent: 'center' }}>
+            {/* Advanced Filters */}
             <select 
               value={activeMaterial} 
               onChange={e => setActiveMaterial(e.target.value)} 
@@ -248,9 +249,9 @@ export default function Catalog() {
             </select>
           </div>
 
-          {/* Sort Selection */}
+          {/* Right Group: Sort Selection */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>Ordonează:</span>
+            <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>ORDONEAZĂ:</span>
             <select 
               value={sortBy} 
               onChange={(e) => setSortBy(e.target.value)}
