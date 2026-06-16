@@ -974,6 +974,100 @@ export const products = [
       "Picioare zvelte din stejar natural",
       "Șezut extra confortabil"
     ]
+  },
+  {
+    id: 34,
+    category: "Mese",
+    type: "Masă Dining",
+    name: "Linden (White)",
+    availableMaterials: [
+      "MDF Lăcuit",
+      "Stejar"
+    ],
+    availableColors: [
+      "White Matt"
+    ],
+    availableSizes: [
+      "160×80cm",
+      "180×90cm",
+      "200×100cm"
+    ],
+    price: "9 200",
+    inStock: true,
+    desc: "Masa dreptunghiulară Linden este inspirată din designul scandinav. Blatul alb mat și picioarele conice din lemn natural creează o piesă luminoasă și elegantă, perfectă pentru orice sufragerie.",
+    swatches: [
+      {
+        name: "White Matt",
+        code: "#F4F1EC",
+        productId: 34,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Blat MDF lăcuit alb mat de înaltă calitate."
+      },
+      {
+        name: "Dark Walnut",
+        code: "#4A3728",
+        productId: 35,
+        textureImg: "/img/textures/texture_smoked_oak.webp",
+        textureDesc: "Blat din MDF furniruit cu nuc închis mat."
+      }
+    ],
+    features: [
+      "Blat alb mat lăcuit",
+      "Picioare conice din lemn natural",
+      "Design scandinav",
+      "Structură solidă durabilă"
+    ],
+    img: "/img/table_linden_white.webp",
+    images: [
+      "/img/table_linden_white.webp"
+    ]
+  },
+  {
+    id: 35,
+    category: "Mese",
+    type: "Masă Dining",
+    name: "Linden (Walnut)",
+    availableMaterials: [
+      "MDF Lăcuit",
+      "Stejar"
+    ],
+    availableColors: [
+      "Dark Walnut"
+    ],
+    availableSizes: [
+      "160×80cm",
+      "180×90cm",
+      "200×100cm"
+    ],
+    price: "9 200",
+    inStock: true,
+    desc: "Masa Linden în varianta Dark Walnut aduce căldura lemnului închis în centrul casei tale. Textura naturală a nucului și picioarele conice creează o piesă de mobilier cu caracter puternic.",
+    swatches: [
+      {
+        name: "White Matt",
+        code: "#F4F1EC",
+        productId: 34,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Blat MDF lăcuit alb mat de înaltă calitate."
+      },
+      {
+        name: "Dark Walnut",
+        code: "#4A3728",
+        productId: 35,
+        textureImg: "/img/textures/texture_smoked_oak.webp",
+        textureDesc: "Blat din MDF furniruit cu nuc închis mat."
+      }
+    ],
+    features: [
+      "Blat din nuc masiv închis",
+      "Picioare conice din nuc",
+      "Design scandinav",
+      "Structură solidă durabilă"
+    ],
+    img: "/img/table_linden_walnut.webp",
+    images: [
+      "/img/table_linden_walnut.webp"
+    ]
   }
 ];
 
