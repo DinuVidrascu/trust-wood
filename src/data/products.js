@@ -900,6 +900,80 @@ export const products = [
     images: [
       "/img/table_rovo_black.png"
     ]
+  },
+  {
+    id: 32,
+    category: "Fotolii",
+    type: "Fotoliu Premium",
+    name: "Aura (Cream)",
+    img: "/img/armchair_aura_cream.png",
+    images: [
+      "/img/armchair_aura_cream.png"
+    ],
+    availableMaterials: [
+      "Catifea",
+      "In",
+      "Bouclé"
+    ],
+    availableColors: ["Cream"],
+    availableSizes: [
+      "Standard"
+    ],
+    price: "8 500",
+    inStock: true,
+    desc: "Fotoliul Aura combină simplitatea nordică cu un confort deosebit. Tapițeria de înaltă calitate și designul ergonomic oferă o prezență caldă și primitoare în orice colț de relaxare.",
+    swatches: [
+      {
+        name: "Cream White",
+        code: "#F5F2EB",
+        productId: 32,
+        textureImg: "/img/textures/texture_beige_boucle.png",
+        textureDesc: "Bouclé alb fildeș texturat, aspect modern și organic."
+      }
+    ],
+    features: [
+      "Design minimalist elegant",
+      "Tapițerie bouclé premium",
+      "Cadru stabil din lemn de stejar",
+      "Confort lombar sporit"
+    ]
+  },
+  {
+    id: 33,
+    category: "Fotolii",
+    type: "Fotoliu Premium",
+    name: "Iris (Rose)",
+    img: "/img/armchair_aura_rose.png",
+    images: [
+      "/img/armchair_aura_rose.png"
+    ],
+    availableMaterials: [
+      "Catifea",
+      "In",
+      "Bouclé"
+    ],
+    availableColors: ["Roz"],
+    availableSizes: [
+      "Standard"
+    ],
+    price: "8 500",
+    inStock: true,
+    desc: "Fotoliul Iris se distinge prin liniile sale rotunjite și spătarul înalt ergonomic. Tapițat cu materiale premium și susținut de picioare elegante din stejar natural, aduce o notă de eleganță caldă în orice decor.",
+    swatches: [
+      {
+        name: "Dusty Rose",
+        code: "#DDA7A5",
+        productId: 33,
+        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureDesc: "Catifea fină densă în nuanță pastelată trandafirie."
+      }
+    ],
+    features: [
+      "Design elegant cu spătar înalt",
+      "Tapițerie catifea premium",
+      "Picioare zvelte din stejar natural",
+      "Șezut extra confortabil"
+    ]
   }
 ];
 
