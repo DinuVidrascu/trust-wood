@@ -22,15 +22,14 @@ export default function Catalog() {
       .flatMap(p => p.availableMaterials || [])
   ));
 
-  const availableWoodTypes = Array.from(new Set(
-    products
-      .filter(p => p.category === 'Mese')
-      .flatMap(p => p.availableMaterials || [])
-  ));
+  const availableWoodTypes = [
+    'Stejar Natur',
+    'Stejar Afumat',
+    'Nuc Elegance',
+    'MDF Lăcuit'
+  ];
 
-  const availableColors = Array.from(new Set(
-    products.flatMap(p => p.availableColors || [])
-  )).filter(color => color !== 'Albastru' && color !== 'Negru');
+  const availableColors = ['Bej', 'Gri', 'Verde'];
 
   const availableSizes = Array.from(new Set(
     products.flatMap(p => p.availableSizes || [])
@@ -72,7 +71,28 @@ export default function Catalog() {
 
     // Filter by Wood Type / Hard Materials
     if (activeWood !== 'Toate') {
-      list = list.filter(p => p.availableMaterials && p.availableMaterials.includes(activeWood));
+      list = list.filter(p => {
+        // Tables (Mese)
+        if (p.category === 'Mese') {
+          if (activeWood === 'Stejar Natur') {
+            return p.availableColors && p.availableColors.includes('Natural Oak');
+          }
+          if (activeWood === 'Stejar Afumat') {
+            return p.availableColors && p.availableColors.includes('Smoked Black');
+          }
+          if (activeWood === 'MDF Lăcuit') {
+            return p.availableMaterials && p.availableMaterials.includes('MDF Lăcuit');
+          }
+          return false;
+        }
+        
+        // For other products (Canapele, Fotolii, Scaune)
+        // They can be configured with Stejar Natur, Stejar Afumat, or Nuc Elegance
+        if (['Stejar Natur', 'Stejar Afumat', 'Nuc Elegance'].includes(activeWood)) {
+          return true;
+        }
+        return false;
+      });
     }
 
     // Filter by Color

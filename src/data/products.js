@@ -39,9 +39,7 @@ export const products = [
     availableColors: [
       "Bej",
       "Gri",
-      "Verde",
-      "Albastru",
-      "Negru"
+      "Verde"
     ],
     availableSizes: [
       "200cm",
@@ -93,9 +91,7 @@ export const products = [
     availableColors: [
       "Bej",
       "Gri",
-      "Verde",
-      "Albastru",
-      "Negru"
+      "Verde"
     ],
     availableSizes: [
       "200cm",
@@ -147,9 +143,7 @@ export const products = [
     availableColors: [
       "Bej",
       "Gri",
-      "Verde",
-      "Albastru",
-      "Negru"
+      "Verde"
     ],
     availableSizes: [
       "200cm",
@@ -201,9 +195,7 @@ export const products = [
     availableColors: [
       "Bej",
       "Gri",
-      "Verde",
-      "Albastru",
-      "Negru"
+      "Verde"
     ],
     availableSizes: [
       "200cm",
@@ -255,9 +247,7 @@ export const products = [
     availableColors: [
       "Bej",
       "Gri",
-      "Verde",
-      "Albastru",
-      "Negru"
+      "Verde"
     ],
     availableSizes: [
       "200cm",
@@ -309,9 +299,7 @@ export const products = [
     availableColors: [
       "Bej",
       "Gri",
-      "Verde",
-      "Albastru",
-      "Negru"
+      "Verde"
     ],
     availableSizes: [
       "200cm",
