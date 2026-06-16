@@ -15,7 +15,7 @@ export default function ProductDetails() {
   const product = products.find(p => p.id === parseInt(id));
 
   const [activeSwatch, setActiveSwatch] = useState(null);
-  const [textureLightboxOpen, setTextureLightboxOpen] = useState(false);
+  const [textureInlineOpen, setTextureInlineOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [singleBookingItem, setSingleBookingItem] = useState(null);
 
@@ -263,37 +263,7 @@ export default function ProductDetails() {
 
   return (
     <>
-      {/* MACRO TEXTURE LIGHTBOX */}
-      {textureLightboxOpen && activeSwatch?.textureImg && (
-        <div className="lightbox-overlay" onClick={() => setTextureLightboxOpen(false)}>
-          <div className="lightbox-bg"></div>
-          
-          <div className="lightbox-header" onClick={(e) => e.stopPropagation()}>
-            <div className="lightbox-counter" style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.05em' }}>
-              Textură Macro: {activeSwatch.name}
-            </div>
-            <button className="lightbox-control-btn" onClick={() => setTextureLightboxOpen(false)} aria-label="Închide">
-              ✕
-            </button>
-          </div>
 
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <div className="lightbox-img-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-              <div style={{ position: 'relative', display: 'inline-block', maxWidth: '90vw', maxHeight: '75vh', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
-                <img 
-                  src={activeSwatch.textureImg} 
-                  alt={`Textură macro ${activeSwatch.name}`} 
-                  style={{ maxWidth: '100%', maxHeight: '75vh', width: 'auto', height: 'auto', display: 'block', objectFit: 'contain' }}
-                />
-              </div>
-              <div style={{ color: '#FAF8F5', textAlign: 'center', maxWidth: '500px', padding: '0 20px' }}>
-                <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '20px', fontWeight: '500', marginBottom: '8px', color: 'var(--accent)' }}>{activeSwatch.name}</h4>
-                <p style={{ fontSize: '14px', color: 'rgba(250,248,245,0.75)', lineHeight: '1.6' }}>{activeSwatch.textureDesc}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* GALLERY LIGHTBOX OVERLAY - Placed outside page-entrance to bypass parent CSS transforms */}
       {lightboxOpen && (
@@ -489,16 +459,81 @@ export default function ProductDetails() {
                 {calculatedPrice.toLocaleString('ro-RO')} MDL
               </div>
 
-
               {/* ─── INTERACTIVE CONFIGURATOR ─── */}
               <div className="pd-configurator" style={{ borderTop: '1px solid var(--border)', paddingTop: '30px', marginBottom: '30px' }}>
                 <h3 className="title-serif" style={{ fontSize: '20px', marginBottom: '24px', color: 'var(--text-primary)' }}>Configurator Personalizat</h3>
                 
+                {/* INLINE MACRO TEXTURE EXPANDED BOX */}
+                {textureInlineOpen && activeSwatch?.textureImg && (
+                  <div className="macro-inline-box" style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '280px',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    border: '1.5px solid var(--accent)',
+                    background: '#FAF8F5',
+                    marginBottom: '24px',
+                    display: 'flex',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                    animation: 'slideDownFade 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards'
+                  }}>
+                    {/* Left: Texture Image (Large view, taking 50% width) */}
+                    <div 
+                      style={{ 
+                        width: '50%', 
+                        height: '100%', 
+                        position: 'relative', 
+                        overflow: 'hidden'
+                      }}
+                      className="macro-inline-img-container"
+                    >
+                      <img src={activeSwatch.textureImg} alt={activeSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                    </div>
+                    
+                    {/* Right: Info (Taller padding and larger font sizes) */}
+                    <div style={{ width: '50%', padding: '30px', display: 'flex', flexDirection: 'column', justifyContent: 'center', boxSizing: 'border-box' }}>
+                      <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)', marginBottom: '6px' }}>
+                        {product.category === 'Mese' ? 'Previzualizare Finisaj Lemn' : 'Previzualizare Textură'}
+                      </span>
+                      <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '22px', fontWeight: '500', margin: '0 0 10px 0', color: 'var(--text-primary)', lineHeight: '1.2' }}>{activeSwatch.name}</h4>
+                      <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6', margin: 0 }}>{activeSwatch.textureDesc}</p>
+                    </div>
+                    
+                    {/* Close button (Larger and more visible) */}
+                    <button 
+                      onClick={() => setTextureInlineOpen(false)}
+                      style={{
+                        position: 'absolute',
+                        top: '16px',
+                        right: '16px',
+                        background: 'rgba(28,27,25,0.06)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '32px',
+                        height: '32px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        color: 'var(--text-primary)',
+                        transition: 'var(--transition)',
+                        zIndex: 2
+                      }}
+                      className="macro-inline-close-btn"
+                      aria-label="Închide previzualizarea"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
+
                 {/* 1. STOFĂ SELECTIE (SWATCHES) */}
                 {product.swatches && product.swatches.length > 0 && (
                   <div className="desktop-swatches-wrapper" style={{ marginBottom: '24px' }}>
                     <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
-                      Nuanță Tapițerie: <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeSwatch?.name}</span>
+                      {product.category === 'Mese' ? 'Finisaj Lemn:' : 'Nuanță Tapițerie:'} <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeSwatch?.name}</span>
                     </div>
                     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '14px' }}>
                       {product.swatches.map((swatch, idx) => (
@@ -517,9 +552,9 @@ export default function ProductDetails() {
                           }}
                           onClick={() => {
                             if (swatch.productId !== undefined && swatch.productId !== product.id) {
-                              navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                               navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
                             } else {
-                              setActiveSwatch(swatch);
+                               setActiveSwatch(swatch);
                             }
                           }}
                           title={swatch.name}
@@ -532,7 +567,7 @@ export default function ProductDetails() {
                       <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)', marginTop: '14px' }}>
                         <button 
                           className="macro-thumbnail-btn" 
-                          onClick={() => setTextureLightboxOpen(true)}
+                          onClick={() => setTextureInlineOpen(!textureInlineOpen)}
                           style={{
                             width: '48px',
                             height: '48px',
@@ -544,7 +579,7 @@ export default function ProductDetails() {
                             position: 'relative',
                             flexShrink: 0
                           }}
-                          title="Apasă pentru zoom textură macro"
+                          title={product.category === 'Mese' ? 'Apasă pentru zoom textură lemn' : 'Apasă pentru zoom textură macro'}
                         >
                           <img src={activeSwatch.textureImg} alt={activeSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                           <div style={{
@@ -563,7 +598,9 @@ export default function ProductDetails() {
                           </div>
                         </button>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                          <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)' }}>Previzualizare Textură Material</span>
+                          <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)' }}>
+                            {product.category === 'Mese' ? 'Previzualizare Textură Lemn' : 'Previzualizare Textură Material'}
+                          </span>
                           <span style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{activeSwatch.textureDesc}</span>
                         </div>
                       </div>
@@ -572,10 +609,11 @@ export default function ProductDetails() {
                 )}
 
                 {/* 2. TIP TEXTURA STOFA */}
-                <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
-                    Tipul Materialului: <span style={{ color: 'var(--accent)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{fabricType}</span>
-                  </div>
+                {product.category !== 'Mese' && (
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
+                      Tipul Materialului: <span style={{ color: 'var(--accent)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{fabricType}</span>
+                    </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }} className="config-grid">
                     {[
                       { name: 'Catifea Premium', cost: '+0 MDL', desc: 'Moale, hidrofobă, fină' },
@@ -594,6 +632,7 @@ export default function ProductDetails() {
                     ))}
                   </div>
                 </div>
+                )}
 
                 {/* 3. MATERIAL PICIOARE / CADRU LEMN */}
                 <div style={{ marginBottom: '24px' }}>

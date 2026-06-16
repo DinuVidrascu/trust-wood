@@ -2720,3 +2720,34 @@ button, input, select, textarea {
 .macro-thumbnail-btn:hover .macro-hover-overlay {
   opacity: 1 !important;
 }
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.macro-inline-close-btn:hover {
+  background: rgba(28, 27, 25, 0.1) !important;
+  transform: scale(1.08);
+}
+
+@media (max-width: 600px) {
+  .macro-inline-box {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .macro-inline-box .macro-inline-img-container {
+    width: 100% !important;
+    height: 180px !important;
+  }
+  .macro-inline-box div:nth-child(2) {
+    width: 100% !important;
+    padding: 20px !important;
+  }
+}

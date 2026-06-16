@@ -832,14 +832,14 @@ export const products = [
         name: "Natural Oak",
         code: "#C4A265",
         productId: 30,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_natural_oak.png",
         textureDesc: "Stejar masiv natural finisat cu lac mat ecologic."
       },
       {
         name: "Smoked Black",
         code: "#2A2520",
         productId: 31,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_smoked_oak.png",
         textureDesc: "Stejar masiv afumat tratat termic pentru o culoare închisă elegantă."
       }
     ],
@@ -879,14 +879,14 @@ export const products = [
         name: "Natural Oak",
         code: "#C4A265",
         productId: 30,
-        textureImg: "/img/textures/texture_beige_velvet.png",
+        textureImg: "/img/textures/texture_natural_oak.png",
         textureDesc: "Stejar masiv natural finisat cu lac mat ecologic."
       },
       {
         name: "Smoked Black",
         code: "#2A2520",
         productId: 31,
-        textureImg: "/img/textures/texture_charcoal_velvet.png",
+        textureImg: "/img/textures/texture_smoked_oak.png",
         textureDesc: "Stejar masiv afumat tratat termic pentru o culoare închisă elegantă."
       }
     ],
