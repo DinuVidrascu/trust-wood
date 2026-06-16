@@ -84,9 +84,12 @@ export default function Navbar() {
   return (
     <>
       <nav className={`nav ${scrolled ? 'scrolled' : ''}`} id="navbar">
-        <Link to="/" className="nav-logo" onClick={handleLogoClick} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <Link to="/" className="nav-logo" onClick={handleLogoClick} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <img loading="lazy" src="/logo.svg" alt="Trustera Logo" style={{ height: '36px', width: 'auto', borderRadius: '4px' }} />
-          <span>Trustera</span>
+          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
+            <span style={{ fontWeight: '700', fontSize: '18px', letterSpacing: '0.05em', color: 'inherit' }}>Trustera</span>
+            <span style={{ fontWeight: '400', fontSize: '10px', letterSpacing: '0.08em', opacity: '0.8', textTransform: 'uppercase', color: 'inherit' }}>Wood & Soft</span>
+          </div>
         </Link>
         <ul className="nav-links">
           <li>
@@ -130,9 +133,12 @@ export default function Navbar() {
       {/* MOBILE DRAWER MENU */}
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <div className="mm-header">
-          <Link to="/" className="mm-logo" onClick={handleLogoClick} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Link to="/" className="mm-logo" onClick={handleLogoClick} style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
             <img loading="lazy" src="/logo.svg" alt="Trustera Logo" style={{ height: '32px', width: 'auto', borderRadius: '4px' }} />
-            <span>Trustera</span>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
+              <span style={{ fontWeight: '700', fontSize: '16px', letterSpacing: '0.05em', color: 'inherit' }}>Trustera</span>
+              <span style={{ fontWeight: '400', fontSize: '9px', letterSpacing: '0.08em', opacity: '0.8', textTransform: 'uppercase', color: 'inherit' }}>Wood & Soft</span>
+            </div>
           </Link>
           <button className="mm-close" onClick={closeAll} aria-label="Închide meniu">✕</button>
         </div>
