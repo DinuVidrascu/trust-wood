@@ -31,7 +31,7 @@ export default function Catalog() {
 
   const availableColors = Array.from(new Set(
     products.flatMap(p => p.availableColors || [])
-  ));
+  )).filter(color => color !== 'Bej' && color !== 'Gri' && color !== 'Verde');
 
   const availableSizes = Array.from(new Set(
     products.flatMap(p => p.availableSizes || [])
