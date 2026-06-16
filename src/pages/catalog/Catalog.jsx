@@ -145,6 +145,8 @@ export default function Catalog() {
         const priceB = parseFloat(b.price.replace(/\s/g, ''));
         return priceB - priceA;
       });
+    } else if (sortBy === 'newest') {
+      list.sort((a, b) => b.id - a.id);
     }
 
     return list;
@@ -280,6 +282,7 @@ export default function Catalog() {
               className="catalog-select"
             >
               <option value="featured">Recomandate</option>
+              <option value="newest">Cele mai noi</option>
               <option value="price-asc">Preț: crescător</option>
               <option value="price-desc">Preț: descrescător</option>
             </select>
