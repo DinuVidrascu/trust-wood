@@ -39,7 +39,7 @@ export default function Footer() {
           <div className="footer-links">
             <Link to="/despre" onClick={scrollToTop}>Valori & Calitate</Link>
             <Link to="/showroom" onClick={scrollToTop}>Locație Showroom</Link>
-            <a href="#">Politica de Confidențialitate</a>
+            <Link to="/politica-confidentialitate" onClick={scrollToTop}>Politica de Confidențialitate</Link>
             <a href="#">Termeni și Condiții</a>
           </div>
         </div>

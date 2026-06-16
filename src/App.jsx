@@ -8,6 +8,7 @@ import ProductDetails from './pages/ProductDetails';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Showroom from './pages/Showroom';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/WishlistDrawer';
 
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="/despre" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/showroom" element={<Showroom />} />
+            <Route path="/politica-confidentialitate" element={<PrivacyPolicy />} />
           </Routes>
         </main>
 
