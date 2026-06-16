@@ -44,27 +44,7 @@ export default function DeliveryGuide() {
             <li style={{ marginBottom: '8px' }}><strong>Livrare Door-to-Door cu Manipulare:</strong> Echipa noastră transportă produsele până în interiorul locuinței dumneavoastră, indiferent de etaj (necesită specificare în prealabil).</li>
           </ul>
 
-          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>2. Serviciul de Montaj Profesional</h2>
-          <p style={{ marginBottom: '24px', color: 'var(--text-secondary)' }}>
-            Pentru a garanta stabilitatea structurală și durabilitatea în timp a mobilierului din lemn masiv și a canapelelor noastre modulare, recomandăm utilizarea serviciului nostru de montaj profesional. Echipa noastră de specialiști deține instrumentele adecvate și cunoștințele tehnice pentru a asambla fiecare element conform standardelor de calitate ale fabricii Trustera.
-          </p>
-
-          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>3. Pregătirea Spațiului de Acces</h2>
-          <p style={{ marginBottom: '12px', color: 'var(--text-secondary)' }}>
-            Înainte de sosirea echipei de livrare și montaj, vă rugăm să vă asigurați că spațiul este pregătit corespunzător:
-          </p>
-          <ul style={{ paddingLeft: '20px', marginBottom: '24px', listStyleType: 'disc', color: 'var(--text-secondary)' }}>
-            <li style={{ marginBottom: '8px' }}>Măsurați lățimea și înălțimea ușilor de la intrare, ale holurilor, ale liftului și ale scărilor pentru a vă asigura că pachetele voluminoase (în special cadrele de pat și canapelele mari) pot fi transportate cu ușurință.</li>
-            <li style={{ marginBottom: '8px' }}>Eliberați calea de acces de obiecte fragile, decorațiuni sau obstacole care ar putea fi deteriorate accidental.</li>
-            <li style={{ marginBottom: '8px' }}>Asigurați un spațiu curat și liber în camera unde urmează să fie montat mobilierul pentru a permite asamblarea în siguranță.</li>
-          </ul>
-
-          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>4. Recepția Produselor</h2>
-          <p style={{ marginBottom: '24px', color: 'var(--text-secondary)' }}>
-            La livrare, este obligatoriu să inspectați vizual integritatea ambalajelor și a produselor în prezența echipei noastre de transport. Orice neconformitate (zgârieturi, defecte de tapițerie sau elemente lipsă) trebuie semnalată imediat pe documentul de recepție (avizul de însoțire). Reclamațiile ulterioare privind defecte estetice evidente vizual nu vor fi luate în considerare.
-          </p>
-
-          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>5. Tarife Standard de Transport & Montaj</h2>
+          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>2. Tarife Standard de Transport & Montaj</h2>
           <p style={{ marginBottom: '12px', color: 'var(--text-secondary)' }}>
             Costurile serviciilor noastre sunt transparente și calculate în funcție de distanță și volumul produselor:
           </p>
@@ -99,6 +79,26 @@ export default function DeliveryGuide() {
               </tr>
             </tbody>
           </table>
+
+          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>3. Serviciul de Montaj Profesional</h2>
+          <p style={{ marginBottom: '24px', color: 'var(--text-secondary)' }}>
+            Pentru a garanta stabilitatea structurală și durabilitatea în timp a mobilierului din lemn masiv și a canapelelor noastre modulare, recomandăm utilizarea serviciului nostru de montaj profesional. Echipa noastră de specialiști deține instrumentele adecvate și cunoștințele tehnice pentru a asambla fiecare element conform standardelor de calitate ale fabricii Trustera.
+          </p>
+
+          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>4. Pregătirea Spațiului de Acces</h2>
+          <p style={{ marginBottom: '12px', color: 'var(--text-secondary)' }}>
+            Înainte de sosirea echipei de livrare și montaj, vă rugăm să vă asigurați că spațiul este pregătit corespunzător:
+          </p>
+          <ul style={{ paddingLeft: '20px', marginBottom: '24px', listStyleType: 'disc', color: 'var(--text-secondary)' }}>
+            <li style={{ marginBottom: '8px' }}>Măsurați lățimea și înălțimea ușilor de la intrare, ale holurilor, ale liftului și ale scărilor pentru a vă asigura că pachetele voluminoase (în special cadrele de pat și canapelele mari) pot fi transportate cu ușurință.</li>
+            <li style={{ marginBottom: '8px' }}>Eliberați calea de acces de obiecte fragile, decorațiuni sau obstacole care ar putea fi deteriorate accidental.</li>
+            <li style={{ marginBottom: '8px' }}>Asigurați un spațiu curat și liber în camera unde urmează să fie montat mobilierul pentru a permite asamblarea în siguranță.</li>
+          </ul>
+
+          <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>5. Recepția Produselor</h2>
+          <p style={{ marginBottom: '24px', color: 'var(--text-secondary)' }}>
+            La livrare, este obligatoriu să inspectați vizual integritatea ambalajelor și a produselor în prezența echipei noastre de transport. Orice neconformitate (zgârieturi, defecte de tapițerie sau elemente lipsă) trebuie semnalată imediat pe documentul de recepție (avizul de însoțire). Reclamațiile ulterioare privind defecte estetice evidente vizual nu vor fi luate în considerare.
+          </p>
 
           <h2 className="title-serif" style={{ fontSize: '20px', color: 'var(--accent)', marginBottom: '16px' }}>6. Recomandări de Întreținere după Montare</h2>
           <p style={{ margin: '0', color: 'var(--text-secondary)' }}>
