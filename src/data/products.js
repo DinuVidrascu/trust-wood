@@ -17,7 +17,7 @@ export const categories = [
   {
     name: "Mese",
     count: "2 Modele",
-    img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fm=webp&fit=crop&w=600&h=600&q=75"
+    img: "/img/table_rovo_oak.png"
   }
 ];
 
