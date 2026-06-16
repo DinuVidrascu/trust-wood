@@ -35,146 +35,159 @@ export default function Showroom() {
   };
 
   return (
-    <div className="page-entrance subpage" style={{ paddingBottom: '0px', paddingTop: '85px' }}>
+    <div className="page-entrance subpage" style={{ paddingBottom: '80px', paddingTop: '85px' }}>
       <section className="section" style={{ paddingTop: '10px' }}>
         
         {/* HEADER */}
         <div className="section-header" style={{ marginBottom: '60px' }}>
           <div>
             <span className="section-title">Experiență Senzorială</span>
-            <h1 className="section-heading title-serif">Showroom-ul Nostru</h1>
+            <h1 className="section-heading title-serif">Showroom Chișinău</h1>
           </div>
           <p style={{ color: 'var(--text-secondary)', maxWidth: '500px', fontSize: '15px' }}>
-            Vino în showroom-ul nostru din Chișinău pentru a alege cele mai fine texturi, mostre de lemn masiv și pentru a discuta configurația perfectă pentru casa ta.
+            Vino în showroom-ul nostru din Chișinău pentru a alege cele mai fine texturi, mostre de lemn masiv și pentru a discuta configurația perfectă cu un designer de interior.
           </p>
         </div>
 
-        {/* GALLERY SHOWCASE */}
+        {/* MAP & PHOTOS INTEGRATED SECTION */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: '1.2fr 2fr 1.2fr',
           gap: '24px',
-          marginBottom: '80px'
-        }} className="showroom-gallery">
-          
-          <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '280px', border: '1px solid var(--border)' }}>
-            <img 
-              src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fm=webp&fit=crop&w=800&q=80" 
-              alt="Zona Canapele Showroom" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
-              className="showroom-img"
-            />
-            <div className="gallery-overlay" style={{
-              position: 'absolute',
-              bottom: '0', left: '0', right: '0',
-              padding: '20px',
-              background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-              color: '#fff'
-            }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>Zona Living</h3>
-              <p style={{ fontSize: '12px', opacity: '0.8', margin: '0' }}>Descoperă canapelele modulare în diverse tapițerii</p>
-            </div>
-          </div>
-
-          <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '280px', border: '1px solid var(--border)' }}>
-            <img 
-              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fm=webp&fit=crop&w=800&q=80" 
-              alt="Mese Dining Showroom" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
-              className="showroom-img"
-            />
-            <div className="gallery-overlay" style={{
-              position: 'absolute',
-              bottom: '0', left: '0', right: '0',
-              padding: '20px',
-              background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-              color: '#fff'
-            }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>Zona Dining</h3>
-              <p style={{ fontSize: '12px', opacity: '0.8', margin: '0' }}>Mese din stejar natural masiv și scaune ergonomice</p>
-            </div>
-          </div>
-
-          <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '280px', border: '1px solid var(--border)' }}>
-            <img 
-              src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fm=webp&fit=crop&w=800&q=80" 
-              alt="Mostre Materiale Showroom" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
-              className="showroom-img"
-            />
-            <div className="gallery-overlay" style={{
-              position: 'absolute',
-              bottom: '0', left: '0', right: '0',
-              padding: '20px',
-              background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-              color: '#fff'
-            }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>Mostre Materiale</h3>
-              <p style={{ fontSize: '12px', opacity: '0.8', margin: '0' }}>Peste 100 de texturi și culori de catifea, in și bouclé</p>
-            </div>
-          </div>
-
-        </div>
-
-        {/* DETAILS GRID */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1.2fr',
-          gap: '50px',
           marginBottom: '80px',
           alignItems: 'start'
-        }} className="contact-grid">
+        }} className="showroom-main-grid">
           
-          {/* SHOWROOM DETAILS */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-            
-            <div style={{
-              background: 'var(--bg-card)',
-              padding: '30px',
-              borderRadius: '4px',
-              border: '1px solid var(--border)',
-              boxShadow: 'var(--shadow-sm)'
-            }}>
-              <h2 className="title-serif" style={{ fontSize: '20px', marginBottom: '16px', color: 'var(--accent)' }}>Showroom Chișinău</h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.7', marginBottom: '16px' }}>
-                Bulevardul Mircea cel Bătrân 25/2, Chișinău, MD-2075, Republica Moldova
-              </p>
-              <div style={{ fontSize: '14px', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <div><strong>Luni – Vineri:</strong> 09:00 – 17:00</div>
-                <div><strong>Sâmbătă – Duminică:</strong> Închis</div>
-                <div><strong>Telefon:</strong> <a href="tel:+37360535665" style={{ fontWeight: '600', color: 'var(--accent)' }}>060 535 665</a></div>
-                <div><strong>Email:</strong> <a href="mailto:showroom@trustera.md" style={{ color: 'var(--text-primary)' }}>showroom@trustera.md</a></div>
+          {/* Left Column: Photos */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }} className="showroom-side-col">
+            <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '200px', border: '1px solid var(--border)' }}>
+              <img 
+                src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fm=webp&fit=crop&w=800&q=80" 
+                alt="Zona Canapele Showroom" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                className="showroom-img"
+              />
+              <div className="gallery-overlay" style={{
+                position: 'absolute', bottom: '0', left: '0', right: '0', padding: '12px 16px',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', color: '#fff'
+              }}>
+                <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0' }}>Zona Living</h3>
+              </div>
+            </div>
+
+            <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '200px', border: '1px solid var(--border)' }}>
+              <img 
+                src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fm=webp&fit=crop&w=800&q=80" 
+                alt="Mostre Materiale Showroom" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                className="showroom-img"
+              />
+              <div className="gallery-overlay" style={{
+                position: 'absolute', bottom: '0', left: '0', right: '0', padding: '12px 16px',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', color: '#fff'
+              }}>
+                <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0' }}>Mostre Tapițerie</h3>
+              </div>
+            </div>
+          </div>
+
+          {/* Center Column: Interactive Map */}
+          <div style={{ height: '420px', borderRadius: '4px', overflow: 'hidden', border: '1px solid var(--border)', boxShadow: 'var(--shadow-md)' }} className="showroom-map-container">
+            <iframe 
+              src="https://maps.google.com/maps?q=Chisinau+Mircea+cel+Batran+25/2&t=m&z=16&output=embed&iwloc=near" 
+              title="Locație Showroom Chisinau" 
+              loading="lazy" 
+              style={{ width: '100%', height: '100%', border: 'none' }}
+            ></iframe>
+          </div>
+
+          {/* Right Column: Photo + Address Card */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }} className="showroom-side-col">
+            <div className="gallery-item-wrap" style={{ position: 'relative', overflow: 'hidden', borderRadius: '4px', height: '200px', border: '1px solid var(--border)' }}>
+              <img 
+                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fm=webp&fit=crop&w=800&q=80" 
+                alt="Mese Dining Showroom" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                className="showroom-img"
+              />
+              <div className="gallery-overlay" style={{
+                position: 'absolute', bottom: '0', left: '0', right: '0', padding: '12px 16px',
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', color: '#fff'
+              }}>
+                <h3 style={{ fontSize: '14px', fontWeight: '600', margin: '0' }}>Mese & Dining</h3>
               </div>
             </div>
 
             <div style={{
               background: 'var(--bg-card)',
-              padding: '30px',
+              padding: '24px 20px',
               borderRadius: '4px',
               border: '1px solid var(--border)',
-              boxShadow: 'var(--shadow-sm)'
+              boxShadow: 'var(--shadow-sm)',
+              height: '200px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              boxSizing: 'border-box'
             }}>
-              <h2 className="title-serif" style={{ fontSize: '20px', marginBottom: '16px', color: 'var(--accent)' }}>Consiliere Personalizată</h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.7', margin: '0' }}>
-                Pentru a-ți oferi cea mai bună experiență, recomandăm programarea unei vizite în prealabil. Un designer din echipa noastră îți va fi alocat exclusiv pentru a te ghida în alegerea materialelor, dimensiunilor și culorilor potrivite.
+              <h3 className="title-serif" style={{ fontSize: '16px', marginBottom: '8px', color: 'var(--accent)' }}>Chișinău, MD-2075</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '12.5px', margin: '0 0 10px 0', lineHeight: '1.4' }}>
+                Bd. Mircea cel Bătrân 25/2
               </p>
+              <div style={{ fontSize: '12px', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div><strong>L-V:</strong> 09:00 – 17:00 (S-D: Închis)</div>
+                <div><strong>Tel:</strong> <a href="tel:+37360535665" style={{ fontWeight: '600', color: 'var(--accent)' }}>060 535 665</a></div>
+              </div>
             </div>
-
           </div>
 
-          {/* APPOINTMENT FORM CARD */}
+        </div>
+
+        {/* BOOKING & COUNSELING SECTION */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '50px',
+          marginBottom: '80px',
+          alignItems: 'start'
+        }} className="showroom-form-grid">
+          
+          {/* COUNSELING DETAILS */}
           <div style={{
             background: 'var(--bg-card)',
             padding: '40px',
             borderRadius: '4px',
             border: '1px solid var(--border)',
-            boxShadow: 'var(--shadow-md)'
+            boxShadow: 'var(--shadow-sm)',
+            height: '100%',
+            boxSizing: 'border-box'
+          }}>
+            <h2 className="title-serif" style={{ fontSize: '24px', marginBottom: '16px', color: 'var(--text-primary)' }}>Consiliere Personalizată</h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.7', marginBottom: '20px' }}>
+              Fiecare proiect de mobilier este unic. Pentru a-ți oferi cea mai bună atenție și ghidaj, vizitele în showroom se fac pe bază de programare.
+            </p>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.7', marginBottom: '24px' }}>
+              Un designer de interior din echipa Trustera îți va fi alocat exclusiv pentru a parcurge mostrele de stofe, finisaje de stejar și pentru a schița configurația optimă.
+            </p>
+            <div style={{ fontSize: '14px', fontWeight: '600', borderTop: '1px solid var(--border)', paddingTop: '20px' }}>
+              Email Showroom: <a href="mailto:showroom@trustera.md" style={{ color: 'var(--accent)' }}>showroom@trustera.md</a>
+            </div>
+          </div>
+
+          {/* BOOKING FORM */}
+          <div style={{
+            background: 'var(--bg-card)',
+            padding: '40px',
+            borderRadius: '4px',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-md)',
+            boxSizing: 'border-box'
           }}>
             {!success ? (
               <>
-                <h2 className="title-serif" style={{ fontSize: '24px', marginBottom: '12px' }}>Programează o vizită privată</h2>
+                <h2 className="title-serif" style={{ fontSize: '24px', marginBottom: '12px' }}>Rezervă o vizită privată</h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '13.5px', marginBottom: '24px' }}>
-                  Alege data în care dorești să ne vizitezi, iar un designer te va contacta pentru a confirma rezervarea intervalului orar.
+                  Alege data în care dorești să ne vizitezi, iar noi te vom contacta pentru a confirma intervalul orar.
                 </p>
                 
                 <form onSubmit={handleSubmit}>
@@ -228,7 +241,7 @@ export default function Showroom() {
                   </svg>
                 </div>
                 <h3 className="title-serif" style={{ fontSize: '22px', marginBottom: '12px' }}>Rezervare Trimisă!</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.6' }}>Datele au fost trimise prin WhatsApp. Un designer vă va contacta în cel mai scurt timp pentru a stabili ora vizitei.</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.6' }}>Datele au fost înregistrate. Un designer de la Trustera vă va contacta pe WhatsApp/Telefon în cel mai scurt timp.</p>
               </div>
             )}
           </div>
@@ -237,32 +250,23 @@ export default function Showroom() {
 
       </section>
 
-      {/* MAP */}
-      <div className="map-wrap" style={{ height: '500px', borderTop: '1px solid var(--border)' }}>
-        <iframe 
-          src="https://maps.google.com/maps?q=Chisinau+Mircea+cel+Batran+25/2&t=m&z=16&output=embed&iwloc=near" 
-          title="Locație Showroom Chisinau" 
-          loading="lazy" 
-          style={{ width: '100%', height: '100%', border: 'none' }}
-        ></iframe>
-      </div>
-
       {/* STYLES EMULATION */}
       <style>{`
         .gallery-item-wrap:hover .showroom-img {
           transform: scale(1.06);
         }
-        @media (max-width: 900px) {
-          .showroom-gallery {
+        @media (max-width: 990px) {
+          .showroom-main-grid {
             grid-template-columns: 1fr !important;
             gap: 20px !important;
           }
-          .gallery-item-wrap {
-            height: 220px !important;
+          .showroom-map-container {
+            height: 350px !important;
+            order: -1;
           }
-          .contact-grid {
+          .showroom-form-grid {
             grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            gap: 30px !important;
           }
         }
       `}</style>
