@@ -77,7 +77,9 @@ export const products = [
     name: "Bliss (Beige)",
     img: "/img/armchair_beige.png",
     images: [
-      "/img/armchair_beige.png"
+      "/img/armchair_beige.png",
+      "/img/armchair_beige_side.png",
+      "/img/armchair_beige_back.png"
     ],
     availableMaterials: [
       "Catifea",
