@@ -10,12 +10,8 @@ export default function Footer() {
     <footer className="footer" id="footer">
       <div className="footer-grid">
         <div>
-          <Link to="/" onClick={scrollToTop} className="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-            <img loading="lazy" src="/logo.svg" alt="Trustera Logo" style={{ height: '36px', width: 'auto', borderRadius: '4px' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
-              <span style={{ fontWeight: '700', fontSize: '20px', letterSpacing: '0.05em', color: '#FFF' }}>TRUSTERA</span>
-              <span style={{ fontWeight: '400', fontSize: '11px', letterSpacing: '0.12em', color: 'var(--accent)', textTransform: 'uppercase' }}>Wood & Soft</span>
-            </div>
+          <Link to="/" onClick={scrollToTop} className="footer-logo" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <img loading="lazy" src="/logo_light_text.png" alt="Trustera Logo" style={{ height: '38px', width: 'auto' }} />
           </Link>
           <div className="footer-contact">
             <p style={{ marginBottom: '15px' }}>Bulevardul Mircea cel Bătrân 25/2, Chișinău, MD-2075</p>
