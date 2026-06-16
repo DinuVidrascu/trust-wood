@@ -206,7 +206,7 @@ export default function Catalog() {
           <select 
             value={activeMaterial} 
             onChange={e => setActiveMaterial(e.target.value)} 
-            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+            className="catalog-select"
           >
             <option value="Toate">Tip Material</option>
             {availableMaterials.map(mat => (
@@ -217,7 +217,7 @@ export default function Catalog() {
           <select 
             value={activeWood} 
             onChange={e => setActiveWood(e.target.value)} 
-            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+            className="catalog-select"
           >
             <option value="Toate">Tip Lemn</option>
             {availableWoodTypes.map(wood => (
@@ -228,7 +228,7 @@ export default function Catalog() {
           <select 
             value={activeColor} 
             onChange={e => setActiveColor(e.target.value)} 
-            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+            className="catalog-select"
           >
             <option value="Toate">Culoare (Orice)</option>
             {availableColors.map(color => (
@@ -239,7 +239,7 @@ export default function Catalog() {
           <select 
             value={activeSize} 
             onChange={e => setActiveSize(e.target.value)} 
-            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+            className="catalog-select"
           >
             <option value="Toate">Mărime (Orice)</option>
             {availableSizes.map(size => (
@@ -253,14 +253,7 @@ export default function Catalog() {
             <select 
               value={sortBy} 
               onChange={(e) => setSortBy(e.target.value)}
-              style={{
-                padding: '10px 16px',
-                border: '1px solid var(--border-dark)',
-                borderRadius: '20px',
-                fontSize: '13px',
-                background: 'var(--bg-primary)',
-                fontWeight: '500'
-              }}
+              className="catalog-select"
             >
               <option value="featured">Recomandate</option>
               <option value="price-asc">Preț: crescător</option>

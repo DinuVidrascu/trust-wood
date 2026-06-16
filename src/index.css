@@ -2220,3 +2220,35 @@ button, input, select, textarea {
     gap: 0;
   }
 }
+
+/* ─── CUSTOM CATALOG SELECT DROPDOWNS ─── */
+.catalog-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 10px 36px 10px 16px;
+  border: 1px solid var(--border-dark);
+  border-radius: 20px;
+  font-size: 13px;
+  background-color: var(--bg-primary);
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c1b19' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  outline: none;
+  flex-shrink: 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.catalog-select:hover {
+  border-color: var(--accent);
+}
+
+.catalog-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.15);
+}
