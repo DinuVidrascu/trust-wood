@@ -1000,14 +1000,14 @@ export const products = [
         name: "White Matt",
         code: "#F4F1EC",
         productId: 34,
-        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureImg: "/img/textures/texture_white_matt.webp",
         textureDesc: "Blat MDF lăcuit alb mat de înaltă calitate."
       },
       {
         name: "Dark Walnut",
         code: "#4A3728",
         productId: 35,
-        textureImg: "/img/textures/texture_smoked_oak.webp",
+        textureImg: "/img/textures/texture_dark_walnut.webp",
         textureDesc: "Blat din MDF furniruit cu nuc închis mat."
       }
     ],
@@ -1047,14 +1047,14 @@ export const products = [
         name: "White Matt",
         code: "#F4F1EC",
         productId: 34,
-        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureImg: "/img/textures/texture_white_matt.webp",
         textureDesc: "Blat MDF lăcuit alb mat de înaltă calitate."
       },
       {
         name: "Dark Walnut",
         code: "#4A3728",
         productId: 35,
-        textureImg: "/img/textures/texture_smoked_oak.webp",
+        textureImg: "/img/textures/texture_dark_walnut.webp",
         textureDesc: "Blat din MDF furniruit cu nuc închis mat."
       }
     ],
