@@ -40,7 +40,7 @@ export default function Footer() {
             <Link to="/despre" onClick={scrollToTop}>Valori & Calitate</Link>
             <Link to="/showroom" onClick={scrollToTop}>Locație Showroom</Link>
             <Link to="/politica-confidentialitate" onClick={scrollToTop}>Politica de Confidențialitate</Link>
-            <a href="#">Termeni și Condiții</a>
+            <Link to="/termeni-conditii" onClick={scrollToTop}>Termeni și Condiții</Link>
           </div>
         </div>
         <div>

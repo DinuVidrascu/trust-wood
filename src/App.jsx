@@ -9,6 +9,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Showroom from './pages/Showroom';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/WishlistDrawer';
 
@@ -49,6 +50,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/showroom" element={<Showroom />} />
             <Route path="/politica-confidentialitate" element={<PrivacyPolicy />} />
+            <Route path="/termeni-conditii" element={<TermsAndConditions />} />
           </Routes>
         </main>
 
