@@ -49,7 +49,7 @@ export default function Footer() {
             <Link to="/contact" onClick={scrollToTop}>Contacte Rapide</Link>
             <Link to="/ghid-livrare-montaj" onClick={scrollToTop}>Ghid de Livrare & Montaj</Link>
             <Link to="/garantie-produse" onClick={scrollToTop}>Garanția Produselor</Link>
-            <a href="#">Catalog Materiale & Stofe</a>
+            <Link to="/catalog-materiale-stofe" onClick={scrollToTop}>Catalog Materiale & Stofe</Link>
           </div>
         </div>
         <div>

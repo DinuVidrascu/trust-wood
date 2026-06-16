@@ -12,6 +12,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import DeliveryGuide from './pages/DeliveryGuide';
 import ProductWarranty from './pages/ProductWarranty';
+import MaterialsCatalog from './pages/MaterialsCatalog';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/WishlistDrawer';
 
@@ -55,6 +56,7 @@ export default function App() {
             <Route path="/termeni-conditii" element={<TermsAndConditions />} />
             <Route path="/ghid-livrare-montaj" element={<DeliveryGuide />} />
             <Route path="/garantie-produse" element={<ProductWarranty />} />
+            <Route path="/catalog-materiale-stofe" element={<MaterialsCatalog />} />
           </Routes>
         </main>
 
