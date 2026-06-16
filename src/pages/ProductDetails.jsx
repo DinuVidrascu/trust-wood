@@ -304,11 +304,11 @@ export default function ProductDetails() {
         configuredItems={singleBookingItem || []}
       />
 
-      <div className="page-entrance subpage" style={{ paddingBottom: '80px' }}>
-        <section className="section">
+      <div className="page-entrance subpage" style={{ paddingBottom: '80px', paddingTop: '70px' }}>
+        <section className="section" style={{ paddingTop: '0px' }}>
           
           {/* BREADCRUMB */}
-          <div style={{ marginBottom: '40px', fontSize: '13px', color: 'var(--text-secondary)' }}>
+          <div style={{ marginBottom: '20px', fontSize: '13px', color: 'var(--text-secondary)' }}>
             <Link to="/" style={{ marginRight: '8px' }}>Acasă</Link> / 
             <Link to="/catalog" style={{ margin: '0 8px' }}>Catalog</Link> / 
             <Link to={`/catalog?cat=${product.category}`} style={{ margin: '0 8px' }}>{product.category}</Link> / 
