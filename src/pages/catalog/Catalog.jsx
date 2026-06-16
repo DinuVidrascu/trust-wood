@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { products } from '../../data/products';
+import { useProducts } from '../../context/ProductsContext';
 import ProductCard from '../../components/product/ProductCard';
 
 export default function Catalog() {
+  const { products } = useProducts();
   const [searchParams, setSearchParams] = useSearchParams();
   const catParam = searchParams.get('cat');
 

@@ -6,6 +6,7 @@ import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/product/WishlistDrawer';
 import { CartProvider } from './context/CartContext';
 import CartDrawer from './components/product/CartDrawer';
+import { ProductsProvider } from './context/ProductsContext';
 
 // Lazy load all page components
 const Home = lazy(() => import('./pages/home/Home'));
@@ -73,8 +74,9 @@ export default function App() {
 
   return (
     <Router>
-      <WishlistProvider>
-        <CartProvider>
+      <ProductsProvider>
+        <WishlistProvider>
+          <CartProvider>
           <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             
             {/* GLOBAL HEADER/NAVBAR */}
@@ -138,8 +140,9 @@ export default function App() {
         </button>
 
         </div>
-        </CartProvider>
-      </WishlistProvider>
+          </CartProvider>
+        </WishlistProvider>
+      </ProductsProvider>
     </Router>
   );
 }

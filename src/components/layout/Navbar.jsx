@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { products } from '../../data/products';
+import { useProducts } from '../../context/ProductsContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useCart } from '../../context/CartContext';
 
 export default function Navbar() {
+  const { products } = useProducts();
   const { wishlist, toggleDrawer } = useWishlist();
   const { cart, toggleCart } = useCart();
   const [scrolled, setScrolled] = useState(false);

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { categories, products, advantages } from '../../data/products';
+import { advantages } from '../../data/products';
+import { useProducts } from '../../context/ProductsContext';
 import ProductCard from '../../components/product/ProductCard';
 import AppointmentModal from '../../components/ui/AppointmentModal';
 
 export default function Home() {
+  const { products, categories } = useProducts();
   const [activeFilter, setActiveFilter] = useState('Toate');
   const [modalOpen, setModalOpen] = useState(false);
   const [activeDot, setActiveDot] = useState(0);
