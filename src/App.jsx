@@ -7,6 +7,7 @@ import Catalog from './pages/Catalog';
 import ProductDetails from './pages/ProductDetails';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Showroom from './pages/Showroom';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/WishlistDrawer';
 
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="/produs/:id" element={<ProductDetails />} />
             <Route path="/despre" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/showroom" element={<Showroom />} />
           </Routes>
         </main>
 
