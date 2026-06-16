@@ -15,6 +15,15 @@ export default function Contact() {
     e.preventDefault();
     if (!name || !phone || !date) return;
 
+    let message = `*TRUSTERA - Programare Vizită Showroom*\n`;
+    message += `--------------------------------------\n`;
+    message += `Nume Client: ${name}\n`;
+    message += `Telefon Client: ${phone}\n`;
+    message += `Data dorită: ${date}\n`;
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/37360535665?text=${encoded}`, '_blank');
+
     setSuccess(true);
     setName('');
     setPhone('');

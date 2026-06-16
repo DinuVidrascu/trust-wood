@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { products } from '../data/products';
 import AppointmentModal from '../components/AppointmentModal';
@@ -368,6 +368,42 @@ export default function ProductDetails() {
                 </div>
 
               </div>
+
+              {/* MOBILE SWATCHES */}
+              {product.swatches && product.swatches.length > 0 && (
+                <div className="mobile-swatches-wrapper">
+                  <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
+                    Nuanță Tapițerie: <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeSwatch?.name}</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '10px' }}>
+                    {product.swatches.map((swatch, idx) => (
+                      <button 
+                        key={idx}
+                        className={`pm-swatch ${activeSwatch?.name === swatch.name ? 'active' : ''}`}
+                        style={{
+                          backgroundColor: swatch.code,
+                          width: '34px',
+                          height: '34px',
+                          borderRadius: '50%',
+                          border: '2px solid #FFF',
+                          outline: `1.5px solid ${activeSwatch?.name === swatch.name ? 'var(--text-primary)' : 'var(--border-dark)'}`,
+                          transform: activeSwatch?.name === swatch.name ? 'scale(1.12)' : 'scale(1)',
+                          transition: 'var(--transition)'
+                        }}
+                        onClick={() => {
+                          if (swatch.productId !== undefined && swatch.productId !== product.id) {
+                            navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                          } else {
+                            setActiveSwatch(swatch);
+                          }
+                        }}
+                        title={swatch.name}
+                      ></button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             </div>
 
             {/* META INFO AREA */}
@@ -413,7 +449,7 @@ export default function ProductDetails() {
                 
                 {/* 1. STOFĂ SELECTIE (SWATCHES) */}
                 {product.swatches && product.swatches.length > 0 && (
-                  <div style={{ marginBottom: '24px' }}>
+                  <div className="desktop-swatches-wrapper" style={{ marginBottom: '24px' }}>
                     <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
                       Nuanță Tapițerie: <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeSwatch?.name}</span>
                     </div>
@@ -971,6 +1007,26 @@ export default function ProductDetails() {
             }
             .config-grid-four {
               grid-template-columns: 1fr 1fr !important;
+            }
+          }
+
+          /* swatches responsiveness */
+          .mobile-swatches-wrapper {
+            display: none;
+          }
+          .desktop-swatches-wrapper {
+            display: block;
+          }
+
+          @media (max-width: 900px) {
+            .mobile-swatches-wrapper {
+              display: block;
+              margin-top: 24px;
+              border-bottom: 1px solid var(--border);
+              padding-bottom: 24px;
+            }
+            .desktop-swatches-wrapper {
+              display: none;
             }
           }
         `}</style>
