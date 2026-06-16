@@ -304,8 +304,8 @@ export default function ProductDetails() {
         configuredItems={singleBookingItem || []}
       />
 
-      <div className="page-entrance subpage" style={{ paddingBottom: '80px', paddingTop: '70px' }}>
-        <section className="section" style={{ paddingTop: '0px' }}>
+      <div className="page-entrance subpage" style={{ paddingBottom: '80px', paddingTop: '85px' }}>
+        <section className="section" style={{ paddingTop: '10px' }}>
           
           {/* BREADCRUMB */}
           <div style={{ marginBottom: '20px', fontSize: '13px', color: 'var(--text-secondary)' }}>
