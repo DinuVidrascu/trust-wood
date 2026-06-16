@@ -177,6 +177,28 @@ export default function ProductDetails() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [lightboxOpen, product]);
 
+  // Close inline texture when clicking outside
+  useEffect(() => {
+    if (!textureInlineOpen) return;
+    
+    const handleOutsideClick = (e) => {
+      const box = document.querySelector('.macro-inline-box');
+      const btn = document.querySelector('.macro-texture-container');
+      if (box && !box.contains(e.target) && btn && !btn.contains(e.target)) {
+        setTextureInlineOpen(false);
+      }
+    };
+    
+    const timer = setTimeout(() => {
+      window.addEventListener('click', handleOutsideClick);
+    }, 50);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, [textureInlineOpen]);
+
   if (!product) {
     return (
       <div className="page-entrance subpage" style={{ paddingBottom: '100px', textAlign: 'center' }}>
@@ -464,50 +486,34 @@ export default function ProductDetails() {
                 <h3 className="title-serif" style={{ fontSize: '20px', marginBottom: '24px', color: 'var(--text-primary)' }}>Configurator Personalizat</h3>
                 
                 {/* INLINE MACRO TEXTURE EXPANDED BOX */}
-                {textureInlineOpen && activeSwatch?.textureImg && (
-                  <div className="macro-inline-box" style={{
-                    position: 'relative',
-                    width: '100%',
-                    height: '280px',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    border: '1.5px solid var(--accent)',
-                    background: '#FAF8F5',
-                    marginBottom: '24px',
-                    display: 'flex',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-                    animation: 'slideDownFade 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards'
-                  }}>
-                    {/* Left: Texture Image (Large view, taking 50% width) */}
-                    <div 
+                {activeSwatch?.textureImg && (
+                  <div 
+                    className={`macro-inline-box ${textureInlineOpen ? 'open' : ''}`}
+                    onClick={() => setTextureInlineOpen(false)}
+                  >
+                    <img 
+                      src={activeSwatch.textureImg} 
+                      alt={activeSwatch.name} 
                       style={{ 
-                        width: '50%', 
-                        height: '100%', 
-                        position: 'relative', 
-                        overflow: 'hidden'
-                      }}
-                      className="macro-inline-img-container"
-                    >
-                      <img src={activeSwatch.textureImg} alt={activeSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                    </div>
+                        width: '100%', 
+                        height: '280px', 
+                        objectFit: 'cover', 
+                        display: 'block' 
+                      }} 
+                    />
                     
-                    {/* Right: Info (Taller padding and larger font sizes) */}
-                    <div style={{ width: '50%', padding: '30px', display: 'flex', flexDirection: 'column', justifyContent: 'center', boxSizing: 'border-box' }}>
-                      <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)', marginBottom: '6px' }}>
-                        {product.category === 'Mese' ? 'Previzualizare Finisaj Lemn' : 'Previzualizare Textură'}
-                      </span>
-                      <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '22px', fontWeight: '500', margin: '0 0 10px 0', color: 'var(--text-primary)', lineHeight: '1.2' }}>{activeSwatch.name}</h4>
-                      <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6', margin: 0 }}>{activeSwatch.textureDesc}</p>
-                    </div>
-                    
-                    {/* Close button (Larger and more visible) */}
+                    {/* Close button */}
                     <button 
-                      onClick={() => setTextureInlineOpen(false)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setTextureInlineOpen(false);
+                      }}
                       style={{
                         position: 'absolute',
                         top: '16px',
                         right: '16px',
-                        background: 'rgba(28,27,25,0.06)',
+                        background: 'rgba(255, 255, 255, 0.85)',
+                        backdropFilter: 'blur(4px)',
                         border: 'none',
                         borderRadius: '50%',
                         width: '32px',
@@ -517,9 +523,14 @@ export default function ProductDetails() {
                         justifyContent: 'center',
                         cursor: 'pointer',
                         fontSize: '13px',
+                        fontWeight: 'bold',
                         color: 'var(--text-primary)',
-                        transition: 'var(--transition)',
-                        zIndex: 2
+                        transition: 'opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                        zIndex: 12,
+                        opacity: textureInlineOpen ? 1 : 0,
+                        pointerEvents: textureInlineOpen ? 'auto' : 'none',
+                        transitionDelay: textureInlineOpen ? '0.1s' : '0s'
                       }}
                       className="macro-inline-close-btn"
                       aria-label="Închide previzualizarea"
