@@ -438,10 +438,6 @@ export default function ProductDetails() {
                 {calculatedPrice.toLocaleString('ro-RO')} MDL
               </div>
 
-              {/* DESCRIPTION */}
-              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '30px' }}>
-                {product.desc}
-              </p>
 
               {/* ─── INTERACTIVE CONFIGURATOR ─── */}
               <div className="pd-configurator" style={{ borderTop: '1px solid var(--border)', paddingTop: '30px', marginBottom: '30px' }}>
@@ -623,6 +619,11 @@ export default function ProductDetails() {
                   </div>
                 )}
               </div>
+
+              {/* DESCRIPTION */}
+              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '30px', borderTop: '1px solid var(--border)', paddingTop: '30px' }}>
+                {product.desc}
+              </p>
 
               {/* DETAILS / FEATURES */}
               {product.features && product.features.length > 0 && (
