@@ -1,25 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import Home from './pages/home/Home';
-import Catalog from './pages/catalog/Catalog';
-import ProductDetails from './pages/catalog/ProductDetails';
-import About from './pages/info/About';
-import Contact from './pages/contact/Contact';
-import Showroom from './pages/info/Showroom';
-import PrivacyPolicy from './pages/legal/PrivacyPolicy';
-import TermsAndConditions from './pages/legal/TermsAndConditions';
-import DeliveryGuide from './pages/info/DeliveryGuide';
-import ProductWarranty from './pages/info/ProductWarranty';
-import MaterialsCatalog from './pages/info/MaterialsCatalog';
-import Partners from './pages/info/Partners';
-import Projects from './pages/info/Projects';
-import NotFound from './pages/error/NotFound';
 import { WishlistProvider } from './context/WishlistContext';
 import WishlistDrawer from './components/product/WishlistDrawer';
 import { CartProvider } from './context/CartContext';
 import CartDrawer from './components/product/CartDrawer';
+
+// Lazy load all page components
+const Home = lazy(() => import('./pages/home/Home'));
+const Catalog = lazy(() => import('./pages/catalog/Catalog'));
+const ProductDetails = lazy(() => import('./pages/catalog/ProductDetails'));
+const About = lazy(() => import('./pages/info/About'));
+const Contact = lazy(() => import('./pages/contact/Contact'));
+const Showroom = lazy(() => import('./pages/info/Showroom'));
+const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'));
+const TermsAndConditions = lazy(() => import('./pages/legal/TermsAndConditions'));
+const DeliveryGuide = lazy(() => import('./pages/info/DeliveryGuide'));
+const ProductWarranty = lazy(() => import('./pages/info/ProductWarranty'));
+const MaterialsCatalog = lazy(() => import('./pages/info/MaterialsCatalog'));
+const Partners = lazy(() => import('./pages/info/Partners'));
+const Projects = lazy(() => import('./pages/info/Projects'));
+const NotFound = lazy(() => import('./pages/error/NotFound'));
+
+// Premium minimal loader fallback
+const LoadingFallback = () => (
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '60vh',
+    flexDirection: 'column',
+    gap: '20px',
+    color: 'var(--text-secondary)'
+  }}>
+    <style>{`
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `}</style>
+    <div style={{
+      width: '40px',
+      height: '40px',
+      border: '2px solid var(--border, rgba(0,0,0,0.1))',
+      borderTopColor: 'var(--accent, #9e7e59)',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }}></div>
+    <span style={{ fontSize: '13px', fontWeight: '500', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+      Se încarcă...
+    </span>
+  </div>
+);
 
 export default function App() {
   const [bttVisible, setBttVisible] = useState(false);
@@ -52,24 +85,26 @@ export default function App() {
             {/* CART DRAWER */}
             <CartDrawer />
 
-        {/* MAIN PAGE ROUTES */}
+        {/* MAIN PAGE ROUTES WITH LAZY SUSPENSE */}
         <main style={{ flexGrow: 1 }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/produs/:id" element={<ProductDetails />} />
-            <Route path="/despre" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/showroom" element={<Showroom />} />
-            <Route path="/politica-confidentialitate" element={<PrivacyPolicy />} />
-            <Route path="/termeni-conditii" element={<TermsAndConditions />} />
-            <Route path="/ghid-livrare-montaj" element={<DeliveryGuide />} />
-            <Route path="/garantie-produse" element={<ProductWarranty />} />
-            <Route path="/catalog-materiale-stofe" element={<MaterialsCatalog />} />
-            <Route path="/parteneri" element={<Partners />} />
-            <Route path="/proiecte-globale" element={<Projects />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/catalog" element={<Catalog />} />
+              <Route path="/produs/:id" element={<ProductDetails />} />
+              <Route path="/despre" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/showroom" element={<Showroom />} />
+              <Route path="/politica-confidentialitate" element={<PrivacyPolicy />} />
+              <Route path="/termeni-conditii" element={<TermsAndConditions />} />
+              <Route path="/ghid-livrare-montaj" element={<DeliveryGuide />} />
+              <Route path="/garantie-produse" element={<ProductWarranty />} />
+              <Route path="/catalog-materiale-stofe" element={<MaterialsCatalog />} />
+              <Route path="/parteneri" element={<Partners />} />
+              <Route path="/proiecte-globale" element={<Projects />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </main>
 
         {/* GLOBAL FOOTER */}
