@@ -40,12 +40,17 @@ export function CartProvider({ children }) {
       );
 
       if (existingIdx > -1) {
-        // Increment quantity of existing item
-        const updated = [...prev];
-        updated[existingIdx].quantity += item.quantity || 1;
-        // Optionally update price if it has changed (configurator might have different pricing)
-        updated[existingIdx].price = item.price;
-        return updated;
+        // Increment quantity of existing item without mutation
+        return prev.map((existing, idx) => {
+          if (idx === existingIdx) {
+            return {
+              ...existing,
+              quantity: existing.quantity + (item.quantity || 1),
+              price: item.price // Optionally update price
+            };
+          }
+          return existing;
+        });
       } else {
         // Add new item with quantity
         return [{ ...item, quantity: item.quantity || 1 }, ...prev];
@@ -62,18 +67,17 @@ export function CartProvider({ children }) {
 
   const updateCartQuantity = (index, delta) => {
     setCart(prev => {
-      const updated = [...prev];
-      if (updated[index]) {
-        const newQty = updated[index].quantity + delta;
-        if (newQty <= 0) {
-          // If quantity becomes 0, remove the item
-          return prev.filter((_, i) => i !== index);
-        } else {
-          updated[index].quantity = newQty;
-          return updated;
-        }
+      if (!prev[index]) return prev;
+      const newQty = prev[index].quantity + delta;
+      if (newQty <= 0) {
+        return prev.filter((_, i) => i !== index);
       }
-      return prev;
+      return prev.map((item, idx) => {
+        if (idx === index) {
+          return { ...item, quantity: newQty };
+        }
+        return item;
+      });
     });
   };
 
