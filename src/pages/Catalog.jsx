@@ -15,9 +15,13 @@ export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
 
-  // Extract dynamic filters from product data
+  // Extract dynamic filters based on the selected category
+  const activeProductsForFilters = activeCategory === 'Toate'
+    ? products
+    : products.filter(p => p.category === activeCategory);
+
   const availableMaterials = Array.from(new Set(
-    products
+    activeProductsForFilters
       .filter(p => ['Canapele', 'Scaune', 'Paturi', 'Fotolii'].includes(p.category))
       .flatMap(p => p.availableMaterials || [])
   ));
@@ -30,11 +34,11 @@ export default function Catalog() {
   ];
 
   const availableColors = Array.from(new Set(
-    products.flatMap(p => p.availableColors || [])
+    activeProductsForFilters.flatMap(p => p.availableColors || [])
   )).filter(color => color !== 'Bej' && color !== 'Gri' && color !== 'Verde');
 
   const availableSizes = Array.from(new Set(
-    products.flatMap(p => p.availableSizes || [])
+    activeProductsForFilters.flatMap(p => p.availableSizes || [])
   ));
 
   // Set active category when query param changes
@@ -45,6 +49,19 @@ export default function Catalog() {
       setActiveCategory('Toate');
     }
   }, [catParam]);
+
+  // Reset incompatible filters when category changes
+  useEffect(() => {
+    if (activeMaterial !== 'Toate' && !availableMaterials.includes(activeMaterial)) {
+      setActiveMaterial('Toate');
+    }
+    if (activeColor !== 'Toate' && !availableColors.includes(activeColor)) {
+      setActiveColor('Toate');
+    }
+    if (activeSize !== 'Toate' && !availableSizes.includes(activeSize)) {
+      setActiveSize('Toate');
+    }
+  }, [activeCategory, availableMaterials, availableColors, availableSizes]);
 
   // Handle active category selection
   const handleCategoryChange = (category) => {
@@ -203,16 +220,18 @@ export default function Catalog() {
           </div>
 
           {/* Advanced Filters */}
-          <select 
-            value={activeMaterial} 
-            onChange={e => setActiveMaterial(e.target.value)} 
-            className="catalog-select"
-          >
-            <option value="Toate">Tip Material</option>
-            {availableMaterials.map(mat => (
-              <option key={mat} value={mat}>{mat}</option>
-            ))}
-          </select>
+          {availableMaterials.length > 0 && (
+            <select 
+              value={activeMaterial} 
+              onChange={e => setActiveMaterial(e.target.value)} 
+              className="catalog-select"
+            >
+              <option value="Toate">Tip Material</option>
+              {availableMaterials.map(mat => (
+                <option key={mat} value={mat}>{mat}</option>
+              ))}
+            </select>
+          )}
 
           <select 
             value={activeWood} 
@@ -225,16 +244,18 @@ export default function Catalog() {
             ))}
           </select>
 
-          <select 
-            value={activeColor} 
-            onChange={e => setActiveColor(e.target.value)} 
-            className="catalog-select"
-          >
-            <option value="Toate">Culoare (Orice)</option>
-            {availableColors.map(color => (
-              <option key={color} value={color}>{color}</option>
-            ))}
-          </select>
+          {availableColors.length > 0 && (
+            <select 
+              value={activeColor} 
+              onChange={e => setActiveColor(e.target.value)} 
+              className="catalog-select"
+            >
+              <option value="Toate">Culoare (Orice)</option>
+              {availableColors.map(color => (
+                <option key={color} value={color}>{color}</option>
+              ))}
+            </select>
+          )}
 
           <select 
             value={activeSize} 
@@ -242,9 +263,28 @@ export default function Catalog() {
             className="catalog-select"
           >
             <option value="Toate">Mărime (Orice)</option>
-            {availableSizes.map(size => (
-              <option key={size} value={size}>{size}</option>
-            ))}
+            {activeCategory === 'Toate' ? (
+              <>
+                <optgroup label="Canapele & Fotolii">
+                  <option value="200cm">200cm</option>
+                  <option value="240cm">240cm</option>
+                  <option value="280cm">280cm</option>
+                  <option value="Personalizat">Personalizat</option>
+                </optgroup>
+                <optgroup label="Mese (Diametru)">
+                  <option value="Ø90cm">Ø90cm</option>
+                  <option value="Ø110cm">Ø110cm</option>
+                  <option value="Ø130cm">Ø130cm</option>
+                </optgroup>
+                <optgroup label="Scaune">
+                  <option value="Standard">Standard</option>
+                </optgroup>
+              </>
+            ) : (
+              availableSizes.map(size => (
+                <option key={size} value={size}>{size}</option>
+              ))
+            )}
           </select>
 
           {/* Sort Selection */}
