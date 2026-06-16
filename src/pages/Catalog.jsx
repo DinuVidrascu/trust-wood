@@ -171,143 +171,139 @@ export default function Catalog() {
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '20px',
+          gap: '12px',
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '40px',
-          padding: '24px',
+          padding: '16px 20px',
           background: 'var(--bg-card)',
           borderRadius: '4px',
           border: '1px solid var(--border)'
-        }}>
-          {/* Left Group: Search & Filters */}
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center', flexGrow: 1 }}>
-            {/* Inner Search */}
-            <div style={{ position: 'relative', width: '280px', maxWidth: '100%' }}>
-              <input 
-                type="text" 
-                placeholder="Caută în catalog..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '10px 16px 10px 36px',
-                  border: '1px solid var(--border-dark)',
-                  borderRadius: '20px',
-                  fontSize: '13px',
-                  background: 'var(--bg-primary)'
-                }}
-              />
-              <svg style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+        }} className="catalog-filter-bar">
+          
+          {/* Inner Search */}
+          <div style={{ position: 'relative', width: '200px', maxWidth: '100%', flexShrink: 0 }}>
+            <input 
+              type="text" 
+              placeholder="Caută în catalog..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '10px 16px 10px 36px',
+                border: '1px solid var(--border-dark)',
+                borderRadius: '20px',
+                fontSize: '13px',
+                background: 'var(--bg-primary)'
+              }}
+            />
+            <svg style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </div>
+
+          {/* Advanced Filters */}
+          <select 
+            value={activeMaterial} 
+            onChange={e => setActiveMaterial(e.target.value)} 
+            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+          >
+            <option value="Toate">Tip Material</option>
+            {availableMaterials.map(mat => (
+              <option key={mat} value={mat}>{mat}</option>
+            ))}
+          </select>
+
+          <select 
+            value={activeWood} 
+            onChange={e => setActiveWood(e.target.value)} 
+            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+          >
+            <option value="Toate">Tip Lemn</option>
+            {availableWoodTypes.map(wood => (
+              <option key={wood} value={wood}>{wood}</option>
+            ))}
+          </select>
+
+          <select 
+            value={activeColor} 
+            onChange={e => setActiveColor(e.target.value)} 
+            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+          >
+            <option value="Toate">Culoare (Orice)</option>
+            {availableColors.map(color => (
+              <option key={color} value={color}>{color}</option>
+            ))}
+          </select>
+
+          <select 
+            value={activeSize} 
+            onChange={e => setActiveSize(e.target.value)} 
+            style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none', flexShrink: 0 }}
+          >
+            <option value="Toate">Mărime (Orice)</option>
+            {availableSizes.map(size => (
+              <option key={size} value={size}>{size}</option>
+            ))}
+          </select>
+
+          {/* Sort Selection */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+            <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>ORDONEAZĂ:</span>
+            <select 
+              value={sortBy} 
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{
+                padding: '10px 16px',
+                border: '1px solid var(--border-dark)',
+                borderRadius: '20px',
+                fontSize: '13px',
+                background: 'var(--bg-primary)',
+                fontWeight: '500'
+              }}
+            >
+              <option value="featured">Recomandate</option>
+              <option value="price-asc">Preț: crescător</option>
+              <option value="price-desc">Preț: descrescător</option>
+            </select>
+          </div>
+
+          {/* Reset Button (Cute Circle) */}
+          {(activeMaterial !== 'Toate' || activeWood !== 'Toate' || activeColor !== 'Toate' || activeSize !== 'Toate' || searchQuery.trim().length > 0 || activeCategory !== 'Toate' || sortBy !== 'featured') && (
+            <button 
+              onClick={resetFilters}
+              title="Resetează filtrele"
+              style={{
+                background: 'var(--bg-primary)',
+                border: '1px solid var(--border-dark)',
+                color: 'var(--text-primary)',
+                width: '38px',
+                height: '38px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease',
+                padding: 0,
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--accent)';
+                e.currentTarget.style.color = 'var(--accent)';
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--border-dark)';
+                e.currentTarget.style.color = 'var(--text-primary)';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
               </svg>
-            </div>
-
-            {/* Advanced Filters */}
-            <select 
-              value={activeMaterial} 
-              onChange={e => setActiveMaterial(e.target.value)} 
-              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
-            >
-              <option value="Toate">Tip Material</option>
-              {availableMaterials.map(mat => (
-                <option key={mat} value={mat}>{mat}</option>
-              ))}
-            </select>
-
-            <select 
-              value={activeWood} 
-              onChange={e => setActiveWood(e.target.value)} 
-              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
-            >
-              <option value="Toate">Tip Lemn</option>
-              {availableWoodTypes.map(wood => (
-                <option key={wood} value={wood}>{wood}</option>
-              ))}
-            </select>
-
-            <select 
-              value={activeColor} 
-              onChange={e => setActiveColor(e.target.value)} 
-              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
-            >
-              <option value="Toate">Culoare (Orice)</option>
-              {availableColors.map(color => (
-                <option key={color} value={color}>{color}</option>
-              ))}
-            </select>
-
-            <select 
-              value={activeSize} 
-              onChange={e => setActiveSize(e.target.value)} 
-              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
-            >
-              <option value="Toate">Mărime (Orice)</option>
-              {availableSizes.map(size => (
-                <option key={size} value={size}>{size}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Right Group: Sort Selection & Reset */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>ORDONEAZĂ:</span>
-              <select 
-                value={sortBy} 
-                onChange={(e) => setSortBy(e.target.value)}
-                style={{
-                  padding: '10px 16px',
-                  border: '1px solid var(--border-dark)',
-                  borderRadius: '20px',
-                  fontSize: '13px',
-                  background: 'var(--bg-primary)',
-                  fontWeight: '500'
-                }}
-              >
-                <option value="featured">Recomandate</option>
-                <option value="price-asc">Preț: crescător</option>
-                <option value="price-desc">Preț: descrescător</option>
-              </select>
-            </div>
-
-            {/* Reset Button (Cute Circle) */}
-            {(activeMaterial !== 'Toate' || activeWood !== 'Toate' || activeColor !== 'Toate' || activeSize !== 'Toate' || searchQuery.trim().length > 0 || activeCategory !== 'Toate' || sortBy !== 'featured') && (
-              <button 
-                onClick={resetFilters}
-                title="Resetează filtrele"
-                style={{
-                  background: 'var(--bg-primary)',
-                  border: '1px solid var(--border-dark)',
-                  color: 'var(--text-primary)',
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '50%',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s ease',
-                  padding: 0,
-                  flexShrink: 0
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--accent)';
-                  e.currentTarget.style.color = 'var(--accent)';
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--border-dark)';
-                  e.currentTarget.style.color = 'var(--text-primary)';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-              </button>
-            )}
-          </div>
+            </button>
+          )}
         </div>
 
         {/* CATEGORY TAGS */}
