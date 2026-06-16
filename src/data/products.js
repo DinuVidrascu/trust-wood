@@ -2,22 +2,22 @@ export const categories = [
   {
     name: "Canapele",
     count: "3 Modele",
-    img: "/img/sofa_green.png"
+    img: "/img/sofa_green.webp"
   },
   {
     name: "Scaune",
     count: "9 Modele",
-    img: "/img/chair_aura_white.png"
+    img: "/img/chair_aura_white.webp"
   },
   {
     name: "Fotolii",
     count: "3 Modele",
-    img: "/img/armchair_grey.png"
+    img: "/img/armchair_grey.webp"
   },
   {
     name: "Mese",
     count: "2 Modele",
-    img: "/img/table_rovo_oak.png"
+    img: "/img/table_rovo_oak.webp"
   }
 ];
 
@@ -27,9 +27,9 @@ export const products = [
     category: "Canapele",
     type: "Canapea modulară",
     name: "Deseda (Beige)",
-    img: "/img/sofa_beige.png",
+    img: "/img/sofa_beige.webp",
     images: [
-      "/img/sofa_beige.png"
+      "/img/sofa_beige.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -81,9 +81,9 @@ export const products = [
     category: "Fotolii",
     type: "Fotoliu de design",
     name: "Bliss (Beige)",
-    img: "/img/armchair_beige.png",
+    img: "/img/armchair_beige.webp",
     images: [
-      "/img/armchair_beige.png",
+      "/img/armchair_beige.webp",
       "/img/armchair_beige_side.png",
       "/img/armchair_beige_back.png"
     ],
@@ -137,9 +137,9 @@ export const products = [
     category: "Canapele",
     type: "Canapea modulară",
     name: "Deseda (Green)",
-    img: "/img/sofa_green.png",
+    img: "/img/sofa_green.webp",
     images: [
-      "/img/sofa_green.png"
+      "/img/sofa_green.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -191,9 +191,9 @@ export const products = [
     category: "Canapele",
     type: "Canapea modulară",
     name: "Deseda (Grey)",
-    img: "/img/sofa_grey.png",
+    img: "/img/sofa_grey.webp",
     images: [
-      "/img/sofa_grey.png"
+      "/img/sofa_grey.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -245,9 +245,9 @@ export const products = [
     category: "Fotolii",
     type: "Fotoliu de design",
     name: "Bliss (Green)",
-    img: "/img/armchair_green.png",
+    img: "/img/armchair_green.webp",
     images: [
-      "/img/armchair_green.png"
+      "/img/armchair_green.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -299,9 +299,9 @@ export const products = [
     category: "Fotolii",
     type: "Fotoliu de design",
     name: "Bliss (Grey)",
-    img: "/img/armchair_grey.png",
+    img: "/img/armchair_grey.webp",
     images: [
-      "/img/armchair_grey.png"
+      "/img/armchair_grey.webp"
     ],
     availableMaterials: [
       "Catifea",
@@ -394,9 +394,9 @@ export const products = [
       "Șezut ergonomic confortabil"
     ],
     id: 20,
-    img: "/img/chair_aura_white.png",
+    img: "/img/chair_aura_white.webp",
     images: [
-      "/img/chair_aura_white.png"
+      "/img/chair_aura_white.webp"
     ]
   },
   {
@@ -445,9 +445,9 @@ export const products = [
       "Șezut ergonomic confortabil"
     ],
     id: 23,
-    img: "/img/chair_aura_rose.png",
+    img: "/img/chair_aura_rose.webp",
     images: [
-      "/img/chair_aura_rose.png"
+      "/img/chair_aura_rose.webp"
     ]
   },
   {
@@ -496,9 +496,9 @@ export const products = [
       "Șezut ergonomic confortabil"
     ],
     id: 24,
-    img: "/img/chair_aura_terracotta.png",
+    img: "/img/chair_aura_terracotta.webp",
     images: [
-      "/img/chair_aura_terracotta.png"
+      "/img/chair_aura_terracotta.webp"
     ]
   },
   {
@@ -547,9 +547,9 @@ export const products = [
       "Design contemporan"
     ],
     id: 21,
-    img: "/img/chair_aura_blue.png",
+    img: "/img/chair_aura_blue.webp",
     images: [
-      "/img/chair_aura_blue.png"
+      "/img/chair_aura_blue.webp"
     ]
   },
   {
@@ -598,9 +598,9 @@ export const products = [
       "Design contemporan"
     ],
     id: 25,
-    img: "/img/chair_nova_sage.png",
+    img: "/img/chair_nova_sage.webp",
     images: [
-      "/img/chair_nova_sage.png"
+      "/img/chair_nova_sage.webp"
     ]
   },
   {
@@ -649,9 +649,9 @@ export const products = [
       "Design contemporan"
     ],
     id: 26,
-    img: "/img/chair_nova_burgundy.png",
+    img: "/img/chair_nova_burgundy.webp",
     images: [
-      "/img/chair_nova_burgundy.png"
+      "/img/chair_nova_burgundy.webp"
     ]
   },
   {
@@ -700,9 +700,9 @@ export const products = [
       "Confort premium de lungă durată"
     ],
     id: 22,
-    img: "/img/chair_aura_green.png",
+    img: "/img/chair_aura_green.webp",
     images: [
-      "/img/chair_aura_green.png"
+      "/img/chair_aura_green.webp"
     ]
   },
   {
@@ -751,9 +751,9 @@ export const products = [
       "Confort premium de lungă durată"
     ],
     id: 27,
-    img: "/img/chair_luxe_caramel.png",
+    img: "/img/chair_luxe_caramel.webp",
     images: [
-      "/img/chair_luxe_caramel.png"
+      "/img/chair_luxe_caramel.webp"
     ]
   },
   {
@@ -802,9 +802,9 @@ export const products = [
       "Confort premium de lungă durată"
     ],
     id: 28,
-    img: "/img/chair_luxe_mauve.png",
+    img: "/img/chair_luxe_mauve.webp",
     images: [
-      "/img/chair_luxe_mauve.png"
+      "/img/chair_luxe_mauve.webp"
     ]
   },
   {
@@ -849,9 +849,9 @@ export const products = [
       "Design minimalist rotund",
       "Suprafață rezistentă la uzură"
     ],
-    img: "/img/table_rovo_oak.png",
+    img: "/img/table_rovo_oak.webp",
     images: [
-      "/img/table_rovo_oak.png"
+      "/img/table_rovo_oak.webp"
     ]
   },
   {
@@ -896,9 +896,9 @@ export const products = [
       "Design minimalist rotund",
       "Suprafață rezistentă la uzură"
     ],
-    img: "/img/table_rovo_black.png",
+    img: "/img/table_rovo_black.webp",
     images: [
-      "/img/table_rovo_black.png"
+      "/img/table_rovo_black.webp"
     ]
   },
   {
