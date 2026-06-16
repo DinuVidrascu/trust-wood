@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 
 export default function CartDrawer() {
   const { cart, removeFromCart, updateCartQuantity, cartOpen, toggleCart, clearCart } = useCart();

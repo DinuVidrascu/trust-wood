@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useWishlist } from '../context/WishlistContext';
-import AppointmentModal from './AppointmentModal';
+import { useWishlist } from '../../context/WishlistContext';
+import AppointmentModal from '../ui/AppointmentModal';
 
 export default function WishlistDrawer() {
   const { wishlist, removeFromWishlist, drawerOpen, toggleDrawer, clearWishlist } = useWishlist();

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { products } from '../data/products';
-import AppointmentModal from '../components/AppointmentModal';
-import { useWishlist } from '../context/WishlistContext';
-import { useCart } from '../context/CartContext';
+import { products } from '../../data/products';
+import AppointmentModal from '../../components/ui/AppointmentModal';
+import { useWishlist } from '../../context/WishlistContext';
+import { useCart } from '../../context/CartContext';
 
 export default function ProductDetails() {
   const { id } = useParams();

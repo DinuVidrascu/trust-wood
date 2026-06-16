@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { products } from '../data/products';
-import { useWishlist } from '../context/WishlistContext';
-import { useCart } from '../context/CartContext';
+import { products } from '../../data/products';
+import { useWishlist } from '../../context/WishlistContext';
+import { useCart } from '../../context/CartContext';
 
 export default function Navbar() {
   const { wishlist, toggleDrawer } = useWishlist();

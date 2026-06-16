@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { categories, products, advantages } from '../data/products';
-import ProductCard from '../components/ProductCard';
-import AppointmentModal from '../components/AppointmentModal';
+import { categories, products, advantages } from '../../data/products';
+import ProductCard from '../../components/product/ProductCard';
+import AppointmentModal from '../../components/ui/AppointmentModal';
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState('Toate');
