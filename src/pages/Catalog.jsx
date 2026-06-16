@@ -1,0 +1,279 @@
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { products } from '../data/products';
+import ProductCard from '../components/ProductCard';
+
+export default function Catalog() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const catParam = searchParams.get('cat');
+
+  const [activeCategory, setActiveCategory] = useState('Toate');
+  const [activeMaterial, setActiveMaterial] = useState('Toate');
+  const [activeWood, setActiveWood] = useState('Toate');
+  const [activeColor, setActiveColor] = useState('Toate');
+  const [activeSize, setActiveSize] = useState('Toate');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('featured');
+
+  // Set active category when query param changes
+  useEffect(() => {
+    if (catParam) {
+      setActiveCategory(catParam);
+    } else {
+      setActiveCategory('Toate');
+    }
+  }, [catParam]);
+
+  // Handle active category selection
+  const handleCategoryChange = (category) => {
+    if (category === 'Toate') {
+      searchParams.delete('cat');
+    } else {
+      searchParams.set('cat', category);
+    }
+    setSearchParams(searchParams);
+    setActiveCategory(category);
+  };
+
+  // Filter and sort logic
+  const getProcessedProducts = () => {
+    let list = [...products];
+
+    // Filter by Category
+    if (activeCategory !== 'Toate') {
+      list = list.filter(p => p.category === activeCategory);
+    }
+
+    // Filter by Material (Fabrics)
+    if (activeMaterial !== 'Toate') {
+      list = list.filter(p => p.availableMaterials && p.availableMaterials.includes(activeMaterial));
+    }
+
+    // Filter by Wood Type / Hard Materials
+    if (activeWood !== 'Toate') {
+      list = list.filter(p => p.availableMaterials && p.availableMaterials.includes(activeWood));
+    }
+
+    // Filter by Color
+    if (activeColor !== 'Toate') {
+      list = list.filter(p => p.availableColors && p.availableColors.includes(activeColor));
+    }
+
+    // Filter by Size
+    if (activeSize !== 'Toate') {
+      list = list.filter(p => p.availableSizes && p.availableSizes.includes(activeSize));
+    }
+
+    // Filter by Search Query
+    if (searchQuery.trim().length >= 1) {
+      list = list.filter(p => 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.type.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Sort products
+    if (sortBy === 'price-asc') {
+      list.sort((a, b) => {
+        const priceA = parseFloat(a.price.replace(/\s/g, ''));
+        const priceB = parseFloat(b.price.replace(/\s/g, ''));
+        return priceA - priceB;
+      });
+    } else if (sortBy === 'price-desc') {
+      list.sort((a, b) => {
+        const priceA = parseFloat(a.price.replace(/\s/g, ''));
+        const priceB = parseFloat(b.price.replace(/\s/g, ''));
+        return priceB - priceA;
+      });
+    }
+
+    return list;
+  };
+
+  const processedList = getProcessedProducts();
+
+  // Reset all filters
+  const resetFilters = () => {
+    setActiveCategory('Toate');
+    setActiveMaterial('Toate');
+    setActiveWood('Toate');
+    setActiveColor('Toate');
+    setActiveSize('Toate');
+    setSearchQuery('');
+    setSortBy('featured');
+    setSearchParams({});
+  };
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  return (
+    <div className="page-entrance subpage" style={{ minHeight: '80vh' }}>
+      <section className="section">
+        
+        {/* CATALOG HEADER */}
+        <div className="section-header" style={{ marginBottom: '30px' }}>
+          <div>
+            <span className="section-title">Catalog</span>
+            <h1 className="section-heading title-serif">Colecția Completă</h1>
+          </div>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '400px', fontSize: '14px' }}>
+            Alege din gama noastră de piese exclusiviste. Fiecare model poate fi tapițat în stofa dorită și configurat la dimensiunile potrivite.
+          </p>
+        </div>
+
+        {/* SEARCH, FILTER & SORT BAR */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '20px',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '40px',
+          padding: '24px',
+          background: 'var(--bg-card)',
+          borderRadius: '4px',
+          border: '1px solid var(--border)'
+        }}>
+          {/* Inner Search */}
+          <div style={{ position: 'relative', width: '300px', maxWidth: '100%' }}>
+            <input 
+              type="text" 
+              placeholder="Caută în catalog..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '10px 16px 10px 36px',
+                border: '1px solid var(--border-dark)',
+                borderRadius: '20px',
+                fontSize: '13px',
+                background: 'var(--bg-primary)'
+              }}
+            />
+            <svg style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </div>
+
+          {/* Advanced Filters */}
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', flexGrow: 1, justifyContent: 'center' }}>
+            <select 
+              value={activeMaterial} 
+              onChange={e => setActiveMaterial(e.target.value)} 
+              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
+            >
+              <option value="Toate">Tip Material</option>
+              <option value="Catifea">Catifea</option>
+              <option value="In">In</option>
+              <option value="Bouclé">Bouclé</option>
+            </select>
+
+            <select 
+              value={activeWood} 
+              onChange={e => setActiveWood(e.target.value)} 
+              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
+            >
+              <option value="Toate">Tip Lemn</option>
+              <option value="Lemn Masiv">Lemn Masiv</option>
+              <option value="MDF">MDF</option>
+              <option value="Ceramică">Ceramică</option>
+            </select>
+
+            <select 
+              value={activeColor} 
+              onChange={e => setActiveColor(e.target.value)} 
+              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
+            >
+              <option value="Toate">Culoare (Orice)</option>
+              <option value="Bej">Bej</option>
+              <option value="Gri">Gri</option>
+              <option value="Verde">Verde</option>
+              <option value="Albastru">Albastru</option>
+              <option value="Negru">Negru</option>
+              <option value="Natur">Natur</option>
+              <option value="Nuc">Nuc</option>
+            </select>
+
+            <select 
+              value={activeSize} 
+              onChange={e => setActiveSize(e.target.value)} 
+              style={{ padding: '10px 16px', border: '1px solid var(--border-dark)', borderRadius: '20px', fontSize: '13px', background: 'var(--bg-primary)', fontWeight: '500', color: 'var(--text-primary)', outline: 'none' }}
+            >
+              <option value="Toate">Mărime (Orice)</option>
+              <option value="Standard">Standard</option>
+              <option value="Mare">Mare</option>
+              <option value="180cm">180cm</option>
+              <option value="200cm">200cm</option>
+              <option value="220cm">220cm</option>
+              <option value="240cm">240cm</option>
+              <option value="280cm">280cm</option>
+              <option value="160x200cm">160x200cm</option>
+              <option value="180x200cm">180x200cm</option>
+              <option value="200x200cm">200x200cm</option>
+              <option value="Personalizat">Personalizat</option>
+            </select>
+          </div>
+
+          {/* Sort Selection */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '12px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>Ordonează:</span>
+            <select 
+              value={sortBy} 
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{
+                padding: '10px 16px',
+                border: '1px solid var(--border-dark)',
+                borderRadius: '20px',
+                fontSize: '13px',
+                background: 'var(--bg-primary)',
+                fontWeight: '500'
+              }}
+            >
+              <option value="featured">Recomandate</option>
+              <option value="price-asc">Preț: crescător</option>
+              <option value="price-desc">Preț: descrescător</option>
+            </select>
+          </div>
+        </div>
+
+        {/* CATEGORY TAGS */}
+        <div className="filter-tags" style={{ marginBottom: '40px', justifyContent: 'center' }}>
+          {['Toate', 'Canapele', 'Scaune', 'Fotolii', 'Mese'].map((category) => (
+            <button 
+              key={category}
+              className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category === 'Toate' ? 'Toate Produsele' : category}
+            </button>
+          ))}
+        </div>
+
+        {/* LIST COUNT */}
+        <div style={{ marginBottom: '20px', fontSize: '13px', color: 'var(--text-secondary)', fontWeight: '500' }}>
+          Am găsit {processedList.length} {processedList.length === 1 ? 'produs' : 'produse'}.
+        </div>
+
+        {/* PRODUCTS GRID */}
+        {processedList.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '80px 20px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '4px' }}>
+            <h3 className="title-serif" style={{ fontSize: '20px', marginBottom: '10px' }}>Niciun Produs Găsit</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '20px' }}>Încearcă să schimbi filtrele sau termenii de căutare.</p>
+            <button className="btn-premium" onClick={resetFilters}>Resetează filtrele</button>
+          </div>
+        ) : (
+          <div className="products-grid">
+            {processedList.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+
+      </section>
+    </div>
+  );
+}
+
