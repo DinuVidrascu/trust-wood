@@ -249,25 +249,63 @@ export default function Catalog() {
             </select>
           </div>
 
-          {/* Right Group: Sort Selection */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>ORDONEAZĂ:</span>
-            <select 
-              value={sortBy} 
-              onChange={(e) => setSortBy(e.target.value)}
-              style={{
-                padding: '10px 16px',
-                border: '1px solid var(--border-dark)',
-                borderRadius: '20px',
-                fontSize: '13px',
-                background: 'var(--bg-primary)',
-                fontWeight: '500'
-              }}
-            >
-              <option value="featured">Recomandate</option>
-              <option value="price-asc">Preț: crescător</option>
-              <option value="price-desc">Preț: descrescător</option>
-            </select>
+          {/* Right Group: Sort Selection & Reset */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '600', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>ORDONEAZĂ:</span>
+              <select 
+                value={sortBy} 
+                onChange={(e) => setSortBy(e.target.value)}
+                style={{
+                  padding: '10px 16px',
+                  border: '1px solid var(--border-dark)',
+                  borderRadius: '20px',
+                  fontSize: '13px',
+                  background: 'var(--bg-primary)',
+                  fontWeight: '500'
+                }}
+              >
+                <option value="featured">Recomandate</option>
+                <option value="price-asc">Preț: crescător</option>
+                <option value="price-desc">Preț: descrescător</option>
+              </select>
+            </div>
+
+            {/* Reset Button */}
+            {(activeMaterial !== 'Toate' || activeWood !== 'Toate' || activeColor !== 'Toate' || activeSize !== 'Toate' || searchQuery.trim().length > 0 || activeCategory !== 'Toate' || sortBy !== 'featured') && (
+              <button 
+                onClick={resetFilters}
+                style={{
+                  background: 'var(--bg-primary)',
+                  border: '1px solid var(--border-dark)',
+                  color: 'var(--text-primary)',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '9px 16px',
+                  borderRadius: '20px',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--accent)';
+                  e.currentTarget.style.color = 'var(--accent)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border-dark)';
+                  e.currentTarget.style.color = 'var(--text-primary)';
+                }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+                Resetează
+              </button>
+            )}
           </div>
         </div>
 
