@@ -271,39 +271,40 @@ export default function Catalog() {
               </select>
             </div>
 
-            {/* Reset Button */}
+            {/* Reset Button (Cute Circle) */}
             {(activeMaterial !== 'Toate' || activeWood !== 'Toate' || activeColor !== 'Toate' || activeSize !== 'Toate' || searchQuery.trim().length > 0 || activeCategory !== 'Toate' || sortBy !== 'featured') && (
               <button 
                 onClick={resetFilters}
+                title="Resetează filtrele"
                 style={{
                   background: 'var(--bg-primary)',
                   border: '1px solid var(--border-dark)',
                   color: 'var(--text-primary)',
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '50%',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  padding: '9px 16px',
-                  borderRadius: '20px',
-                  transition: 'all 0.2s ease'
+                  justifyContent: 'center',
+                  transition: 'all 0.2s ease',
+                  padding: 0,
+                  flexShrink: 0
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'var(--accent)';
                   e.currentTarget.style.color = 'var(--accent)';
+                  e.currentTarget.style.transform = 'scale(1.05)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'var(--border-dark)';
                   e.currentTarget.style.color = 'var(--text-primary)';
+                  e.currentTarget.style.transform = 'scale(1)';
                 }}
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
-                Resetează
               </button>
             )}
           </div>
