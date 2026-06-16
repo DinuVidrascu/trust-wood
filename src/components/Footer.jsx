@@ -55,7 +55,7 @@ export default function Footer() {
         <div>
           <div className="footer-heading">Internațional</div>
           <div className="footer-links">
-            <a href="#">Parteneri Europa</a>
+            <Link to="/parteneri" onClick={scrollToTop}>Parteneri Europa</Link>
             <a href="#">Proiecte Globale</a>
           </div>
         </div>
