@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWishlist } from '../context/WishlistContext';
 import AppointmentModal from './AppointmentModal';
@@ -12,6 +12,17 @@ export default function WishlistDrawer() {
     toggleDrawer();
     navigate('/catalog');
   };
+
+  useEffect(() => {
+    if (drawerOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [drawerOpen]);
 
   // Calculate total price
   const calculateTotal = () => {

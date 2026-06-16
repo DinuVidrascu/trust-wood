@@ -11,6 +11,7 @@ export default function AppointmentModal({ isOpen, onClose, configuredItems }) {
       setSuccess(false);
       setName('');
       setPhone('');
+      document.body.style.overflow = 'hidden';
       
       // Set min date to today
       const dateField = document.getElementById('modalDateInput');
@@ -18,7 +19,13 @@ export default function AppointmentModal({ isOpen, onClose, configuredItems }) {
         const today = new Date().toISOString().split('T')[0];
         dateField.min = today;
       }
+    } else {
+      document.body.style.overflow = '';
     }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   const handleSubmit = (e) => {
