@@ -89,7 +89,7 @@ export default function About() {
           padding: '60px 40px',
           background: 'var(--accent-light)',
           borderRadius: '4px',
-          border: '1px solid rgba(197, 168, 128, 0.15)',
+          border: '1px solid rgba(208, 155, 62, 0.15)',
           marginBottom: '80px'
         }} className="about-stats-grid">
           

@@ -74,7 +74,7 @@ export default function AppointmentModal({ isOpen, onClose, configuredItems }) {
             {configuredItems && configuredItems.length > 0 && (
               <div className="modal-configured-summary" style={{
                 background: 'var(--accent-light)',
-                border: '1px solid rgba(197, 168, 128, 0.2)',
+                border: '1px solid rgba(208, 155, 62, 0.2)',
                 borderRadius: '4px',
                 padding: '14px',
                 marginBottom: '20px',

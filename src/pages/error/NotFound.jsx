@@ -51,7 +51,7 @@ export default function NotFound() {
           width: '64px',
           height: '64px',
           borderRadius: '50%',
-          background: 'rgba(197, 168, 128, 0.12)',
+          background: 'rgba(208, 155, 62, 0.12)',
           border: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
@@ -176,7 +176,7 @@ export default function NotFound() {
       <style>{`
         .btn-home-404:hover { background: var(--accent-hover) !important; }
         .btn-catalog-404:hover { border-color: var(--accent) !important; color: var(--accent) !important; }
-        .link-chip-404:hover { border-color: var(--accent) !important; color: var(--accent) !important; background: rgba(197,168,128,0.06) !important; }
+        .link-chip-404:hover { border-color: var(--accent) !important; color: var(--accent) !important; background: rgba(208, 155, 62,0.06) !important; }
       `}</style>
     </div>
   );

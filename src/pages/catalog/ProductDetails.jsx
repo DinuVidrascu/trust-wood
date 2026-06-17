@@ -4,6 +4,8 @@ import { useProducts } from '../../context/ProductsContext';
 import AppointmentModal from '../../components/ui/AppointmentModal';
 import { useWishlist } from '../../context/WishlistContext';
 import { useCart } from '../../context/CartContext';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 export default function ProductDetails() {
   const { products } = useProducts();
@@ -277,6 +279,39 @@ export default function ProductDetails() {
   const handleModalClose = () => {
     setModalOpen(false);
     setSingleBookingItem(null);
+  };
+
+  const handleDownloadPDF = async () => {
+    const pdfEl = document.getElementById('pdf-quote-template');
+    if (!pdfEl) return;
+    
+    pdfEl.style.display = 'block';
+    
+    try {
+      const canvas = await html2canvas(pdfEl, { 
+        scale: 2, 
+        useCORS: true,
+        backgroundColor: '#FAF8F5' 
+      });
+      const imgData = canvas.toDataURL('image/png');
+      
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`Oferta_${product.name.replace(/\s+/g, '_')}.pdf`);
+    } catch (err) {
+      console.error('Eroare la generarea PDF:', err);
+      alert('Eroare la generarea ofertei PDF.');
+    } finally {
+      pdfEl.style.display = 'none';
+    }
   };
 
   const opts = product?.configOptions || { fabrics: [], wood: [], dimensions: [] };
@@ -616,7 +651,7 @@ export default function ProductDetails() {
                     La Comandă (15-25 zile)
                   </span>
                 )}
-                <span className="pm-premium-badge" style={{ display: 'inline-flex', alignItems: 'center', alignSelf: 'flex-start', background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid rgba(197, 168, 128, 0.2)', fontSize: '11px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span className="pm-premium-badge" style={{ display: 'inline-flex', alignItems: 'center', alignSelf: 'flex-start', background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid rgba(208, 155, 62, 0.2)', fontSize: '11px', fontWeight: '700', padding: '6px 14px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Finisaj Premium
                 </span>
               </div>
@@ -870,7 +905,7 @@ export default function ProductDetails() {
 
                     {/* Custom dimension slider */}
                     {(dimensionType === 'Personalizat' || dimensionType === 'Custom') && (
-                      <div className="custom-slider-wrap" style={{ background: 'var(--accent-light)', padding: '16px', borderRadius: '4px', border: '1px solid rgba(197,168,128,0.15)' }}>
+                      <div className="custom-slider-wrap" style={{ background: 'var(--accent-light)', padding: '16px', borderRadius: '4px', border: '1px solid rgba(208, 155, 62,0.15)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: '600', marginBottom: '10px' }}>
                           <span>Dimensiune Ajustabilă:</span>
                           <span style={{ color: 'var(--accent)', fontSize: '15px' }}>{customDimension} cm</span>
@@ -933,12 +968,22 @@ export default function ProductDetails() {
                   <button 
                     className="btn-outline pm-btn" 
                     style={{ flex: '1', minWidth: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
+                    onClick={handleDownloadPDF}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Ofertă PDF
+                  </button>
+                  <button 
+                    className="btn-outline pm-btn" 
+                    style={{ flex: '1', minWidth: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
                     onClick={handleAddToWishlist}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
-                    Adaugă în Favorite
+                    Favorite
                   </button>
                   
                   <button 
@@ -1319,6 +1364,84 @@ export default function ProductDetails() {
             }
           }
         `}</style>
+      </div>
+
+      {/* HIDDEN PDF TEMPLATE */}
+      <div 
+        id="pdf-quote-template" 
+        style={{ 
+          display: 'none', 
+          width: '800px', 
+          padding: '40px', 
+          backgroundColor: '#FAF8F5', 
+          color: '#1C1B19', 
+          fontFamily: '"Outfit", sans-serif',
+          position: 'absolute',
+          top: '-9999px',
+          left: '-9999px',
+          boxSizing: 'border-box'
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #D09B3E', paddingBottom: '20px', marginBottom: '30px', width: '100%', position: 'relative' }}>
+          <div>
+            <h1 style={{ fontFamily: '"Playfair Display", serif', fontSize: '24px', margin: '0 0 8px 0', color: '#1C1B19', whiteSpace: 'nowrap' }}>Ofertă Comercială</h1>
+            <p style={{ margin: 0, color: '#666', fontSize: '13px' }}>Data: {new Date().toLocaleDateString('ro-RO')}</p>
+          </div>
+          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', textAlign: 'center' }}>
+            <img src="/logo_dark_text.png" alt="Trustera Wood & Soft" style={{ height: '45px', objectFit: 'contain' }} crossOrigin="anonymous" />
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <p style={{ margin: 0, fontSize: '13px', color: '#666' }}>Chișinău, Republica Moldova<br/>contact@woodsoft.md<br/>+373 60 53 56 65</p>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '40px', marginBottom: '40px' }}>
+          <div style={{ flex: '1' }}>
+            <img 
+              src={productImages[0]} 
+              alt={product.name} 
+              style={{ width: '100%', height: 'auto', borderRadius: '8px', objectFit: 'cover' }} 
+              crossOrigin="anonymous"
+            />
+          </div>
+          <div style={{ flex: '1' }}>
+            <h2 style={{ fontFamily: '"Playfair Display", serif', fontSize: '28px', margin: '0 0 5px 0' }}>{product.type} {product.name}</h2>
+            <p style={{ color: '#D09B3E', fontSize: '16px', fontWeight: '500', margin: '0 0 20px 0' }}>{product.category}</p>
+            
+            <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.05)' }}>
+              <h3 style={{ fontSize: '16px', borderBottom: '1px solid #eee', paddingBottom: '10px', margin: '0 0 15px 0' }}>Configurație Selectată</h3>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                <span style={{ color: '#666' }}>Stofă:</span>
+                <span style={{ fontWeight: '500' }}>{fabricType} ({activeFabricSwatch?.name || 'Neselectat'})</span>
+              </div>
+              
+              {hasWood && (
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                  <span style={{ color: '#666' }}>Lemn/Picioare:</span>
+                  <span style={{ fontWeight: '500' }}>{woodType}</span>
+                </div>
+              )}
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+                <span style={{ color: '#666' }}>Dimensiune:</span>
+                <span style={{ fontWeight: '500' }}>{getDimensionLabel()}</span>
+              </div>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #eee', paddingTop: '15px', marginTop: '10px' }}>
+                <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Total Estimativ:</span>
+                <span style={{ fontSize: '22px', fontWeight: 'bold', color: '#D09B3E' }}>{calculatedPrice.toLocaleString('ro-RO')} MDL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 'auto', paddingTop: '30px', borderTop: '1px solid #eee', textAlign: 'center' }}>
+          <p style={{ color: '#666', fontSize: '12px', lineHeight: '1.6' }}>
+            * Această ofertă are caracter informativ și nu reprezintă un contract comercial.<br/>
+            Termenul de execuție standard este de 4-6 săptămâni. Prețul poate suferi ușoare modificări în funcție de complexitatea tehnică a proiectului personalizat și de disponibilitatea materialelor la momentul comenzii ferme.
+          </p>
+        </div>
       </div>
     </>
   );

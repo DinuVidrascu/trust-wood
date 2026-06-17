@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWishlist } from '../../context/WishlistContext';
 import AppointmentModal from '../ui/AppointmentModal';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 export default function WishlistDrawer() {
   const { wishlist, removeFromWishlist, drawerOpen, toggleDrawer, clearWishlist } = useWishlist();
@@ -64,6 +66,40 @@ export default function WishlistDrawer() {
   const handleOpenModal = () => {
     setModalOpen(true);
     toggleDrawer(); // Close the drawer so the modal is displayed cleanly
+  };
+
+  const handleDownloadWishlistPDF = async () => {
+    if (wishlist.length === 0) return;
+    const pdfEl = document.getElementById('pdf-wishlist-template');
+    if (!pdfEl) return;
+    
+    pdfEl.style.display = 'block';
+    
+    try {
+      const canvas = await html2canvas(pdfEl, { 
+        scale: 2, 
+        useCORS: true,
+        backgroundColor: '#FAF8F5' 
+      });
+      const imgData = canvas.toDataURL('image/png');
+      
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`Oferta_Trustera_${new Date().toLocaleDateString('ro-RO').replace(/\./g, '-')}.pdf`);
+    } catch (err) {
+      console.error('Eroare la generarea PDF:', err);
+      alert('Eroare la generarea ofertei PDF.');
+    } finally {
+      pdfEl.style.display = 'none';
+    }
   };
 
   return (
@@ -143,6 +179,13 @@ export default function WishlistDrawer() {
                       Trimite pe WhatsApp
                     </button>
                     
+                    <button className="btn-premium wd-btn" onClick={handleDownloadWishlistPDF} style={{ background: '#333' }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px', verticalAlign: 'text-bottom' }}>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                      </svg>
+                      Descarcă Ofertă PDF
+                    </button>
+
                     <button className="btn-premium wd-btn" onClick={handleOpenModal}>
                       Cere Ofertă / Rezervă Vizită
                     </button>
@@ -163,6 +206,74 @@ export default function WishlistDrawer() {
         onClose={() => setModalOpen(false)} 
         configuredItems={wishlist}
       />
+
+      {/* HIDDEN WISHLIST PDF TEMPLATE */}
+      <div 
+        id="pdf-wishlist-template" 
+        style={{ 
+          display: 'none', 
+          width: '800px', 
+          padding: '40px', 
+          backgroundColor: '#FAF8F5', 
+          color: '#1C1B19', 
+          fontFamily: '"Outfit", sans-serif',
+          position: 'absolute',
+          top: '-9999px',
+          left: '-9999px',
+          boxSizing: 'border-box'
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #D09B3E', paddingBottom: '20px', marginBottom: '30px', width: '100%', position: 'relative' }}>
+          <div>
+            <h1 style={{ fontFamily: '"Playfair Display", serif', fontSize: '24px', margin: '0 0 8px 0', color: '#1C1B19', whiteSpace: 'nowrap' }}>Ofertă Comercială</h1>
+            <p style={{ margin: 0, color: '#666', fontSize: '13px' }}>Data: {new Date().toLocaleDateString('ro-RO')}</p>
+          </div>
+          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', textAlign: 'center' }}>
+            <img src="/logo_dark_text.png" alt="Trustera Wood & Soft" style={{ height: '45px', objectFit: 'contain' }} crossOrigin="anonymous" />
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <p style={{ margin: 0, fontSize: '13px', color: '#666' }}>Chișinău, Republica Moldova<br/>contact@woodsoft.md<br/>+373 60 53 56 65</p>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '30px' }}>
+          <h3 style={{ fontSize: '18px', margin: '0 0 15px 0', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Lista Produselor Configurate:</h3>
+          {wishlist.map((item, idx) => (
+            <div key={idx} style={{ display: 'flex', gap: '20px', marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px dashed #eee' }}>
+              <div style={{ width: '120px', height: '120px', flexShrink: 0 }}>
+                <img src={item.img} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} crossOrigin="anonymous" />
+              </div>
+              <div style={{ flex: '1' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <h4 style={{ fontFamily: '"Playfair Display", serif', fontSize: '20px', margin: 0 }}>{item.type} {item.name}</h4>
+                  <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#D09B3E' }}>{item.price} MDL</span>
+                </div>
+                <div style={{ color: '#666', fontSize: '14px' }}>
+                  <p style={{ margin: '0 0 4px 0' }}><strong>Stofă:</strong> {item.fabricType} ({item.swatchName})</p>
+                  <p style={{ margin: '0 0 4px 0' }}><strong>Picioare:</strong> {item.woodType}</p>
+                  <p style={{ margin: 0 }}><strong>Dimensiune:</strong> {item.dimension}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '40px' }}>
+          <div style={{ width: '300px', background: '#fff', padding: '20px', borderRadius: '8px', border: '1px solid rgba(0,0,0,0.05)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Total Estimativ:</span>
+              <span style={{ fontSize: '22px', fontWeight: 'bold', color: '#D09B3E' }}>{calculateTotal().toLocaleString('ro-RO')} MDL</span>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 'auto', paddingTop: '30px', borderTop: '1px solid #eee', textAlign: 'center' }}>
+          <p style={{ color: '#666', fontSize: '12px', lineHeight: '1.6' }}>
+            * Această ofertă are caracter informativ și nu reprezintă un contract comercial.<br/>
+            Termenul de execuție standard este de 4-6 săptămâni. Prețul poate suferi ușoare modificări în funcție de complexitatea tehnică a proiectelor personalizate.
+          </p>
+        </div>
+      </div>
     </>
   );
 }
