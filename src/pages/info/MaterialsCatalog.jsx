@@ -8,7 +8,7 @@ const materialsData = [
     category: 'fabrics',
     shortDesc: 'O textură extrem de moale și elegantă, cu o rezistență remarcabilă la uzură și tratament hidrofob.',
     longDesc: 'Catifeaua noastră premium este alegerea ideală pentru un living sofisticat. Datorită tehnologiei Easy Clean, lichidele rămân la suprafață sub formă de picături, oferindu-vă timp să le ștergeți cu o lavetă uscată. Stofa este catifelată la atingere, are un reflex discret în lumină și oferă un confort termic sporit.',
-    imgSrc: '/img/sofa_green.webp', // We can show one of our premium products as preview
+    imgSrc: '/img/textures/texture_emerald_velvet.webp', // Premium macro texture
     specs: {
       'Compoziție': '100% Poliester de înaltă densitate',
       'Rezistență (Martindale)': '100.000 cicluri (Uzură intensă/comercială)',
@@ -32,7 +32,7 @@ const materialsData = [
     category: 'fabrics',
     shortDesc: 'O stofă texturată premium, realizată din bucle neregulate care creează un aspect tridimensional extrem de călduros.',
     longDesc: 'Stofa Bouclé definește estetica organică contemporană. Cu textura sa bogată și moale, aduce adâncime vizuală oricărei piese de mobilier. Este o stofă rezistentă, care nu se șifonează și își păstrează forma în timp, fiind extrem de apreciată în designul de interior minimalist.',
-    imgSrc: '/img/armchair_beige.webp',
+    imgSrc: '/img/textures/texture_beige_boucle.webp',
     specs: {
       'Compoziție': '90% Poliester, 10% Acril',
       'Rezistență (Martindale)': '50.000 cicluri (Uzură casnică intensă)',
@@ -53,7 +53,7 @@ const materialsData = [
     category: 'fabrics',
     shortDesc: 'Un amestec organic de in și bumbac, oferind o respirabilitate excelentă și un aspect lejer, natural.',
     longDesc: 'Amestecul nostru de in oferă textura rustic-elegantă a fibrelor naturale, dar cu durabilitatea sporită adusă de poliester. Este o stofă extrem de plăcută în sezoanele calde datorită ventilației naturale excelente și este complet hipoalergenică, potrivită pentru persoanele cu piele sensibilă.',
-    imgSrc: '/img/sofa_grey.webp',
+    imgSrc: '/img/textures/texture_beige_velvet.webp',
     specs: {
       'Compoziție': '40% In, 30% Bumbac, 30% Poliester',
       'Rezistență (Martindale)': '35.000 cicluri (Uzură casnică medie)',
@@ -74,7 +74,7 @@ const materialsData = [
     category: 'fabrics',
     shortDesc: 'Stofă cu țesătură plată și densă, proiectată special pentru a rezista la zgârieturi și pentru o curățare ultra-rapidă a părului de animale.',
     longDesc: 'Dacă aveți animale de companie, această stofă este soluția ideală. Structura sa extrem de strânsă împiedică ghearele pisicilor sau câinilor să agațe firele, iar firele de păr pot fi îndepărtate cu ușurință folosind o simplă rolă adezivă sau o lavetă umedă. Are un tratament de protecție moleculară care previne pătrunderea murdăriei în profunzimea fiebrei.',
-    imgSrc: '/img/chair_nova_sage.webp',
+    imgSrc: '/img/textures/texture_sage_green.webp',
     specs: {
       'Compoziție': '100% Poliester tratat anti-pată',
       'Rezistență (Martindale)': '80.000 cicluri (Uzură foarte intensă)',
@@ -95,7 +95,7 @@ const materialsData = [
     category: 'hard',
     shortDesc: 'Lemn masiv de stejar selecționat, finisat cu lac mat ecologic pentru a păstra textura și culoarea caldă naturală.',
     longDesc: 'Stejarul nostru provine exclusiv din surse sustenabile certificate FSC. Fiecare blat de masă este o piesă unică datorită desenului natural al fibrelor, nodurilor mici controlate și variațiilor subtile de culoare. Finisajul cu lac poliuretanic mat oferă protecție de lungă durată împotriva petelor de lichide, fără a altera aspectul organic al lemnului brut.',
-    imgSrc: '/img/table_rovo_oak.webp',
+    imgSrc: '/img/textures/texture_natural_oak.webp',
     specs: {
       'Tip material': 'Lemn masiv de Stejar',
       'Finisaj': 'Lac poliuretanic mat, anti-îngălbenire (2 straturi)',
@@ -114,7 +114,7 @@ const materialsData = [
     category: 'hard',
     shortDesc: 'Lemn de stejar tratat termic în profunzime, obținând o nuanță profundă de maro-negru dramatic și o stabilitate structurală superioară.',
     longDesc: 'Tratamentul termic (afumarea) modifică structura chimică a lemnului, oferindu-i o culoare închisă spectaculoasă în toată grosimea blatului, nu doar la suprafață. Acest procedeu elimină complet riscul de dilatare sau contractare la schimbările de umiditate din locuință și conferă un aer modern, masculin și extrem de elegant.',
-    imgSrc: '/img/table_rovo_black.webp',
+    imgSrc: '/img/textures/texture_smoked_oak.webp',
     specs: {
       'Tip material': 'Lemn masiv de Stejar tratat termic',
       'Finisaj': 'Ulei ceară naturală (hardwax oil) sau lac mat închis',
@@ -133,7 +133,7 @@ const materialsData = [
     category: 'hard',
     shortDesc: 'Esență nobilă de nuc cu nuanțe ciocolatii calde, renumită pentru desenul fluid al fibrei și exclusivitatea sa.',
     longDesc: 'Nucul American este una dintre cele mai prețioase esențe utilizate în mobilierul de lux. Lemnul are un luciu natural discret, cu fibre ondulate și tonuri bogate de la maro deschis până la ciocolatiu închis. Finisat exclusiv cu uleiuri organice care pătrund în fibră pentru a evidenția profunzimea culorii și textura catifelată la atingere.',
-    imgSrc: '/img/table_rovo_oak.webp', // Fallback preview
+    imgSrc: '/img/textures/texture_dark_walnut.webp', // Premium macro texture
     specs: {
       'Tip material': 'Lemn masiv de Nuc American',
       'Finisaj': 'Ulei ecologic pe bază de in și ceară de albine',
@@ -152,7 +152,7 @@ const materialsData = [
     category: 'hard',
     shortDesc: 'Lemn de fag de înaltă densitate, uscat și tratat, utilizat exclusiv în interiorul canapelelor pentru durabilitate structurală maximă.',
     longDesc: 'Deși nu este vizibil la exterior, lemnul de fag este inima mobilierului nostru tapițat. Datorită rezistenței sale extraordinare la încovoiere și compresiune, fagul asigură o structură rigidă care nu va scârțâi și nu se va deforma în timp, garantând că investiția dumneavoastră depășește 15 ani de utilizare zilnică.',
-    imgSrc: '/img/sofa_beige.webp',
+    imgSrc: '/img/textures/texture_white_matt.webp',
     specs: {
       'Tip material': 'Lemn masiv de Fag (densitate mare)',
       'Finisaj': 'Tratat antifungic și insecticid, netencuit (folosit intern)',
