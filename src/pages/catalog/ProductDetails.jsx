@@ -17,8 +17,50 @@ export default function ProductDetails() {
   
   const product = products.find(p => p.id === parseInt(id));
 
-    const fabricSwatches = (product?.swatches || []).filter(sw => sw.type !== 'wood');
-  const woodSwatches = (product?.swatches || []).filter(sw => sw.type === 'wood');
+  const groupProducts = product?.group 
+    ? products.filter(p => p.group === product.group)
+    : product ? [product] : [];
+
+  const fabricSwatchesMap = new Map();
+  
+  groupProducts.forEach(p => {
+    const pFabricSwatches = (p.swatches || []).filter(sw => sw.type !== 'wood');
+    if (pFabricSwatches.length > 0) {
+      pFabricSwatches.forEach(sw => {
+        if (!fabricSwatchesMap.has(sw.name)) {
+          fabricSwatchesMap.set(sw.name, { productId: p.id, ...sw });
+        }
+      });
+    } else if (p.id !== product.id) {
+      // Fallback for variant products without native swatches
+      if (!fabricSwatchesMap.has(p.name)) {
+        fabricSwatchesMap.set(p.name, {
+          type: 'fabric',
+          name: p.name,
+          code: '#C5A880',
+          img: p.img,
+          textureImg: null,
+          productId: p.id,
+          isVariant: true
+        });
+      }
+    }
+  });
+
+  const fabricSwatches = Array.from(fabricSwatchesMap.values());
+  
+  const woodSwatchesMap = new Map();
+  groupProducts.forEach(p => {
+    const pWoodSwatches = (p.swatches || []).filter(sw => sw.type === 'wood');
+    if (pWoodSwatches.length > 0) {
+      pWoodSwatches.forEach(sw => {
+        if (!woodSwatchesMap.has(sw.name)) {
+          woodSwatchesMap.set(sw.name, { productId: p.id, ...sw });
+        }
+      });
+    }
+  });
+  const woodSwatches = Array.from(woodSwatchesMap.values());
 
   const [activeFabricSwatch, setActiveFabricSwatch] = useState(null);
   const [activeWoodSwatch, setActiveWoodSwatch] = useState(null);
@@ -55,14 +97,27 @@ export default function ProductDetails() {
   useEffect(() => {
     if (product) {
       if (fabricSwatches.length > 0) {
-        const matched = fabricSwatches.find(s => s.productId === product.id);
-        setActiveFabricSwatch(matched || fabricSwatches[0]);
+        const preselectedName = location.state?.selectedSwatchName;
+        if (preselectedName) {
+          const matched = fabricSwatches.find(s => s.name === preselectedName);
+          setActiveFabricSwatch(matched || fabricSwatches[0]);
+        } else {
+          // Find first swatch belonging to this product, or just first available
+          const matched = fabricSwatches.find(s => s.productId === product.id);
+          setActiveFabricSwatch(matched || fabricSwatches[0]);
+        }
       } else {
         setActiveFabricSwatch(null);
       }
       if (woodSwatches.length > 0) {
-        const matchedW = woodSwatches.find(s => s.productId === product.id);
-        setActiveWoodSwatch(matchedW || woodSwatches[0]);
+        const preselectedWoodName = location.state?.selectedWoodSwatchName;
+        if (preselectedWoodName) {
+          const matchedW = woodSwatches.find(s => s.name === preselectedWoodName);
+          setActiveWoodSwatch(matchedW || woodSwatches[0]);
+        } else {
+          const matchedW = woodSwatches.find(s => s.productId === product.id);
+          setActiveWoodSwatch(matchedW || woodSwatches[0]);
+        }
       } else {
         setActiveWoodSwatch(null);
       }
@@ -74,7 +129,7 @@ export default function ProductDetails() {
       setCustomDimension(220);
       setActiveImageIdx(0);
     }
-  }, [product]);
+  }, [product, id]);
 
   // Sync main image with selected swatch color
   useEffect(() => {
@@ -476,9 +531,9 @@ export default function ProductDetails() {
                         }}
                         onClick={() => {
                           if (swatch.productId !== undefined && swatch.productId !== product.id) {
-                            navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                            navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true, selectedSwatchName: swatch.name } });
                           } else {
-                            setActiveSwatch(swatch);
+                            setActiveFabricSwatch(swatch);
                           }
                         }}
                         title={swatch.name}
@@ -509,7 +564,7 @@ export default function ProductDetails() {
                             }}
                             onClick={() => {
                               if (swatch.productId !== undefined && swatch.productId !== product.id) {
-                                navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                                navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true, selectedWoodSwatchName: swatch.name } });
                               } else {
                                 setActiveWoodSwatch(swatch);
                               }
@@ -739,9 +794,9 @@ export default function ProductDetails() {
                           }}
                           onClick={() => {
                             if (swatch.productId !== undefined && swatch.productId !== product.id) {
-                               navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                               navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true, selectedSwatchName: swatch.name } });
                             } else {
-                               setActiveSwatch(swatch);
+                               setActiveFabricSwatch(swatch);
                             }
                           }}
                           title={swatch.name}
@@ -825,7 +880,7 @@ export default function ProductDetails() {
                               }}
                               onClick={() => {
                                 if (swatch.productId !== undefined && swatch.productId !== product.id) {
-                                   navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                                   navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true, selectedWoodSwatchName: swatch.name } });
                                 } else {
                                    setActiveWoodSwatch(swatch);
                                 }

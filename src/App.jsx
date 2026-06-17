@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import { WishlistProvider } from './context/WishlistContext';
@@ -26,6 +26,12 @@ const Projects = lazy(() => import('./pages/info/Projects'));
 const NotFound = lazy(() => import('./pages/error/NotFound'));
 const DinuDev = lazy(() => import('./pages/dev/DinuDev'));
 
+// Admin Pages
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const ProductManager = lazy(() => import('./pages/admin/ProductManager'));
+const ContentManager = lazy(() => import('./pages/admin/ContentManager'));
 // Premium minimal loader fallback
 const LoadingFallback = () => (
   <div style={{
@@ -57,8 +63,11 @@ const LoadingFallback = () => (
   </div>
 );
 
-export default function App() {
+function AppContent() {
   const [bttVisible, setBttVisible] = useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
 
   // Back-to-top scroll tracker
   useEffect(() => {
@@ -74,7 +83,6 @@ export default function App() {
   };
 
   return (
-    <Router>
       <ContentProvider>
       <ProductsProvider>
         <WishlistProvider>
@@ -82,13 +90,13 @@ export default function App() {
           <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             
             {/* GLOBAL HEADER/NAVBAR */}
-            <Navbar />
+            {!isAdmin && <Navbar />}
 
             {/* WISHLIST DRAWER */}
-            <WishlistDrawer />
+            {!isAdmin && <WishlistDrawer />}
 
             {/* CART DRAWER */}
-            <CartDrawer />
+            {!isAdmin && <CartDrawer />}
 
         {/* MAIN PAGE ROUTES WITH LAZY SUSPENSE */}
         <main style={{ flexGrow: 1 }}>
@@ -108,15 +116,28 @@ export default function App() {
               <Route path="/parteneri" element={<Partners />} />
               <Route path="/proiecte-globale" element={<Projects />} />
               <Route path="/dinudev" element={<DinuDev />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={isAdminLoggedIn ? <AdminLayout onLogout={() => setIsAdminLoggedIn(false)} /> : <AdminLogin onLogin={setIsAdminLoggedIn} />}>
+                {isAdminLoggedIn && (
+                  <>
+                    <Route path="dashboard" element={<AdminDashboard />} />
+                    <Route path="products" element={<ProductManager />} />
+                    <Route path="content" element={<ContentManager />} />
+                  </>
+                )}
+              </Route>
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>
 
         {/* GLOBAL FOOTER */}
-        <Footer />
+        {!isAdmin && <Footer />}
 
         {/* WHATSAPP FLOATING FLOATER */}
+        {!isAdmin && (
         <a 
           className="wa-widget" 
           href="https://wa.me/37360535665" 
@@ -131,6 +152,7 @@ export default function App() {
             </svg>
           </div>
         </a>
+        )}
 
         {/* BACK TO TOP BUTTON */}
         <button 
@@ -146,6 +168,13 @@ export default function App() {
         </WishlistProvider>
       </ProductsProvider>
       </ContentProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
