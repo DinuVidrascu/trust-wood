@@ -183,6 +183,30 @@ export default function ProductManager() {
     handleRemoveSwatch(idx);
   };
 
+  const handleImageUpload = (e, field) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 800 * 1024) {
+        alert("Atenție: Imaginea este prea mare (>800KB). Salvarea ca Base64 în baza de date locală poate atinge limitele de memorie. Vă recomandăm imagini comprimate (ex. WebP).");
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (field === 'img') {
+          setFormData(prev => ({ ...prev, img: reader.result }));
+        } else if (field === 'images') {
+          setFormData(prev => {
+            const currentImages = prev.images ? prev.images.split(',').map(i => i.trim()).filter(i => i) : [];
+            currentImages.push(reader.result);
+            return { ...prev, images: currentImages.join(', ') };
+          });
+        } else if (field === 'textureImg') {
+          setNewSwatch(prev => ({ ...prev, textureImg: reader.result }));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const inputStyle = {
     width: '100%',
     padding: '12px 16px',
@@ -432,14 +456,49 @@ export default function ProductManager() {
                     </div>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                      <label style={labelStyle}>Imagine Principală (URL)</label>
-                      <input type="text" value={formData.img} onChange={e => setFormData({...formData, img: e.target.value})} style={inputStyle} required placeholder="/img/canapele/..." />
+                      <label style={labelStyle}>Imagine Principală (URL sau Path) *</label>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <input type="text" value={formData.img} onChange={e => setFormData({...formData, img: e.target.value})} style={{ ...inputStyle, flex: 1 }} required placeholder="/img/canapele/..." />
+                        <label style={{ 
+                          background: '#C5A880', 
+                          color: '#fff',
+                          padding: '0 20px', 
+                          borderRadius: '8px', 
+                          cursor: 'pointer', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(197, 168, 128, 0.2)',
+                          fontWeight: '600'
+                        }} title="Încarcă imagine locală (se salvează ca Base64)">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                          <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e, 'img')} />
+                        </label>
+                      </div>
                       {formData.img && <img src={formData.img} alt="Preview" style={{ marginTop: '10px', height: '100px', borderRadius: '8px', border: '1px solid #e0e0e0' }} />}
                     </div>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                      <label style={labelStyle}>Mai multe imagini (URL-uri separate prin virgulă)</label>
-                      <textarea value={formData.images} onChange={e => setFormData({...formData, images: e.target.value})} style={{...inputStyle, height: '80px', resize: 'vertical'}} placeholder="/img/1.jpg, /img/2.jpg" />
+                      <label style={labelStyle}>Imagini Galerie Adiționale (Separate prin virgulă)</label>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <textarea value={formData.images} onChange={e => setFormData({...formData, images: e.target.value})} style={{...inputStyle, height: '80px', resize: 'vertical', flex: 1}} placeholder="/img/1.jpg, /img/2.jpg" />
+                        <label style={{ 
+                          background: '#C5A880', 
+                          color: '#fff',
+                          padding: '0 20px', 
+                          borderRadius: '8px', 
+                          cursor: 'pointer', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(197, 168, 128, 0.2)',
+                          fontWeight: '600',
+                          height: '80px'
+                        }} title="Încarcă imagine locală în galerie (se adugă ca Base64)">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                          <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e, 'images')} />
+                        </label>
+                      </div>
                     </div>
 
                     <div style={{ gridColumn: 'span 2' }}>
@@ -540,7 +599,25 @@ export default function ProductManager() {
                         <label style={labelStyle}>Imagine Textură URL (Opțional, înlocuiește culoarea)</label>
                         <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                           <div style={{ flex: 1 }}>
-                            <input type="text" value={newSwatch.textureImg} onChange={e => setNewSwatch({...newSwatch, textureImg: e.target.value})} style={inputStyle} placeholder="/img/stofe/..." />
+                            <div style={{ display: 'flex', gap: '10px' }}>
+                              <input type="text" value={newSwatch.textureImg} onChange={e => setNewSwatch({...newSwatch, textureImg: e.target.value})} style={{ ...inputStyle, flex: 1 }} placeholder="/img/stofe/..." />
+                              <label style={{ 
+                                background: '#C5A880', 
+                                color: '#fff',
+                                padding: '0 15px', 
+                                borderRadius: '8px', 
+                                cursor: 'pointer', 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                boxShadow: '0 4px 12px rgba(197, 168, 128, 0.2)',
+                                fontWeight: '600',
+                                height: '44px'
+                              }} title="Încarcă imagine locală (se salvează ca Base64)">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e, 'textureImg')} />
+                              </label>
+                            </div>
                             {newSwatch.textureImg && <img src={newSwatch.textureImg} alt="Preview Textura" style={{ marginTop: '10px', width: '100px', height: '100px', borderRadius: '8px', objectFit: 'cover', border: '1px solid #e0e0e0' }} />}
                           </div>
                           <button type="button" onClick={handleAddSwatch} style={{ padding: '0 20px', height: '44px', backgroundColor: '#1a1a1a', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}>Adaugă</button>
