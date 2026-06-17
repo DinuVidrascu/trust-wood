@@ -242,12 +242,30 @@ const materialsData = [
     recommendedFor: 'Fotolii executive, canapele stil Chesterfield sau moderne-minimaliste.'
   },
   {
+    id: 'piele-albastra',
+    name: 'Piele Albastră (Aura Blue)',
+    category: 'fabrics',
+    shortDesc: 'Piele premium într-o nuanță distinctă de albastru marin, cu granulație fină și cusături vizibile.',
+    longDesc: 'O textură de piele luxoasă și îndrăzneață, perfectă pentru a adăuga un accent de culoare sofisticat. Finisajul său oferă un echilibru excelent între suplețe și durabilitate.',
+    imgSrc: '/img/textures/aura-blue-texture.webp',
+    specs: {
+      'Compoziție': 'Piele naturală / Eco Premium',
+      'Grosime': '1.2 - 1.4 mm',
+      'Tratament special': 'Rezistentă la decolorare și zgârieturi',
+      'Întreținere': 'Ștergere cu lavetă umedă; utilizare de balsam protector anual.'
+    },
+    colors: [
+      { name: 'Albastru Marin', code: '#2D445D' }
+    ],
+    recommendedFor: 'Fotolii statement (Aura), tapițerii de accent pentru scaune de dining.'
+  },
+  {
     id: 'lemn-aura-blue',
     name: 'Finisaj Lemn Albastru (Aura Blue)',
     category: 'hard',
     shortDesc: 'Un finisaj translucid spectaculos care colorează fibra lemnului în albastru, păstrând vizibil desenul natural.',
     longDesc: 'Acest finisaj inovator îmbină estetica organică a lemnului masiv cu un accent cromatic curajos. Procesul implică impregnarea fibrei cu pigmenți ecologici albaștri, oferind o piesă de mobilier unicat, cu personalitate puternică.',
-    imgSrc: '/img/textures/aura-blue-texture.webp',
+    imgSrc: '/img/textures/aura-blue-texture-wood.jpg',
     specs: {
       'Tip material': 'Lemn masiv (Esență tare) vopsit',
       'Finisaj': 'Lac poliuretanic mat peste baiț colorat translucid',
