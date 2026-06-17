@@ -15,8 +15,12 @@ export default function ProductDetails() {
   
   const product = products.find(p => p.id === parseInt(id));
 
-  const [activeSwatch, setActiveSwatch] = useState(null);
-  const [textureInlineOpen, setTextureInlineOpen] = useState(false);
+    const fabricSwatches = (product?.swatches || []).filter(sw => sw.type !== 'wood');
+  const woodSwatches = (product?.swatches || []).filter(sw => sw.type === 'wood');
+
+  const [activeFabricSwatch, setActiveFabricSwatch] = useState(null);
+  const [activeWoodSwatch, setActiveWoodSwatch] = useState(null);
+  const [expandedTexture, setExpandedTexture] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [singleBookingItem, setSingleBookingItem] = useState(null);
 
@@ -35,9 +39,17 @@ export default function ProductDetails() {
   // Initialize active swatch and resets
   useEffect(() => {
     if (product) {
-      if (product.swatches && product.swatches.length > 0) {
-        const matchedSwatch = product.swatches.find(s => s.productId === product.id);
-        setActiveSwatch(matchedSwatch || product.swatches[0]);
+      if (fabricSwatches.length > 0) {
+        const matched = fabricSwatches.find(s => s.productId === product.id);
+        setActiveFabricSwatch(matched || fabricSwatches[0]);
+      } else {
+        setActiveFabricSwatch(null);
+      }
+      if (woodSwatches.length > 0) {
+        const matchedW = woodSwatches.find(s => s.productId === product.id);
+        setActiveWoodSwatch(matchedW || woodSwatches[0]);
+      } else {
+        setActiveWoodSwatch(null);
       }
       
       // Reset selections for new products
@@ -51,14 +63,14 @@ export default function ProductDetails() {
 
   // Sync main image with selected swatch color
   useEffect(() => {
-    if (activeSwatch && activeSwatch.img && product) {
+    if (activeFabricSwatch && activeFabricSwatch.img && product) {
       const images = product.images || [product.img];
-      const idx = images.indexOf(activeSwatch.img);
+      const idx = images.indexOf(activeFabricSwatch.img);
       if (idx !== -1) {
         setActiveImageIdx(idx);
       }
     }
-  }, [activeSwatch, product]);
+  }, [activeFabricSwatch, product]);
 
   // Scroll to top on page transition unless prevented by navigation state
   useEffect(() => {
@@ -180,13 +192,13 @@ export default function ProductDetails() {
 
   // Close inline texture when clicking outside
   useEffect(() => {
-    if (!textureInlineOpen) return;
+    if (!expandedTexture) return;
     
     const handleOutsideClick = (e) => {
       const box = document.querySelector('.macro-inline-box');
       const btn = document.querySelector('.macro-texture-container');
       if (box && !box.contains(e.target) && btn && !btn.contains(e.target)) {
-        setTextureInlineOpen(false);
+        setExpandedTexture(null);
       }
     };
     
@@ -198,7 +210,7 @@ export default function ProductDetails() {
       clearTimeout(timer);
       window.removeEventListener('click', handleOutsideClick);
     };
-  }, [textureInlineOpen]);
+  }, [expandedTexture]);
 
   if (!product) {
     return (
@@ -230,9 +242,9 @@ export default function ProductDetails() {
       id: product.id,
       name: product.name,
       type: product.type,
-      img: (activeSwatch && activeSwatch.img) ? activeSwatch.img : product.img,
+      img: (activeFabricSwatch && activeFabricSwatch.img) ? activeFabricSwatch.img : product.img,
       fabricType,
-      swatchName: activeSwatch?.name || 'Neselectat',
+      swatchName: activeFabricSwatch?.name || 'Neselectat',
       woodType,
       dimension: getDimensionLabel(),
       price: calculatedPrice.toLocaleString('ro-RO')
@@ -245,9 +257,9 @@ export default function ProductDetails() {
       id: product.id,
       name: product.name,
       type: product.type,
-      img: (activeSwatch && activeSwatch.img) ? activeSwatch.img : product.img,
+      img: (activeFabricSwatch && activeFabricSwatch.img) ? activeFabricSwatch.img : product.img,
       fabricType,
-      swatchName: activeSwatch?.name || 'Neselectat',
+      swatchName: activeFabricSwatch?.name || 'Neselectat',
       woodType,
       dimension: getDimensionLabel(),
       price: calculatedPrice.toLocaleString('ro-RO'),
@@ -263,7 +275,7 @@ export default function ProductDetails() {
       type: product.type,
       img: product.img,
       fabricType,
-      swatchName: activeSwatch?.name || 'Neselectat',
+      swatchName: activeFabricSwatch?.name || 'Neselectat',
       woodType,
       dimension: getDimensionLabel(),
       price: calculatedPrice.toLocaleString('ro-RO')
@@ -280,8 +292,8 @@ export default function ProductDetails() {
   const hasDimensions = ['Canapele', 'Scaune', 'Paturi', 'Mese', 'Pufuri'].includes(product.category);
   
   // If the product has swatches with images, we treat the active swatch as the "product" being viewed
-  const productImages = (activeSwatch && activeSwatch.img) 
-    ? [activeSwatch.img] 
+  const productImages = (activeFabricSwatch && activeFabricSwatch.img) 
+    ? [activeFabricSwatch.img] 
     : (product.images || [product.img]);
 
   return (
@@ -417,21 +429,21 @@ export default function ProductDetails() {
               {product.swatches && product.swatches.length > 0 && (
                 <div className="mobile-swatches-wrapper">
                   <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
-                    {product.category === 'Mese' ? 'Finisaj Lemn:' : 'Nuanță Tapițerie:'} <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeSwatch?.name}</span>
+                    {product.category === 'Mese' ? 'Finisaj Lemn:' : 'Nuanță Tapițerie:'} <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeFabricSwatch?.name}</span>
                   </div>
                   <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '10px' }}>
-                    {product.swatches.map((swatch, idx) => (
+                    {fabricSwatches.map((swatch, idx) => (
                       <button 
                         key={idx}
-                        className={`pm-swatch ${activeSwatch?.name === swatch.name ? 'active' : ''}`}
+                        className={`pm-swatch ${activeFabricSwatch?.name === swatch.name ? 'active' : ''}`}
                         style={{
                           backgroundColor: swatch.code,
                           width: '34px',
                           height: '34px',
                           borderRadius: '50%',
                           border: '2px solid #FFF',
-                          outline: `1.5px solid ${activeSwatch?.name === swatch.name ? 'var(--text-primary)' : 'var(--border-dark)'}`,
-                          transform: activeSwatch?.name === swatch.name ? 'scale(1.12)' : 'scale(1)',
+                          outline: `1.5px solid ${activeFabricSwatch?.name === swatch.name ? 'var(--text-primary)' : 'var(--border-dark)'}`,
+                          transform: activeFabricSwatch?.name === swatch.name ? 'scale(1.12)' : 'scale(1)',
                           transition: 'var(--transition)'
                         }}
                         onClick={() => {
@@ -446,16 +458,48 @@ export default function ProductDetails() {
                     ))}
                   </div>
 
+                  
+                  {woodSwatches.length > 0 && (
+                    <div style={{ marginTop: '16px' }}>
+                      <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
+                        Finisaj Lemn: <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeWoodSwatch?.name}</span>
+                      </div>
+                      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '10px' }}>
+                        {woodSwatches.map((swatch, idx) => (
+                          <button 
+                            key={idx}
+                            className={`pm-swatch ${activeWoodSwatch?.name === swatch.name ? 'active' : ''}`}
+                            style={{
+                              backgroundColor: swatch.code,
+                              width: '34px',
+                              height: '34px',
+                              borderRadius: '50%',
+                              border: '2px solid #FFF',
+                              outline: `1.5px solid ${activeWoodSwatch?.name === swatch.name ? 'var(--text-primary)' : 'var(--border-dark)'}`,
+                              transform: activeWoodSwatch?.name === swatch.name ? 'scale(1.12)' : 'scale(1)',
+                              transition: 'var(--transition)'
+                            }}
+                            onClick={() => {
+                              if (swatch.productId !== undefined && swatch.productId !== product.id) {
+                                navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                              } else {
+                                setActiveWoodSwatch(swatch);
+                              }
+                            }}
+                            title={swatch.name}
+                          ></button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* INLINE MACRO TEXTURE EXPANDED BOX (MOBILE) */}
-                  {activeSwatch?.textureImg && (
-                    <div 
-                      className={`macro-inline-box ${textureInlineOpen ? 'open' : ''}`}
-                      onClick={() => setTextureInlineOpen(false)}
-                      style={{ marginTop: textureInlineOpen ? '14px' : '0' }}
+                  {(activeFabricSwatch?.textureImg || activeWoodSwatch?.textureImg) && (
+                      <div className={`macro-inline-box ${expandedTexture ? 'open' : ''}`}
+                      onClick={() => setExpandedTexture(null)}
+                      style={{ marginTop: expandedTexture ? '14px' : '0' }}
                     >
-                      <img 
-                        src={activeSwatch.textureImg} 
-                        alt={activeSwatch.name} 
+                      <img src={expandedTexture === 'wood' ? activeWoodSwatch?.textureImg : activeFabricSwatch?.textureImg} alt={expandedTexture === 'wood' ? activeWoodSwatch?.name : activeFabricSwatch?.name} 
                         style={{ 
                           width: '100%', 
                           height: '280px', 
@@ -468,7 +512,7 @@ export default function ProductDetails() {
                       <button 
                         onClick={(e) => {
                           e.stopPropagation();
-                          setTextureInlineOpen(false);
+                          setExpandedTexture(null);
                         }}
                         style={{
                           position: 'absolute',
@@ -490,9 +534,9 @@ export default function ProductDetails() {
                           transition: 'opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease',
                           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                           zIndex: 12,
-                          opacity: textureInlineOpen ? 1 : 0,
-                          pointerEvents: textureInlineOpen ? 'auto' : 'none',
-                          transitionDelay: textureInlineOpen ? '0.1s' : '0s'
+                          opacity: expandedTexture ? 1 : 0,
+                          pointerEvents: expandedTexture ? 'auto' : 'none',
+                          transitionDelay: expandedTexture ? '0.1s' : '0s'
                         }}
                         className="macro-inline-close-btn"
                         aria-label="Închide previzualizarea"
@@ -502,47 +546,54 @@ export default function ProductDetails() {
                     </div>
                   )}
 
-                  {/* MACRO TEXTURE CLOSE-UP WIDGET (MOBILE) */}
-                  {activeSwatch?.textureImg && (
-                    <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)', marginTop: '14px' }}>
-                      <button 
-                        className="macro-thumbnail-btn" 
-                        onClick={() => setTextureInlineOpen(!textureInlineOpen)}
-                        style={{
-                          width: '48px',
-                          height: '48px',
-                          borderRadius: '6px',
-                          overflow: 'hidden',
-                          border: '1.5px solid var(--accent)',
-                          padding: 0,
-                          cursor: 'pointer',
-                          position: 'relative',
-                          flexShrink: 0
-                        }}
-                        title={product.category === 'Mese' ? 'Apasă pentru zoom textură lemn' : 'Apasă pentru zoom textură macro'}
-                      >
-                        <img src={activeSwatch.textureImg} alt={activeSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                        <div style={{
-                          position: 'absolute',
-                          inset: 0,
-                          background: 'rgba(0,0,0,0.15)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          opacity: 0,
-                          transition: 'opacity 0.2s'
-                        }} className="macro-hover-overlay">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5">
-                            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>
-                          </svg>
+                                    {/* COMBINED TEXTURE PREVIEW PANEL */}
+                  {(activeFabricSwatch?.textureImg || activeWoodSwatch?.textureImg) && (
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: (activeFabricSwatch?.textureImg && activeWoodSwatch?.textureImg) ? '1fr 1fr' : '1fr',
+                      gap: '10px',
+                      marginTop: '14px',
+                      padding: '4px',
+                      background: '#FFF',
+                      border: '1px solid var(--border)',
+                      borderRadius: '8px'
+                    }}>
+                      {activeFabricSwatch?.textureImg && (
+                        <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)' }}>
+                          <button 
+                            className="macro-thumbnail-btn" 
+                            onClick={() => setExpandedTexture(expandedTexture === 'fabric' ? null : 'fabric')}
+                            style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
+                            title={product.category === 'Mese' ? 'Apasă pentru zoom textură lemn' : 'Apasă pentru zoom textură macro'}
+                          >
+                            <img src={activeFabricSwatch.textureImg} alt={activeFabricSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                            <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                            </div>
+                          </button>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: 0 }}>
+                            <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-primary)' }}>PREVIZUALIZARE TEXTURĂ MATERIAL</span>
+                          </div>
                         </div>
-                      </button>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)' }}>
-                          {product.category === 'Mese' ? 'Previzualizare Textură Lemn' : 'Previzualizare Textură Material'}
-                        </span>
-                        <span style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{activeSwatch.textureDesc}</span>
-                      </div>
+                      )}
+                      {activeWoodSwatch?.textureImg && (
+                        <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)' }}>
+                          <button 
+                            className="macro-thumbnail-btn" 
+                            onClick={() => setExpandedTexture(expandedTexture === 'wood' ? null : 'wood')}
+                            style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
+                            title="Apasă pentru zoom textură lemn"
+                          >
+                            <img src={activeWoodSwatch.textureImg} alt={activeWoodSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                            <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                            </div>
+                          </button>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: 0 }}>
+                            <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-primary)' }}>PREVIZUALIZARE TEXTURĂ LEMN</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -590,14 +641,11 @@ export default function ProductDetails() {
                 {product.swatches && product.swatches.length > 0 && (
                   <div className="desktop-swatches-wrapper" style={{ marginBottom: '24px' }}>
                     {/* INLINE MACRO TEXTURE EXPANDED BOX (DESKTOP) */}
-                    {activeSwatch?.textureImg && (
-                      <div 
-                        className={`macro-inline-box ${textureInlineOpen ? 'open' : ''}`}
-                        onClick={() => setTextureInlineOpen(false)}
+                    {(activeFabricSwatch?.textureImg || activeWoodSwatch?.textureImg) && (
+                      <div className={`macro-inline-box ${expandedTexture ? 'open' : ''}`}
+                        onClick={() => setExpandedTexture(null)}
                       >
-                        <img 
-                          src={activeSwatch.textureImg} 
-                          alt={activeSwatch.name} 
+                        <img src={expandedTexture === 'wood' ? activeWoodSwatch?.textureImg : activeFabricSwatch?.textureImg} alt={expandedTexture === 'wood' ? activeWoodSwatch?.name : activeFabricSwatch?.name} 
                           style={{ 
                             width: '100%', 
                             height: '280px', 
@@ -610,7 +658,7 @@ export default function ProductDetails() {
                         <button 
                           onClick={(e) => {
                             e.stopPropagation();
-                            setTextureInlineOpen(false);
+                            setExpandedTexture(null);
                           }}
                           style={{
                             position: 'absolute',
@@ -632,9 +680,9 @@ export default function ProductDetails() {
                             transition: 'opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease',
                             boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                             zIndex: 12,
-                            opacity: textureInlineOpen ? 1 : 0,
-                            pointerEvents: textureInlineOpen ? 'auto' : 'none',
-                            transitionDelay: textureInlineOpen ? '0.1s' : '0s'
+                            opacity: expandedTexture ? 1 : 0,
+                            pointerEvents: expandedTexture ? 'auto' : 'none',
+                            transitionDelay: expandedTexture ? '0.1s' : '0s'
                           }}
                           className="macro-inline-close-btn"
                           aria-label="Închide previzualizarea"
@@ -644,21 +692,21 @@ export default function ProductDetails() {
                       </div>
                     )}
                     <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
-                      {product.category === 'Mese' ? 'Finisaj Lemn:' : 'Nuanță Tapițerie:'} <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeSwatch?.name}</span>
+                      {product.category === 'Mese' ? 'Finisaj Lemn:' : 'Nuanță Tapițerie:'} <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeFabricSwatch?.name}</span>
                     </div>
                     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '14px' }}>
-                      {product.swatches.map((swatch, idx) => (
+                      {fabricSwatches.map((swatch, idx) => (
                         <button 
                           key={idx}
-                          className={`pm-swatch ${activeSwatch?.name === swatch.name ? 'active' : ''}`}
+                          className={`pm-swatch ${activeFabricSwatch?.name === swatch.name ? 'active' : ''}`}
                           style={{
                             backgroundColor: swatch.code,
                             width: '34px',
                             height: '34px',
                             borderRadius: '50%',
                             border: '2px solid #FFF',
-                            outline: `1.5px solid ${activeSwatch?.name === swatch.name ? 'var(--text-primary)' : 'var(--border-dark)'}`,
-                            transform: activeSwatch?.name === swatch.name ? 'scale(1.12)' : 'scale(1)',
+                            outline: `1.5px solid ${activeFabricSwatch?.name === swatch.name ? 'var(--text-primary)' : 'var(--border-dark)'}`,
+                            transform: activeFabricSwatch?.name === swatch.name ? 'scale(1.12)' : 'scale(1)',
                             transition: 'var(--transition)'
                           }}
                           onClick={() => {
@@ -673,51 +721,94 @@ export default function ProductDetails() {
                       ))}
                     </div>
 
-                    {/* MACRO TEXTURE CLOSE-UP WIDGET */}
-                    {activeSwatch?.textureImg && (
-                      <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)', marginTop: '14px' }}>
-                        <button 
-                          className="macro-thumbnail-btn" 
-                          onClick={() => setTextureInlineOpen(!textureInlineOpen)}
-                          style={{
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '6px',
-                            overflow: 'hidden',
-                            border: '1.5px solid var(--accent)',
-                            padding: 0,
-                            cursor: 'pointer',
-                            position: 'relative',
-                            flexShrink: 0
-                          }}
-                          title={product.category === 'Mese' ? 'Apasă pentru zoom textură lemn' : 'Apasă pentru zoom textură macro'}
-                        >
-                          <img src={activeSwatch.textureImg} alt={activeSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                          <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background: 'rgba(0,0,0,0.15)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            opacity: 0,
-                            transition: 'opacity 0.2s'
-                          }} className="macro-hover-overlay">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5">
-                              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>
-                            </svg>
+                                        {/* COMBINED TEXTURE PREVIEW PANEL */}
+                    {(activeFabricSwatch?.textureImg || activeWoodSwatch?.textureImg) && (
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: (activeFabricSwatch?.textureImg && activeWoodSwatch?.textureImg) ? '1fr 1fr' : '1fr',
+                        gap: '10px',
+                        marginTop: '14px',
+                        padding: '4px',
+                        background: '#FFF',
+                        border: '1px solid var(--border)',
+                        borderRadius: '8px'
+                      }}>
+                        {activeFabricSwatch?.textureImg && (
+                          <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)' }}>
+                            <button 
+                              className="macro-thumbnail-btn" 
+                              onClick={() => setExpandedTexture(expandedTexture === 'fabric' ? null : 'fabric')}
+                              style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
+                              title={product.category === 'Mese' ? 'Apasă pentru zoom textură lemn' : 'Apasă pentru zoom textură macro'}
+                            >
+                              <img src={activeFabricSwatch.textureImg} alt={activeFabricSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                              <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                              </div>
+                            </button>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: 0 }}>
+                              <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-primary)' }}>PREVIZUALIZARE TEXTURĂ MATERIAL</span>
+                            </div>
                           </div>
-                        </button>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                          <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)' }}>
-                            {product.category === 'Mese' ? 'Previzualizare Textură Lemn' : 'Previzualizare Textură Material'}
-                          </span>
-                          <span style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{activeSwatch.textureDesc}</span>
-                        </div>
+                        )}
+                        {activeWoodSwatch?.textureImg && (
+                          <div className="macro-texture-container" style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#F8F6F2', padding: '12px 16px', borderRadius: '6px', border: '1px solid var(--border)' }}>
+                            <button 
+                              className="macro-thumbnail-btn" 
+                              onClick={() => setExpandedTexture(expandedTexture === 'wood' ? null : 'wood')}
+                              style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
+                              title="Apasă pentru zoom textură lemn"
+                            >
+                              <img src={activeWoodSwatch.textureImg} alt={activeWoodSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                              <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+                              </div>
+                            </button>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: 0 }}>
+                              <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-primary)' }}>PREVIZUALIZARE TEXTURĂ LEMN</span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
                 )}
+
+                
+                    {woodSwatches.length > 0 && (
+                      <div style={{ marginBottom: '24px' }}>
+                        <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
+                          Finisaj Lemn: <span style={{ color: 'var(--text-primary)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{activeWoodSwatch?.name}</span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                          {woodSwatches.map((swatch, idx) => (
+                            <button 
+                              key={idx}
+                              className={`pm-swatch ${activeWoodSwatch?.name === swatch.name ? 'active' : ''}`}
+                              style={{
+                                backgroundColor: swatch.code,
+                                width: '34px',
+                                height: '34px',
+                                borderRadius: '50%',
+                                border: '2px solid #FFF',
+                                outline: `1.5px solid ${activeWoodSwatch?.name === swatch.name ? 'var(--text-primary)' : 'var(--border-dark)'}`,
+                                transform: activeWoodSwatch?.name === swatch.name ? 'scale(1.12)' : 'scale(1)',
+                                transition: 'var(--transition)'
+                              }}
+                              onClick={() => {
+                                if (swatch.productId !== undefined && swatch.productId !== product.id) {
+                                   navigate(`/produs/${swatch.productId}`, { state: { preventScrollTop: true } });
+                                } else {
+                                   setActiveWoodSwatch(swatch);
+                                }
+                              }}
+                              title={swatch.name}
+                            ></button>
+                          ))}
+                        </div>
+
+                      </div>
+                    )}
 
                 {/* 2. TIP TEXTURA STOFA */}
                 {product.category !== 'Mese' && (

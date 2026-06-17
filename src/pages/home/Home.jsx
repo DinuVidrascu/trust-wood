@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { advantages } from '../../data/products';
 import { useProducts } from '../../context/ProductsContext';
+import { useContent } from '../../context/ContentContext';
 import ProductCard from '../../components/product/ProductCard';
 import AppointmentModal from '../../components/ui/AppointmentModal';
 
 export default function Home() {
+  const { content } = useContent();
   const { products, categories } = useProducts();
   const [activeFilter, setActiveFilter] = useState('Toate');
   const [modalOpen, setModalOpen] = useState(false);
@@ -87,9 +89,9 @@ export default function Home() {
       <section className="hero" id="hero">
         <div className="hero-bg" style={{ transform: `translateY(${scrollY * 0.3}px) scale(${1.02 + scrollY / 2500})`, transition: 'transform 0.05s ease-out' }}></div>
         <div className="hero-content">
-          <span className="hero-tag">Colecția 2026</span>
-          <h1 className="hero-title title-serif">Design, Rafinament și Confort Absolut</h1>
-          <p className="hero-sub">Mobilier premium creat la comandă din cele mai fine materiale, conceput pentru a adăuga valoare și caracter casei tale.</p>
+          <span className="hero-tag" dangerouslySetInnerHTML={{ __html: content.home.heroTag }}></span>
+          <h1 className="hero-title title-serif" dangerouslySetInnerHTML={{ __html: content.home.heroTitle }}></h1>
+          <div className="hero-sub" dangerouslySetInnerHTML={{ __html: content.home.heroSub }}></div>
           <div className="hero-actions">
             <Link to="/catalog" className="hero-cta">Descoperă Colecția</Link>
           </div>
@@ -104,8 +106,8 @@ export default function Home() {
       <section className="section" id="categories">
         <div className="section-header">
           <div>
-            <span className="section-title">Colecții</span>
-            <h2 className="section-heading title-serif">Descoperă Modele Noi</h2>
+            <span className="section-title" dangerouslySetInnerHTML={{ __html: content.home.categoriesSectionTitle }}></span>
+            <h2 className="section-heading title-serif" dangerouslySetInnerHTML={{ __html: content.home.categoriesSectionHeading }}></h2>
           </div>
           <div className="cat-nav">
             <button className="cat-nav-btn" id="catPrev" onClick={() => scrollCats('prev')} disabled={activeDot === 0} aria-label="Previous category">
@@ -170,8 +172,8 @@ export default function Home() {
         <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
           <div className="section-header" style={{ justifyContent: 'center', textAlign: 'center' }}>
             <div>
-              <span className="section-title">Valori</span>
-              <h2 className="section-heading title-serif">Promisiunea Calității</h2>
+              <span className="section-title" dangerouslySetInnerHTML={{ __html: content.home.qualitySectionTitle }}></span>
+              <h2 className="section-heading title-serif" dangerouslySetInnerHTML={{ __html: content.home.qualitySectionHeading }}></h2>
             </div>
           </div>
           <div className="advantages">
@@ -220,8 +222,8 @@ export default function Home() {
       <section className="section" id="products">
         <div className="section-header">
           <div>
-            <span className="section-title">Recomandări</span>
-            <h2 className="section-heading title-serif">Piese Semnătură</h2>
+            <span className="section-title" dangerouslySetInnerHTML={{ __html: content.home.featuredSectionTitle }}></span>
+            <h2 className="section-heading title-serif" dangerouslySetInnerHTML={{ __html: content.home.featuredSectionHeading }}></h2>
           </div>
           <Link to="/catalog" className="btn-outline" style={{ padding: '12px 24px', fontSize: '11px' }}>Vezi tot catalogul</Link>
         </div>

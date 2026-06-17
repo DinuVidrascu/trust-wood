@@ -1,8 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useProducts } from '../../context/ProductsContext';
+import { useContent } from '../../context/ContentContext';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
+
+const fieldLabels = {
+  heroTag: 'Eticheta scurtă de deasupra titlului principal (sus de tot pe pagină)',
+  heroTitle: 'Titlul principal mare al paginii',
+  heroSub: 'Subtitlul / Paragraful descriptiv de sub titlul principal',
+  categoriesSectionTitle: 'Textul mic de deasupra secțiunii de categorii',
+  categoriesSectionHeading: 'Titlul secțiunii de categorii (ex: "Descoperă Modele Noi")',
+  featuredSectionTitle: 'Textul mic de deasupra secțiunii de produse recomandate',
+  featuredSectionHeading: 'Titlul secțiunii de produse recomandate',
+  qualitySectionTitle: 'Textul mic de deasupra secțiunii "De ce să ne alegi?"',
+  qualitySectionHeading: 'Titlul secțiunii "De ce să ne alegi?"',
+  qualityItem1Title: 'Titlul primului avantaj (ex: "Materiale Premium")',
+  qualityItem1Desc: 'Descrierea primului avantaj',
+  qualityItem2Title: 'Titlul celui de-al doilea avantaj',
+  qualityItem2Desc: 'Descrierea celui de-al doilea avantaj',
+  qualityItem3Title: 'Titlul celui de-al treilea avantaj',
+  qualityItem3Desc: 'Descrierea celui de-al treilea avantaj',
+  ctaTitle: 'Titlul barei de acțiune (cea cu butonul de contact)',
+  ctaDesc: 'Descrierea din bara de acțiune',
+  ctaButton: 'Textul de pe butonul de contact',
+  heroDesc: 'Descrierea scurtă de pe prima secțiune',
+  storyTitle: 'Titlul secțiunii Povestea Noastră',
+  storyParagraph1: 'Primul paragraf al poveștii',
+  storyParagraph2: 'Al doilea paragraf al poveștii',
+  stats1Value: 'Valoarea primei statistici (ex: "10+")',
+  stats1Label: 'Eticheta primei statistici (ex: "Ani Experiență")',
+  stats2Value: 'Valoarea a 2-a statistici (ex: "2500+")',
+  stats2Label: 'Eticheta a 2-a statistici (ex: "Clienți")',
+  stats3Value: 'Valoarea a 3-a statistici (ex: "100%")',
+  stats3Label: 'Eticheta a 3-a statistici (ex: "Garanție")',
+  missionTitle: 'Titlul secțiunii "Misiunea Noastră"',
+  missionDesc: 'Textul cu misiunea companiei'
+};
 
 export default function DinuDev() {
   const { products, categories, addProduct, updateProduct, deleteProduct, resetToDefault } = useProducts();
+  const { content, updateContent, schema } = useContent();
+  const [adminMode, setAdminMode] = useState('products');
+  const [selectedContentPage, setSelectedContentPage] = useState('home');
+  const [draftContent, setDraftContent] = useState(() => {
+    return content ? content['home'] : {};
+  });
+
+  useEffect(() => {
+    if (adminMode === 'content' && content[selectedContentPage]) {
+      setDraftContent(content[selectedContentPage]);
+    }
+  }, [selectedContentPage, adminMode]);
+
+  const handleSaveContent = () => {
+    Object.keys(draftContent).forEach(key => {
+      updateContent(selectedContentPage, key, draftContent[key]);
+    });
+    alert('Modificările au fost salvate cu succes și sunt acum vizibile pe site!');
+  };
+
+  const handleSaveSingleContent = (key) => {
+    updateContent(selectedContentPage, key, draftContent[key]);
+    alert(`Textul pentru "${key}" a fost salvat pe site!`);
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Toate');
 
@@ -24,12 +85,62 @@ export default function DinuDev() {
     availableSizes: '',
     features: [],
     swatches: [],
-    images: ''
+    images: '',
+    configOptions: { fabrics: [], wood: [], dimensions: [] }
   };
 
   const [formData, setFormData] = useState(initialFormState);
   const [newFeature, setNewFeature] = useState('');
   
+
+  const [newConfig, setNewConfig] = useState({
+    type: 'fabrics',
+    name: '',
+    desc: '',
+    cost: ''
+  });
+
+  const handleAddConfig = () => {
+    if (!newConfig.name) return;
+    setFormData(prev => {
+      const currentOpts = prev.configOptions || { fabrics: [], wood: [], dimensions: [] };
+      return {
+        ...prev,
+        configOptions: {
+          ...currentOpts,
+          [newConfig.type]: [
+            ...(currentOpts[newConfig.type] || []),
+            { 
+              name: newConfig.name, 
+              desc: newConfig.desc, 
+              cost: parseInt(newConfig.cost) || 0 
+            }
+          ]
+        }
+      };
+    });
+    setNewConfig(prev => ({ ...prev, name: '', desc: '', cost: '' }));
+  };
+
+  const handleRemoveConfig = (type, idx) => {
+    setFormData(prev => {
+      const newConfigOptions = { ...prev.configOptions };
+      newConfigOptions[type] = newConfigOptions[type].filter((_, i) => i !== idx);
+      return { ...prev, configOptions: newConfigOptions };
+    });
+  };
+
+  const handleEditConfig = (type, idx) => {
+    const itemToEdit = formData.configOptions[type][idx];
+    setNewConfig({
+      type: type,
+      name: itemToEdit.name,
+      cost: itemToEdit.cost,
+      desc: itemToEdit.desc || ''
+    });
+    handleRemoveConfig(type, idx);
+  };
+
   // New Swatch local state
   const [newSwatch, setNewSwatch] = useState({
     name: '',
@@ -38,6 +149,13 @@ export default function DinuDev() {
     textureImg: '',
     textureDesc: ''
   });
+
+  // Auto-save draft for new product
+  useEffect(() => {
+    if (isModalOpen && !editingProduct) {
+      localStorage.setItem('dinu_dev_draft_product', JSON.stringify(formData));
+    }
+  }, [formData, isModalOpen, editingProduct]);
 
   // Stats calculation
   const totalProducts = products.length;
@@ -58,7 +176,18 @@ export default function DinuDev() {
 
   const openAddModal = () => {
     setEditingProduct(null);
-    setFormData(initialFormState);
+    
+    const draft = localStorage.getItem('dinu_dev_draft_product');
+    if (draft) {
+      try {
+        setFormData(JSON.parse(draft));
+      } catch (e) {
+        setFormData(initialFormState);
+      }
+    } else {
+      setFormData(initialFormState);
+    }
+
     setNewFeature('');
     setActiveTab('generale');
     setIsModalOpen(true);
@@ -79,7 +208,8 @@ export default function DinuDev() {
       availableSizes: (product.availableSizes || []).join(', '),
       features: product.features || [],
       swatches: product.swatches || [],
-      images: (product.images || []).join(', ')
+      images: (product.images || []).join(', '),
+      configOptions: product.configOptions || { fabrics: [], wood: [], dimensions: [] }
     });
     setNewFeature('');
     setActiveTab('generale');
@@ -113,6 +243,7 @@ export default function DinuDev() {
       swatches: [...prev.swatches, { ...newSwatch }]
     }));
     setNewSwatch({
+      type: 'fabric',
       name: '',
       code: '#9e7e59',
       productId: '',
@@ -126,6 +257,12 @@ export default function DinuDev() {
       ...prev,
       swatches: prev.swatches.filter((_, i) => i !== idx)
     }));
+  };
+
+  const handleEditSwatch = (idx) => {
+    const itemToEdit = formData.swatches[idx];
+    setNewSwatch({ ...itemToEdit });
+    handleRemoveSwatch(idx);
   };
 
   const handleSave = (e) => {
@@ -163,13 +300,15 @@ export default function DinuDev() {
       })),
       images: formData.images
         ? formData.images.split(',').map(s => s.trim()).filter(Boolean)
-        : [formData.img]
+        : [formData.img],
+      configOptions: formData.configOptions || { fabrics: [], wood: [], dimensions: [] }
     };
 
     if (editingProduct) {
       updateProduct(editingProduct.id, parsedProduct);
     } else {
       addProduct(parsedProduct);
+      localStorage.removeItem('dinu_dev_draft_product');
     }
 
     setIsModalOpen(false);
@@ -184,7 +323,8 @@ export default function DinuDev() {
   };
 
   return (
-    <div className="page-entrance subpage" style={{ padding: '40px 20px', minHeight: '90vh', backgroundColor: '#faf9f6' }}>
+    <>
+      <div className="page-entrance subpage" style={{ padding: '120px 20px 40px 20px', minHeight: '90vh', backgroundColor: '#faf9f6' }}>
       <style>{`
         .dev-container {
           max-width: 1200px;
@@ -472,6 +612,8 @@ export default function DinuDev() {
           margin-bottom: 18px;
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
           gap: 6px;
         }
         .form-label {
@@ -480,6 +622,7 @@ export default function DinuDev() {
           color: #5b5855;
         }
         .form-input-text {
+          width: 100%;
           padding: 10px 14px;
           border: 1px solid #dcd9d0;
           border-radius: 6px;
@@ -492,6 +635,7 @@ export default function DinuDev() {
           border-color: #9e7e59;
         }
         .form-textarea {
+          width: 100%;
           padding: 10px 14px;
           border: 1px solid #dcd9d0;
           border-radius: 6px;
@@ -512,7 +656,7 @@ export default function DinuDev() {
         }
         .form-grid-3 {
           display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
           gap: 16px;
         }
         .checkbox-container {
@@ -576,18 +720,63 @@ export default function DinuDev() {
       <div className="dev-container">
         
         {/* HEADER */}
+
         <div className="dev-header">
-          <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             <h1 className="dev-title">Panou de Administrare</h1>
-            <p style={{ color: '#7b7875', fontSize: '14px', marginTop: '4px' }}>Spațiu de configurare secret securizat (/dinudev)</p>
+            <span className="dev-badge">Secret</span>
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button className="btn-reset" onClick={handleResetData}>
-              Resetează Datele
-            </button>
-            <span className="dev-badge">Developer Mode</span>
+            <button className={`btn-outline ${adminMode === 'products' ? 'active' : ''}`} onClick={() => setAdminMode('products')} style={{ borderColor: adminMode === 'products' ? 'var(--accent)' : '', backgroundColor: adminMode === 'products' ? 'var(--accent)' : '', color: adminMode === 'products' ? '#fff' : ''}}>Catalog Produse</button>
+            <button className={`btn-outline ${adminMode === 'content' ? 'active' : ''}`} onClick={() => setAdminMode('content')} style={{ borderColor: adminMode === 'content' ? 'var(--accent)' : '', backgroundColor: adminMode === 'content' ? 'var(--accent)' : '', color: adminMode === 'content' ? '#fff' : ''}}>Editare Texte Site</button>
+            <button className="btn-outline" onClick={handleResetData} style={{ borderColor: '#e53935', color: '#e53935' }}>Resetare Fabrică</button>
           </div>
         </div>
+
+        {adminMode === 'content' ? (
+          <div>
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+              {Object.keys(schema).map(page => (
+                <button 
+                  key={page}
+                  className="btn-outline"
+                  onClick={() => setSelectedContentPage(page)}
+                  style={{ textTransform: 'capitalize', borderColor: selectedContentPage === page ? 'var(--text-primary)' : '', backgroundColor: selectedContentPage === page ? 'var(--text-primary)' : '', color: selectedContentPage === page ? '#fff' : '' }}
+                >
+                  Pagina {page}
+                </button>
+              ))}
+            </div>
+
+            <div style={{ background: 'white', padding: '30px', borderRadius: '8px', border: '1px solid #e5e2db' }}>
+              <h2 className="title-serif" style={{ fontSize: '24px', marginBottom: '20px', textTransform: 'capitalize' }}>Editare Texte: {selectedContentPage}</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {Object.keys(schema[selectedContentPage]).map(key => (
+                  <div key={key} className="form-group" style={{ padding: '15px', border: '1px solid #f0f0f0', borderRadius: '8px', background: '#fafafa' }}>
+                    <div style={{ marginBottom: '10px' }}>
+                      <label className="form-label" style={{ fontWeight: '600', color: 'var(--accent)', fontSize: '15px', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px', display: 'block' }}>
+                        {fieldLabels[key] || key}
+                      </label>
+                      <span style={{ fontSize: '12px', color: '#888', fontFamily: 'monospace' }}>Cheie sistem: {key}</span>
+                    </div>
+                    <ReactQuill 
+                      theme="snow"
+                      value={draftContent[key] || ''}
+                      onChange={(val) => setDraftContent(prev => ({ ...prev, [key]: val }))}
+                      style={{ background: 'white' }}
+                    />
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+                      <button onClick={() => handleSaveSingleContent(key)} className="btn-outline" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>Confirmă Salvarea</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button onClick={handleSaveContent} className="btn-premium" style={{ width: '100%', marginTop: '20px', fontSize: '16px', padding: '15px' }}>Salvează Modificările</button>
+            </div>
+          </div>
+        ) : (
+          <>
+
 
         {/* STATS */}
         <div className="stats-grid">
@@ -605,7 +794,7 @@ export default function DinuDev() {
           </div>
           <div className="stat-card">
             <div className="stat-label">Preț Mediu</div>
-            <div className="stat-value">{avgPrice.toLocaleString('ro-RO')} MDL</div>
+            <div className="stat-value">{avgPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} MDL</div>
           </div>
         </div>
 
@@ -709,10 +898,12 @@ export default function DinuDev() {
           </table>
         </div>
 
+        </>
+      )}
       </div>
 
       {/* CREATE & EDIT MODAL */}
-      {isModalOpen && (
+      {isModalOpen && createPortal(
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="modal-card" onClick={e => e.stopPropagation()}>
             
@@ -826,6 +1017,17 @@ export default function DinuDev() {
                   </div>
 
                   <div className="form-group">
+                    <label className="form-label">Imagini Galerie Adiționale (Separate prin virgulă)</label>
+                    <input 
+                      type="text" 
+                      value={formData.images} 
+                      onChange={e => setFormData({ ...formData, images: e.target.value })}
+                      className="form-input-text"
+                      placeholder="Ex: /img/sofa_back.webp, /img/sofa_side.webp"
+                    />
+                  </div>
+
+                  <div className="form-group">
                     <label className="form-label">Descriere Produs</label>
                     <textarea 
                       value={formData.desc} 
@@ -837,52 +1039,91 @@ export default function DinuDev() {
                 </div>
               )}
 
+              
               {/* TAB CONTENT - CONFIGURATIE */}
               {activeTab === 'config' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                  <div className="form-group">
-                    <label className="form-label">Materiale Disponibile (Separate prin virgulă)</label>
-                    <input 
-                      type="text" 
-                      value={formData.availableMaterials} 
-                      onChange={e => setFormData({ ...formData, availableMaterials: e.target.value })}
-                      className="form-input-text"
-                      placeholder="Ex: Catifea, In, Bouclé"
-                    />
+                  
+                  {/* DYNAMIC CONFIG MANAGER */}
+                  <div style={{ border: '1px solid #e5e2db', padding: '16px', borderRadius: '8px', backgroundColor: '#faf9f6', marginBottom: '20px' }}>
+                    <h4 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '12px', color: '#2b2927' }}>Configurator Opțiuni Dinamice</h4>
+                    <p style={{ fontSize: '12px', color: '#7b7875', marginBottom: '16px' }}>Adaugă materiale, culori de lemn sau dimensiuni cu prețuri specifice.</p>
+                    
+                    <div className="form-grid-3" style={{ marginBottom: '10px' }}>
+                      <div className="form-group">
+                        <label className="form-label">Tip Opțiune</label>
+                        <select 
+                          className="form-input-text" 
+                          value={newConfig.type}
+                          onChange={e => setNewConfig({...newConfig, type: e.target.value})}
+                        >
+                          <option value="fabrics">Material (Stofă/Catifea)</option>
+                          <option value="wood">Picioare / Lemn</option>
+                          <option value="dimensions">Dimensiuni</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Nume (ex: Catifea Premium, 280cm)</label>
+                        <input 
+                          type="text" 
+                          className="form-input-text" 
+                          value={newConfig.name}
+                          onChange={e => setNewConfig({...newConfig, name: e.target.value})}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Cost Adițional (MDL, ex: 1200)</label>
+                        <input 
+                          type="number" 
+                          className="form-input-text" 
+                          value={newConfig.cost}
+                          onChange={e => setNewConfig({...newConfig, cost: e.target.value})}
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group" style={{ marginBottom: '10px' }}>
+                      <label className="form-label">Scurtă Descriere (opțional)</label>
+                      <input 
+                        type="text" 
+                        className="form-input-text" 
+                        value={newConfig.desc}
+                        onChange={e => setNewConfig({...newConfig, desc: e.target.value})}
+                        placeholder="Ex: Tridimensional, la modă"
+                        onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddConfig(); } }}
+                      />
+                    </div>
+                    <button type="button" className="btn-add" style={{ width: '100%', justifyContent: 'center' }} onClick={handleAddConfig}>
+                      + Adaugă Opțiunea
+                    </button>
                   </div>
 
-                  <div className="form-group">
-                    <label className="form-label">Culori Disponibile (Separate prin virgulă)</label>
-                    <input 
-                      type="text" 
-                      value={formData.availableColors} 
-                      onChange={e => setFormData({ ...formData, availableColors: e.target.value })}
-                      className="form-input-text"
-                      placeholder="Ex: Bej, Verde, Gri"
-                    />
-                  </div>
+                  {/* LIST CONFIGURED OPTIONS */}
+                  {(formData.configOptions?.fabrics?.length > 0 || formData.configOptions?.wood?.length > 0 || formData.configOptions?.dimensions?.length > 0) && (
+                    <div className="form-group">
+                      <label className="form-label">Opțiuni Salvate</label>
+                      <div className="form-list-items" style={{ maxHeight: 'none' }}>
+                        {['fabrics', 'wood', 'dimensions'].map(type => (
+                          (formData.configOptions?.[type] || []).map((opt, idx) => (
+                            <div key={type+idx} className="form-list-item">
+                              <div>
+                                <span style={{ fontWeight: '600', marginRight: '8px' }}>
+                                  {type === 'fabrics' ? '🧵 Material' : type === 'wood' ? '🪵 Lemn' : '📏 Dimensiune'}: {opt.name}
+                                </span>
+                                <span style={{ color: '#7b7875', fontSize: '12px' }}>{opt.desc}</span>
+                                <span style={{ color: 'var(--accent)', fontWeight: 'bold', marginLeft: '10px' }}>+{opt.cost} MDL</span>
+                              </div>
+                              <div style={{ display: 'flex', gap: '8px' }}>
+                                <button type="button" className="btn-remove-item" style={{ color: '#2b2927' }} onClick={() => handleEditConfig(type, idx)}>Editează</button>
+                                <button type="button" className="btn-remove-item" onClick={() => handleRemoveConfig(type, idx)}>Șterge</button>
+                              </div>
+                            </div>
+                          ))
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-                  <div className="form-group">
-                    <label className="form-label">Mărimi Disponibile (Separate prin virgulă)</label>
-                    <input 
-                      type="text" 
-                      value={formData.availableSizes} 
-                      onChange={e => setFormData({ ...formData, availableSizes: e.target.value })}
-                      className="form-input-text"
-                      placeholder="Ex: 200cm, 240cm, 280cm, Personalizat"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Imagini Suplimentare Galerie (Separate prin virgulă)</label>
-                    <input 
-                      type="text" 
-                      value={formData.images} 
-                      onChange={e => setFormData({ ...formData, images: e.target.value })}
-                      className="form-input-text"
-                      placeholder="Ex: /img/sofa_green_side.webp, /img/sofa_green_back.webp"
-                    />
-                  </div>
+                  <hr style={{ border: 'none', borderTop: '1px solid #e5e2db', margin: '20px 0' }} />
 
                   {/* CARACTERISTICI MANAGER */}
                   <div className="form-group">
@@ -928,11 +1169,16 @@ export default function DinuDev() {
                       <div key={idx} className="form-list-item">
                         <div>
                           <span className="swatch-color-preview" style={{ backgroundColor: sw.code }} />
-                          <span style={{ fontWeight: '600' }}>{sw.name}</span>
+                          <span style={{ fontWeight: '600', marginRight: '8px' }}>
+                            {sw.type === 'wood' ? '🪵 Lemn' : '🧵 Tapițerie'}: {sw.name}
+                          </span>
                           <span style={{ color: '#7b7875', marginLeft: '6px' }}>({sw.code})</span>
                           {sw.productId && <span style={{ color: '#9e7e59', marginLeft: '8px', fontSize: '11px', fontWeight: 'bold' }}>Variant ID: #{sw.productId}</span>}
                         </div>
-                        <button type="button" className="btn-remove-item" onClick={() => handleRemoveSwatch(idx)}>Șterge</button>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <button type="button" className="btn-remove-item" style={{ color: '#2b2927' }} onClick={() => handleEditSwatch(idx)}>Editează</button>
+                          <button type="button" className="btn-remove-item" onClick={() => handleRemoveSwatch(idx)}>Șterge</button>
+                        </div>
                       </div>
                     ))}
                     {formData.swatches.length === 0 && (
@@ -947,6 +1193,17 @@ export default function DinuDev() {
                     <h4 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '12px', color: '#2b2927' }}>Adaugă Swatch Nuanță / Textură</h4>
                     
                     <div className="form-grid-3">
+                      <div className="form-group">
+                        <label className="form-label">Tip Swatch</label>
+                        <select 
+                          className="form-input-text" 
+                          value={newSwatch.type || 'fabric'}
+                          onChange={e => setNewSwatch({ ...newSwatch, type: e.target.value })}
+                        >
+                          <option value="fabric">Tapițerie / Material</option>
+                          <option value="wood">Nuanță Lemn</option>
+                        </select>
+                      </div>
                       <div className="form-group">
                         <label className="form-label">Nume Culoare</label>
                         <input 
@@ -964,7 +1221,7 @@ export default function DinuDev() {
                             type="color" 
                             value={newSwatch.code} 
                             onChange={e => setNewSwatch({ ...newSwatch, code: e.target.value })}
-                            style={{ width: '36px', height: '36px', padding: 0, border: 'none', cursor: 'pointer', borderRadius: '4px' }}
+                            style={{ width: '42px', height: '42px', padding: 0, border: 'none', cursor: 'pointer', borderRadius: '4px' }}
                           />
                           <input 
                             type="text" 
@@ -1045,8 +1302,10 @@ export default function DinuDev() {
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+      </div>
+    </>
   );
 }

@@ -7,6 +7,7 @@ import WishlistDrawer from './components/product/WishlistDrawer';
 import { CartProvider } from './context/CartContext';
 import CartDrawer from './components/product/CartDrawer';
 import { ProductsProvider } from './context/ProductsContext';
+import { ContentProvider } from './context/ContentContext';
 
 // Lazy load all page components
 const Home = lazy(() => import('./pages/home/Home'));
@@ -74,6 +75,7 @@ export default function App() {
 
   return (
     <Router>
+      <ContentProvider>
       <ProductsProvider>
         <WishlistProvider>
           <CartProvider>
@@ -143,6 +145,7 @@ export default function App() {
           </CartProvider>
         </WishlistProvider>
       </ProductsProvider>
+      </ContentProvider>
     </Router>
   );
 }

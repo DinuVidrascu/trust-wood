@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useContent } from '../../context/ContentContext';
 
 export default function About() {
+  const { content } = useContent();
   
   // Scroll to top on load
   useEffect(() => {
@@ -15,10 +17,10 @@ export default function About() {
         {/* HEADER */}
         <div className="section-header" style={{ marginBottom: '60px', textAlign: 'center', justifyContent: 'center' }}>
           <div style={{ maxWidth: '700px' }}>
-            <span className="section-title">Istoria Noastră</span>
-            <h1 className="section-heading title-serif" style={{ marginBottom: '20px' }}>Povestea din spatele confortului tău</h1>
+            <span className="section-title" dangerouslySetInnerHTML={{ __html: content.about.heroTag }}></span>
+            <h1 className="section-heading title-serif" style={{ marginBottom: '20px' }} dangerouslySetInnerHTML={{ __html: content.about.heroTitle }}></h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: '16px', lineHeight: '1.8' }}>
-              De peste un deceniu, transformăm spațiile de locuit în cămine calde, rafinate și pline de personalitate. Credem că mobilierul nu este doar un obiect funcțional, ci o extensie a stilului tău de viață.
+              <span dangerouslySetInnerHTML={{ __html: content.about.heroDesc }}></span>
             </p>
           </div>
         </div>
@@ -54,22 +56,22 @@ export default function About() {
           
           <div>
             <h2 className="title-serif" style={{ fontSize: '28px', marginBottom: '20px', color: 'var(--text-primary)' }}>
-              Producție proprie, personalizare fără limite
+              <span dangerouslySetInnerHTML={{ __html: content.about.storyTitle }}></span>
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: '1.8', marginBottom: '20px' }}>
-              Spre deosebire de mobilierul de serie importat, noi controlăm întregul proces de producție. În atelierul propriu, combinăm tehnicile tradiționale de tâmplărie și tapițerie cu echipamente moderne de înaltă precizie.
+              <span dangerouslySetInnerHTML={{ __html: content.about.storyParagraph1 }}></span>
             </p>
             <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: '1.8' }}>
-              Acest lucru ne oferă libertatea de a ajusta orice dimensiune, de a modifica densitatea șezutului sau de a schimba picioarele mobilierului, oferindu-ți o piesă de mobilier unică, croită exact pentru casa ta.
+              <span dangerouslySetInnerHTML={{ __html: content.about.storyParagraph2 }}></span>
             </p>
           </div>
 
           <div>
             <h2 className="title-serif" style={{ fontSize: '28px', marginBottom: '20px', color: 'var(--text-primary)' }}>
-              Materiale sustenabile și finisaje de lux
+              <span dangerouslySetInnerHTML={{ __html: content.about.missionTitle }}></span>
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: '1.8', marginBottom: '20px' }}>
-              Sănătatea ta și a planetei este prioritatea noastră. Toată structura internă a canapelelor și paturilor noastre este realizată din lemn masiv de fag și mesteacăn, certificat ecologic FSC.
+              <span dangerouslySetInnerHTML={{ __html: content.about.missionDesc }}></span>
             </p>
             <p style={{ color: 'var(--text-secondary)', fontSize: '15px', lineHeight: '1.8' }}>
               Lucrăm exclusiv cu furnizori de stofe de top din Italia și Belgia. Colecția noastră include țesături hidrofobe, stofe catifelate cu rezistență de peste 100.000 de cicluri de frecare (Martindale) și materiale pet-friendly, ușor de curățat doar cu apă.
@@ -92,18 +94,18 @@ export default function About() {
         }} className="about-stats-grid">
           
           <div>
-            <div className="title-serif" style={{ fontSize: '48px', color: 'var(--accent)', fontWeight: 'bold', marginBottom: '8px' }}>15+</div>
-            <div style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-primary)' }}>Ani de Experiență</div>
+            <div className="title-serif" style={{ fontSize: '48px', color: 'var(--accent)', fontWeight: 'bold', marginBottom: '8px' }} dangerouslySetInnerHTML={{ __html: content.about.stats1Value }}></div>
+            <div style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-primary)' }} dangerouslySetInnerHTML={{ __html: content.about.stats1Label }}></div>
           </div>
           
           <div>
-            <div className="title-serif" style={{ fontSize: '48px', color: 'var(--accent)', fontWeight: 'bold', marginBottom: '8px' }}>5000+</div>
-            <div style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-primary)' }}>Proiecte Livrate</div>
+            <div className="title-serif" style={{ fontSize: '48px', color: 'var(--accent)', fontWeight: 'bold', marginBottom: '8px' }} dangerouslySetInnerHTML={{ __html: content.about.stats2Value }}></div>
+            <div style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-primary)' }} dangerouslySetInnerHTML={{ __html: content.about.stats2Label }}></div>
           </div>
 
           <div>
-            <div className="title-serif" style={{ fontSize: '48px', color: 'var(--accent)', fontWeight: 'bold', marginBottom: '8px' }}>24 Luni</div>
-            <div style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-primary)' }}>Garanție Completă</div>
+            <div className="title-serif" style={{ fontSize: '48px', color: 'var(--accent)', fontWeight: 'bold', marginBottom: '8px' }} dangerouslySetInnerHTML={{ __html: content.about.stats3Value }}></div>
+            <div style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-primary)' }} dangerouslySetInnerHTML={{ __html: content.about.stats3Label }}></div>
           </div>
 
         </div>
