@@ -69,11 +69,10 @@ export default function WishlistDrawer() {
   return (
     <>
       {/* DRAWER BACKDROP */}
-      {drawerOpen && <div className="wd-backdrop" onClick={toggleDrawer}></div>}
+      <div className={`wd-backdrop ${drawerOpen ? 'open' : ''}`} onClick={toggleDrawer}></div>
 
       {/* DRAWER PANEL */}
-      {drawerOpen && (
-        <div className="wd-panel open">
+      <div className={`wd-panel ${drawerOpen ? 'open' : ''}`}>
           <div className="wd-header">
             <div className="wd-header-title">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style={{ color: 'var(--accent)' }}>
@@ -157,7 +156,6 @@ export default function WishlistDrawer() {
             )}
           </div>
         </div>
-      )}
 
       {/* APPOINTMENT MODAL */}
       <AppointmentModal 

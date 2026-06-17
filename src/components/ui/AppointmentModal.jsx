@@ -61,10 +61,8 @@ export default function AppointmentModal({ isOpen, onClose, configuredItems }) {
     }, 3500);
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="modal-wrap open">
+    <div className={`modal-wrap ${isOpen ? 'open' : ''}`}>
       <div className="modal-bg" onClick={onClose}></div>
       <div className="modal">
         <button className="modal-close" onClick={onClose} aria-label="Închide modalul">✕</button>

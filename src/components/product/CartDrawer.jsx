@@ -73,11 +73,10 @@ export default function CartDrawer() {
   return (
     <>
       {/* DRAWER BACKDROP */}
-      {cartOpen && <div className="cart-backdrop" onClick={toggleCart}></div>}
+      <div className={`cart-backdrop ${cartOpen ? 'open' : ''}`} onClick={toggleCart}></div>
 
       {/* DRAWER PANEL */}
-      {cartOpen && (
-        <div className="cart-panel open">
+      <div className={`cart-panel ${cartOpen ? 'open' : ''}`}>
           <div className="cart-header">
             <div className="cart-header-title">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--accent)' }}>
@@ -184,7 +183,6 @@ export default function CartDrawer() {
             )}
           </div>
         </div>
-      )}
     </>
   );
 }
