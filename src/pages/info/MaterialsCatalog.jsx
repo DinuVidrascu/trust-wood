@@ -164,6 +164,101 @@ const materialsData = [
       { name: 'Fag Natural', code: '#E5C19E' }
     ],
     recommendedFor: 'Structurile interne ale canapelelor Deseda și fotoliilor Bliss.'
+  },
+  {
+    id: 'catifea-burgundy',
+    name: 'Catifea Burgundy (Premium)',
+    category: 'fabrics',
+    shortDesc: 'Nuanță profundă de roșu-burgundy pe o textură catifelată luxoasă, tratată hidrofob.',
+    longDesc: 'Această variantă de catifea aduce un accent de pasiune și eleganță regală în orice încăpere. Beneficiază de aceleași proprietăți Easy Clean ca și restul gamei premium, fiind perfectă pentru piese de accent.',
+    imgSrc: '/img/textures/texture_burgundy.webp',
+    specs: {
+      'Compoziție': '100% Poliester de înaltă densitate',
+      'Rezistență (Martindale)': '100.000 cicluri',
+      'Greutate': '450 g/m²',
+      'Tratament special': 'Hidrofob (Easy Clean)',
+      'Întreținere': 'Aspirare periodică; curățare cu lavetă umedă.'
+    },
+    colors: [
+      { name: 'Burgundy', code: '#6B1E2E' }
+    ],
+    recommendedFor: 'Fotolii de accent (Stella, Aura), perne decorative.'
+  },
+  {
+    id: 'catifea-charcoal',
+    name: 'Catifea Gri Cărbune (Premium)',
+    category: 'fabrics',
+    shortDesc: 'O nuanță intensă de gri antracit, extrem de versatilă pentru interioarele moderne și industriale.',
+    longDesc: 'Oferind o bază cromatică stabilă, griul cărbune ascunde perfect micile imperfecțiuni zilnice. Este o stofă excelentă pentru familii, menținând aspectul impecabil pe termen lung.',
+    imgSrc: '/img/textures/texture_charcoal_velvet.webp',
+    specs: {
+      'Compoziție': '100% Poliester de înaltă densitate',
+      'Rezistență (Martindale)': '100.000 cicluri',
+      'Greutate': '450 g/m²',
+      'Tratament special': 'Hidrofob, anti-scămoșare',
+      'Întreținere': 'Aspirare ușoară, ștergere cu lavetă moale.'
+    },
+    colors: [
+      { name: 'Gri Cărbune', code: '#2E2D2C' }
+    ],
+    recommendedFor: 'Canapele mari modulare, fotolii lounge.'
+  },
+  {
+    id: 'catifea-midnight',
+    name: 'Catifea Albastru Midnight (Premium)',
+    category: 'fabrics',
+    shortDesc: 'O nuanță de albastru nocturn, adânc și captivant, perfect pentru un design de interior statement.',
+    longDesc: 'Inspirată de cerul nopții, această catifea adaugă profunzime și rafinament vizual. Textura sa captează și reflectă lumina în moduri subtile, schimbându-și ușor nuanța pe parcursul zilei.',
+    imgSrc: '/img/textures/texture_midnight_blue.webp',
+    specs: {
+      'Compoziție': '100% Poliester de înaltă densitate',
+      'Rezistență (Martindale)': '100.000 cicluri',
+      'Greutate': '450 g/m²',
+      'Tratament special': 'Hidrofob, rezistent la decolorare UV',
+      'Întreținere': 'Evitați expunerea directă la soare prelungită; curățare ecologică.'
+    },
+    colors: [
+      { name: 'Albastru Midnight', code: '#1C2938' }
+    ],
+    recommendedFor: 'Canapele elegante (Nuvola), scaune de birou sau dining.'
+  },
+  {
+    id: 'piele-neagra',
+    name: 'Piele Naturală Neagră',
+    category: 'fabrics',
+    shortDesc: 'Piele naturală premium, finisată fin pentru a păstra porii vizibili și textura organică autentică.',
+    longDesc: 'O alegere clasică și atemporală, pielea noastră neagră este tratată ecologic pentru a-și păstra moliciunea în timp. Pe măsură ce îmbătrânește, capătă o patină nobilă inconfundabilă.',
+    imgSrc: '/img/textures/texture_black_leather.webp',
+    specs: {
+      'Compoziție': '100% Piele naturală bovină',
+      'Grosime': '1.2 - 1.4 mm',
+      'Finisaj': 'Semi-anilină',
+      'Tratament special': 'Rezistentă la pete, pigmenți stabili',
+      'Întreținere': 'Se recomandă hidratare cu loțiuni speciale pentru piele o dată pe an.'
+    },
+    colors: [
+      { name: 'Negru Abanos', code: '#1A1A1A' }
+    ],
+    recommendedFor: 'Fotolii executive, canapele stil Chesterfield sau moderne-minimaliste.'
+  },
+  {
+    id: 'lemn-aura-blue',
+    name: 'Finisaj Lemn Albastru (Aura Blue)',
+    category: 'hard',
+    shortDesc: 'Un finisaj translucid spectaculos care colorează fibra lemnului în albastru, păstrând vizibil desenul natural.',
+    longDesc: 'Acest finisaj inovator îmbină estetica organică a lemnului masiv cu un accent cromatic curajos. Procesul implică impregnarea fibrei cu pigmenți ecologici albaștri, oferind o piesă de mobilier unicat, cu personalitate puternică.',
+    imgSrc: '/img/textures/aura-blue-texture.webp',
+    specs: {
+      'Tip material': 'Lemn masiv (Esență tare) vopsit',
+      'Finisaj': 'Lac poliuretanic mat peste baiț colorat translucid',
+      'Tratament': 'Protecție UV împotriva decolorării',
+      'Origine': 'Europa (FSC Certified)',
+      'Întreținere': 'Ștergere cu lavetă uscată; se evită substanțele abrazive.'
+    },
+    colors: [
+      { name: 'Aura Blue', code: '#24455E' }
+    ],
+    recommendedFor: 'Mese de accent, picioare pentru fotolii statement (ex: Aura Blue).'
   }
 ];
 
