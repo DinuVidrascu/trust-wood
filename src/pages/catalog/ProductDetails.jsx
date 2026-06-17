@@ -29,7 +29,20 @@ export default function ProductDetails() {
   const [woodType, setWoodType] = useState('Stejar Natur');
   const [dimensionType, setDimensionType] = useState('Standard');
   const [customDimension, setCustomDimension] = useState(220);
-  const [calculatedPrice, setCalculatedPrice] = useState(0);
+
+  useEffect(() => {
+    if (product && product.configOptions) {
+      if (product.configOptions.fabrics?.length > 0) {
+        setFabricType(product.configOptions.fabrics[0].name);
+      }
+      if (product.configOptions.wood?.length > 0) {
+        setWoodType(product.configOptions.wood[0].name);
+      }
+      if (product.configOptions.dimensions?.length > 0) {
+        setDimensionType(product.configOptions.dimensions[0].name);
+      }
+    }
+  }, [product]);
 
   // Gallery states
   const [activeImageIdx, setActiveImageIdx] = useState(0);
@@ -122,53 +135,30 @@ export default function ProductDetails() {
     };
   }, [product]);
 
-  // Price calculation engine
-  useEffect(() => {
-    if (!product) return;
+  // Price calculation engine (Derived State)
+  const calculatedPrice = React.useMemo(() => {
+    if (!product) return 0;
     const base = parseInt(product.price.replace(/\s/g, ''));
     let extra = 0;
 
-    // Fabric type extra costs
-    if (fabricType === 'Bouclé Texturat') {
-      extra += 1200;
-    } else if (fabricType === 'In Premium') {
-      extra += 800;
+    const opts = product.configOptions || { fabrics: [], wood: [], dimensions: [] };
+
+    const activeFabric = opts.fabrics?.find(f => f.name === fabricType);
+    if (activeFabric) extra += parseInt(activeFabric.cost) || 0;
+
+    const activeWood = opts.wood?.find(w => w.name === woodType);
+    if (activeWood) extra += parseInt(activeWood.cost) || 0;
+
+    const activeDim = opts.dimensions?.find(d => d.name === dimensionType);
+    if (activeDim) {
+       extra += parseInt(activeDim.cost) || 0;
     }
 
-    // Wood/Legs type extra costs
-    if (woodType === 'Stejar Afumat') {
-      extra += 400;
-    } else if (woodType === 'Nuc Elegance') {
-      extra += 900;
+    if (dimensionType === 'Personalizat' || dimensionType === 'Custom') {
+       extra += Math.max(0, customDimension - 220) * 25; // 25 MDL per extra cm
     }
 
-    // Dimensions extra costs based on category
-    const category = product.category;
-    if (category === 'Canapele' || category === 'Scaune') {
-      if (dimensionType === 'Mediu (250cm)') {
-        extra += 1800;
-      } else if (dimensionType === 'Lung (280cm)') {
-        extra += 3500;
-      } else if (dimensionType === 'Personalizat') {
-        extra += Math.max(0, customDimension - 220) * 25; // 25 MDL per extra cm
-      }
-    } else if (category === 'Paturi') {
-      if (dimensionType === '160x200 cm') {
-        extra += 1500;
-      } else if (dimensionType === '180x200 cm') {
-        extra += 3000;
-      } else if (dimensionType === '200x200 cm') {
-        extra += 4500;
-      }
-    } else if (category === 'Mese') {
-      if (dimensionType === 'Mediu (180cm)') {
-        extra += 2000;
-      } else if (dimensionType === 'Lung (220cm)') {
-        extra += 3500;
-      }
-    }
-
-    setCalculatedPrice(base + extra);
+    return base + extra;
   }, [product, fabricType, woodType, dimensionType, customDimension]);
 
   // Keydown listener for Lightbox navigation
@@ -289,7 +279,10 @@ export default function ProductDetails() {
     setSingleBookingItem(null);
   };
 
-  const hasDimensions = ['Canapele', 'Scaune', 'Paturi', 'Mese', 'Pufuri'].includes(product.category);
+  const opts = product?.configOptions || { fabrics: [], wood: [], dimensions: [] };
+  const hasFabrics = opts.fabrics && opts.fabrics.length > 0;
+  const hasWood = opts.wood && opts.wood.length > 0;
+  const hasDimensions = opts.dimensions && opts.dimensions.length > 0;
   
   // If the product has swatches with images, we treat the active swatch as the "product" being viewed
   const productImages = (activeFabricSwatch && activeFabricSwatch.img) 
@@ -499,7 +492,7 @@ export default function ProductDetails() {
                       onClick={() => setExpandedTexture(null)}
                       style={{ marginTop: expandedTexture ? '14px' : '0' }}
                     >
-                      <img src={expandedTexture === 'wood' ? activeWoodSwatch?.textureImg : activeFabricSwatch?.textureImg} alt={expandedTexture === 'wood' ? activeWoodSwatch?.name : activeFabricSwatch?.name} 
+                      <img loading="lazy" src={expandedTexture === 'wood' ? activeWoodSwatch?.textureImg : activeFabricSwatch?.textureImg} alt={expandedTexture === 'wood' ? activeWoodSwatch?.name : activeFabricSwatch?.name} 
                         style={{ 
                           width: '100%', 
                           height: '280px', 
@@ -566,7 +559,7 @@ export default function ProductDetails() {
                             style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
                             title={product.category === 'Mese' ? 'Apasă pentru zoom textură lemn' : 'Apasă pentru zoom textură macro'}
                           >
-                            <img src={activeFabricSwatch.textureImg} alt={activeFabricSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                            <img loading="lazy" src={activeFabricSwatch.textureImg} alt={activeFabricSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                             <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
                             </div>
@@ -584,7 +577,7 @@ export default function ProductDetails() {
                             style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
                             title="Apasă pentru zoom textură lemn"
                           >
-                            <img src={activeWoodSwatch.textureImg} alt={activeWoodSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                            <img loading="lazy" src={activeWoodSwatch.textureImg} alt={activeWoodSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                             <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
                             </div>
@@ -645,7 +638,7 @@ export default function ProductDetails() {
                       <div className={`macro-inline-box ${expandedTexture ? 'open' : ''}`}
                         onClick={() => setExpandedTexture(null)}
                       >
-                        <img src={expandedTexture === 'wood' ? activeWoodSwatch?.textureImg : activeFabricSwatch?.textureImg} alt={expandedTexture === 'wood' ? activeWoodSwatch?.name : activeFabricSwatch?.name} 
+                        <img loading="lazy" src={expandedTexture === 'wood' ? activeWoodSwatch?.textureImg : activeFabricSwatch?.textureImg} alt={expandedTexture === 'wood' ? activeWoodSwatch?.name : activeFabricSwatch?.name} 
                           style={{ 
                             width: '100%', 
                             height: '280px', 
@@ -741,7 +734,7 @@ export default function ProductDetails() {
                               style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
                               title={product.category === 'Mese' ? 'Apasă pentru zoom textură lemn' : 'Apasă pentru zoom textură macro'}
                             >
-                              <img src={activeFabricSwatch.textureImg} alt={activeFabricSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                              <img loading="lazy" src={activeFabricSwatch.textureImg} alt={activeFabricSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                               <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
                               </div>
@@ -759,7 +752,7 @@ export default function ProductDetails() {
                               style={{ width: '48px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--border-dark)', padding: 0, cursor: 'pointer', position: 'relative', flexShrink: 0 }}
                               title="Apasă pentru zoom textură lemn"
                             >
-                              <img src={activeWoodSwatch.textureImg} alt={activeWoodSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                              <img loading="lazy" src={activeWoodSwatch.textureImg} alt={activeWoodSwatch.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                               <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} className="macro-hover-overlay">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
                               </div>
@@ -811,17 +804,13 @@ export default function ProductDetails() {
                     )}
 
                 {/* 2. TIP TEXTURA STOFA */}
-                {product.category !== 'Mese' && (
+                {hasFabrics && (
                   <div style={{ marginBottom: '24px' }}>
                     <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
                       Tipul Materialului: <span style={{ color: 'var(--accent)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{fabricType}</span>
                     </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }} className="config-grid">
-                    {[
-                      { name: 'Catifea Premium', cost: '+0 MDL', desc: 'Moale, hidrofobă, fină' },
-                      { name: 'Bouclé Texturat', cost: '+1 200 MDL', desc: 'Tridimensional, la modă' },
-                      { name: 'In Premium', cost: '+800 MDL', desc: 'Fibre naturale, respirabil' }
-                    ].map((f) => (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px' }} className="config-grid">
+                    {opts.fabrics.map((f) => (
                       <button
                         key={f.name}
                         onClick={() => setFabricType(f.name)}
@@ -829,7 +818,7 @@ export default function ProductDetails() {
                       >
                         <div className="cb-title">{f.name}</div>
                         <div className="cb-desc">{f.desc}</div>
-                        <div className="cb-cost">{f.cost}</div>
+                        <div className="cb-cost">+{f.cost} MDL</div>
                       </button>
                     ))}
                   </div>
@@ -837,16 +826,13 @@ export default function ProductDetails() {
                 )}
 
                 {/* 3. MATERIAL PICIOARE / CADRU LEMN */}
+                {hasWood && (
                 <div style={{ marginBottom: '24px' }}>
                   <div style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px', color: 'var(--text-secondary)' }}>
                     Picioare & Detalii Lemn: <span style={{ color: 'var(--accent)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{woodType}</span>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }} className="config-grid">
-                    {[
-                      { name: 'Stejar Natur', cost: '+0 MDL', desc: 'Tradițional, luminos' },
-                      { name: 'Stejar Afumat', cost: '+400 MDL', desc: 'Modern, sobru, întunecat' },
-                      { name: 'Nuc Elegance', cost: '+900 MDL', desc: 'Contrast bogat, clasic' }
-                    ].map((w) => (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px' }} className="config-grid">
+                    {opts.wood.map((w) => (
                       <button
                         key={w.name}
                         onClick={() => setWoodType(w.name)}
@@ -854,11 +840,12 @@ export default function ProductDetails() {
                       >
                         <div className="cb-title">{w.name}</div>
                         <div className="cb-desc">{w.desc}</div>
-                        <div className="cb-cost">{w.cost}</div>
+                        <div className="cb-cost">+{w.cost} MDL</div>
                       </button>
                     ))}
                   </div>
                 </div>
+                )}
 
                 {/* 4. DIMENSIUNI DINAMICE */}
                 {hasDimensions && (
@@ -867,89 +854,42 @@ export default function ProductDetails() {
                       Dimensiune: <span style={{ color: 'var(--accent)', textTransform: 'none', fontWeight: '600', marginLeft: '6px' }}>{getDimensionLabel()}</span>
                     </div>
                     
-                    {/* Category-based Dimension Options */}
-                    {product.category === 'Canapele' || product.category === 'Scaune' ? (
-                      <>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '8px', marginBottom: '16px' }} className="config-grid-four">
-                          {[
-                            { id: 'Standard', label: 'Standard', sub: '220 cm', cost: '+0 MDL' },
-                            { id: 'Mediu (250cm)', label: 'Mediu', sub: '250 cm', cost: '+1 800 MDL' },
-                            { id: 'Lung (280cm)', label: 'Lung', sub: '280 cm', cost: '+3 500 MDL' },
-                            { id: 'Personalizat', label: 'Custom', sub: 'Ajustabil', cost: '+25 MDL/cm' }
-                          ].map((d) => (
-                            <button
-                              key={d.id}
-                              onClick={() => setDimensionType(d.id)}
-                              className={`config-btn ${dimensionType === d.id ? 'active' : ''}`}
-                            >
-                              <div className="cb-title">{d.label}</div>
-                              <div className="cb-desc">{d.sub}</div>
-                              <div className="cb-cost">{d.cost}</div>
-                            </button>
-                          ))}
-                        </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '8px', marginBottom: '16px' }} className="config-grid-four">
+                      {opts.dimensions.map((d) => (
+                        <button
+                          key={d.name}
+                          onClick={() => setDimensionType(d.name)}
+                          className={`config-btn ${dimensionType === d.name ? 'active' : ''}`}
+                        >
+                          <div className="cb-title">{d.name}</div>
+                          <div className="cb-desc">{d.desc}</div>
+                          <div className="cb-cost">+{d.cost} MDL</div>
+                        </button>
+                      ))}
+                    </div>
 
-                        {/* Custom dimension slider */}
-                        {dimensionType === 'Personalizat' && (
-                          <div className="custom-slider-wrap" style={{ background: 'var(--accent-light)', padding: '16px', borderRadius: '4px', border: '1px solid rgba(197,168,128,0.15)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: '600', marginBottom: '10px' }}>
-                              <span>Lungime Canapea:</span>
-                              <span style={{ color: 'var(--accent)', fontSize: '15px' }}>{customDimension} cm</span>
-                            </div>
-                            <input 
-                              type="range" 
-                              min="180" 
-                              max="320" 
-                              step="10"
-                              value={customDimension}
-                              onChange={(e) => setCustomDimension(parseInt(e.target.value))}
-                              style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'ew-resize' }}
-                            />
-                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-secondary)', marginTop: '8px' }}>
-                              <span>Compact (180 cm)</span>
-                              <span>Max (320 cm)</span>
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    ) : product.category === 'Paturi' ? (
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '8px' }} className="config-grid-four">
-                        {[
-                          { id: 'Standard', label: '140x200 cm', sub: 'Saltea 140', cost: '+0 MDL' },
-                          { id: '160x200 cm', label: '160x200 cm', sub: 'Saltea 160', cost: '+1 500 MDL' },
-                          { id: '180x200 cm', label: '180x200 cm', sub: 'Saltea 180', cost: '+3 000 MDL' },
-                          { id: '200x200 cm', label: '200x200 cm', sub: 'Saltea 200', cost: '+4 500 MDL' }
-                        ].map((d) => (
-                          <button
-                            key={d.id}
-                            onClick={() => setDimensionType(d.id)}
-                            className={`config-btn ${dimensionType === d.id ? 'active' : ''}`}
-                          >
-                            <div className="cb-title">{d.label}</div>
-                            <div className="cb-desc">{d.sub}</div>
-                            <div className="cb-cost">{d.cost}</div>
-                          </button>
-                        ))}
+                    {/* Custom dimension slider */}
+                    {(dimensionType === 'Personalizat' || dimensionType === 'Custom') && (
+                      <div className="custom-slider-wrap" style={{ background: 'var(--accent-light)', padding: '16px', borderRadius: '4px', border: '1px solid rgba(197,168,128,0.15)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', fontWeight: '600', marginBottom: '10px' }}>
+                          <span>Dimensiune Ajustabilă:</span>
+                          <span style={{ color: 'var(--accent)', fontSize: '15px' }}>{customDimension} cm</span>
+                        </div>
+                        <input 
+                          type="range" 
+                          min="180" 
+                          max="320" 
+                          step="10"
+                          value={customDimension}
+                          onChange={(e) => setCustomDimension(parseInt(e.target.value))}
+                          style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'ew-resize' }}
+                        />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-secondary)', marginTop: '8px' }}>
+                          <span>Compact (180 cm)</span>
+                          <span>Max (320 cm)</span>
+                        </div>
                       </div>
-                    ) : product.category === 'Mese' ? (
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }} className="config-grid">
-                        {[
-                          { id: 'Standard', label: 'L 140 cm', sub: '6 Persoane', cost: '+0 MDL' },
-                          { id: 'Mediu (180cm)', label: 'L 180 cm', sub: '8 Persoane', cost: '+2 000 MDL' },
-                          { id: 'Lung (220cm)', label: 'L 220 cm', sub: '10 Persoane', cost: '+3 500 MDL' }
-                        ].map((d) => (
-                          <button
-                            key={d.id}
-                            onClick={() => setDimensionType(d.id)}
-                            className={`config-btn ${dimensionType === d.id ? 'active' : ''}`}
-                          >
-                            <div className="cb-title">{d.label}</div>
-                            <div className="cb-desc">{d.sub}</div>
-                            <div className="cb-cost">{d.cost}</div>
-                          </button>
-                        ))}
-                      </div>
-                    ) : null}
+                    )}
                   </div>
                 )}
               </div>
@@ -1383,4 +1323,5 @@ export default function ProductDetails() {
     </>
   );
 }
+
 

@@ -208,7 +208,7 @@ export default function DinuDev() {
       availableSizes: (product.availableSizes || []).join(', '),
       features: product.features || [],
       swatches: product.swatches || [],
-      images: (product.images || []).join(', '),
+      images: (product.images || []).filter(img => img !== product.img).join(', '),
       configOptions: product.configOptions || { fabrics: [], wood: [], dimensions: [] }
     });
     setNewFeature('');
@@ -298,11 +298,14 @@ export default function DinuDev() {
         ...sw,
         productId: sw.productId !== undefined && sw.productId !== '' ? parseInt(sw.productId) : undefined
       })),
-      images: formData.images
-        ? formData.images.split(',').map(s => s.trim()).filter(Boolean)
-        : [formData.img],
+      images: [...new Set([
+        formData.img, 
+        ...(formData.images ? formData.images.split(',').map(s => s.trim()).filter(Boolean) : [])
+      ])],
       configOptions: formData.configOptions || { fabrics: [], wood: [], dimensions: [] }
     };
+
+    const targetId = editingProduct ? editingProduct.id : (products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1);
 
     if (editingProduct) {
       updateProduct(editingProduct.id, parsedProduct);
@@ -310,6 +313,39 @@ export default function DinuDev() {
       addProduct(parsedProduct);
       localStorage.removeItem('dinu_dev_draft_product');
     }
+
+    // Auto cross-link swatches for two-way binding
+    const selfSwatch = parsedProduct.swatches.find(s => !s.productId || s.productId === targetId);
+    
+    parsedProduct.swatches.forEach(sw => {
+      if (sw.productId && sw.productId !== targetId) {
+        const linkedProduct = products.find(p => p.id === sw.productId);
+        if (linkedProduct) {
+          const hasBackLink = (linkedProduct.swatches || []).some(s => s.productId === targetId);
+          if (!hasBackLink) {
+            const backSwatch = selfSwatch ? {
+              type: selfSwatch.type,
+              name: selfSwatch.name,
+              code: selfSwatch.code,
+              productId: targetId,
+              textureImg: selfSwatch.textureImg,
+              textureDesc: selfSwatch.textureDesc
+            } : {
+              type: 'fabric',
+              name: parsedProduct.name.includes('(') ? parsedProduct.name.replace(/.*\((.*)\).*/, '$1').trim() : parsedProduct.name,
+              code: '#cccccc',
+              productId: targetId,
+              textureImg: parsedProduct.images[0] || parsedProduct.img,
+              textureDesc: ''
+            };
+            
+            updateProduct(linkedProduct.id, {
+              swatches: [...(linkedProduct.swatches || []), backSwatch]
+            });
+          }
+        }
+      }
+    });
 
     setIsModalOpen(false);
     setEditingProduct(null);
@@ -319,6 +355,28 @@ export default function DinuDev() {
     if (window.confirm('Sigur dorești să resetezi toate produsele la starea inițială? Această acțiune va șterge toate modificările tale.')) {
       resetToDefault();
       alert('Datele au fost resetate la starea inițială.');
+    }
+  };
+
+  const handleImageUpload = (e, field) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 800 * 1024) {
+        alert("Atenție: Imaginea este prea mare (>800KB). Salvarea în baza de date locală (localStorage) ca Base64 poate atinge limita browserului. Vă recomandăm imagini comprimate (ex. WebP).");
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (field === 'img') {
+          setFormData({ ...formData, img: reader.result });
+        } else if (field === 'images') {
+          const currentImages = formData.images ? formData.images.split(',').map(i => i.trim()).filter(i => i) : [];
+          currentImages.push(reader.result);
+          setFormData({ ...formData, images: currentImages.join(', ') });
+        } else if (field === 'textureImg') {
+          setNewSwatch({ ...newSwatch, textureImg: reader.result });
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -848,7 +906,7 @@ export default function DinuDev() {
                 <tr key={product.id}>
                   <td style={{ fontWeight: '600', color: '#7b7875' }}>#{product.id}</td>
                   <td>
-                    <img 
+                    <img loading="lazy" 
                       src={product.img} 
                       alt={product.name} 
                       className="product-img-mini"
@@ -1006,25 +1064,57 @@ export default function DinuDev() {
 
                   <div className="form-group">
                     <label className="form-label">Imagine Principală (URL sau Path) *</label>
-                    <input 
-                      type="text" 
-                      value={formData.img} 
-                      onChange={e => setFormData({ ...formData, img: e.target.value })}
-                      className="form-input-text"
-                      placeholder="Ex: /img/sofa_green.webp"
-                      required
-                    />
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <input 
+                        type="text" 
+                        value={formData.img} 
+                        onChange={e => setFormData({ ...formData, img: e.target.value })}
+                        className="form-input-text"
+                        placeholder="Ex: /img/sofa_green.webp"
+                        required
+                        style={{ flexGrow: 1 }}
+                      />
+                      <label style={{ 
+                        background: '#e0d8cc', 
+                        padding: '0 15px', 
+                        borderRadius: '4px', 
+                        cursor: 'pointer', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        color: '#333'
+                      }} title="Încarcă imagine locală (se salvează ca Base64)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e, 'img')} />
+                      </label>
+                    </div>
                   </div>
 
                   <div className="form-group">
                     <label className="form-label">Imagini Galerie Adiționale (Separate prin virgulă)</label>
-                    <input 
-                      type="text" 
-                      value={formData.images} 
-                      onChange={e => setFormData({ ...formData, images: e.target.value })}
-                      className="form-input-text"
-                      placeholder="Ex: /img/sofa_back.webp, /img/sofa_side.webp"
-                    />
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <input 
+                        type="text" 
+                        value={formData.images} 
+                        onChange={e => setFormData({ ...formData, images: e.target.value })}
+                        className="form-input-text"
+                        placeholder="Ex: /img/sofa_back.webp, /img/sofa_side.webp"
+                        style={{ flexGrow: 1 }}
+                      />
+                      <label style={{ 
+                        background: '#e0d8cc', 
+                        padding: '0 15px', 
+                        borderRadius: '4px', 
+                        cursor: 'pointer', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        color: '#333'
+                      }} title="Încarcă imagine locală (se salvează ca Base64)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e, 'images')} />
+                      </label>
+                    </div>
                   </div>
 
                   <div className="form-group">
@@ -1190,7 +1280,38 @@ export default function DinuDev() {
 
                   {/* ADD SWATCH FORM */}
                   <div style={{ border: '1px solid #e5e2db', padding: '16px', borderRadius: '8px', backgroundColor: '#faf9f6' }}>
-                    <h4 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '12px', color: '#2b2927' }}>Adaugă Swatch Nuanță / Textură</h4>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                      <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#2b2927', margin: 0 }}>Adaugă Swatch Nuanță / Textură</h4>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ fontSize: '12px', color: '#7b7875', fontWeight: 'bold' }}>+ Adaugă rapid produs existent:</span>
+                        <select 
+                          className="form-input-text"
+                          style={{ padding: '6px 10px', fontSize: '13px', width: '200px' }}
+                          onChange={(e) => {
+                            const selectedId = parseInt(e.target.value);
+                            if (!selectedId) return;
+                            const prod = products.find(p => p.id === selectedId);
+                            if (prod) {
+                              const selfSwatch = prod.swatches?.find(s => !s.productId || s.productId === prod.id) || prod.swatches?.[0];
+                              setNewSwatch({
+                                ...newSwatch,
+                                name: prod.name.includes('(') ? prod.name.replace(/.*\((.*)\).*/, '$1').trim() : prod.name,
+                                code: selfSwatch ? selfSwatch.code : '#cccccc',
+                                productId: prod.id,
+                                textureImg: selfSwatch ? selfSwatch.textureImg : prod.img,
+                                type: selfSwatch ? selfSwatch.type : 'fabric'
+                              });
+                            }
+                            e.target.value = ''; // reset after selection
+                          }}
+                        >
+                          <option value="">-- Alegeți --</option>
+                          {products.filter(p => p.id !== formData.id).map(p => (
+                            <option key={p.id} value={p.id}>#{p.id} - {p.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
                     
                     <div className="form-grid-3">
                       <div className="form-group">
@@ -1247,13 +1368,29 @@ export default function DinuDev() {
 
                     <div className="form-group">
                       <label className="form-label">Cale Imagine Textură (URL sau Path)</label>
-                      <input 
-                        type="text" 
-                        value={newSwatch.textureImg} 
-                        onChange={e => setNewSwatch({ ...newSwatch, textureImg: e.target.value })}
-                        className="form-input-text"
-                        placeholder="Ex: /img/textures/texture_beige_velvet.webp"
-                      />
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <input 
+                          type="text" 
+                          value={newSwatch.textureImg} 
+                          onChange={e => setNewSwatch({ ...newSwatch, textureImg: e.target.value })}
+                          className="form-input-text"
+                          placeholder="Ex: /img/textures/texture_beige_velvet.webp"
+                          style={{ flexGrow: 1 }}
+                        />
+                        <label style={{ 
+                          background: '#e0d8cc', 
+                          padding: '0 15px', 
+                          borderRadius: '4px', 
+                          cursor: 'pointer', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          color: '#333'
+                        }} title="Încarcă imagine locală (se salvează ca Base64)">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                          <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e, 'textureImg')} />
+                        </label>
+                      </div>
                     </div>
 
                     <div className="form-group">
@@ -1309,3 +1446,4 @@ export default function DinuDev() {
     </>
   );
 }
+

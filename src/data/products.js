@@ -938,12 +938,71 @@ export const products = [
         productId: 32,
         textureImg: "/img/textures/texture_beige_boucle.webp",
         textureDesc: "Bouclé alb fildeș texturat, aspect modern și organic."
+      },
+      {
+        name: "Blue",
+        code: "#4A90E2",
+        productId: 65,
+        textureImg: "/aura-blue-texture.jpg",
+        textureDesc: "Material premium albastru, rezistent și fin la atingere."
       }
     ],
     features: [
       "Design minimalist elegant",
       "Tapițerie bouclé premium",
       "Cadru stabil din lemn de stejar",
+      "Confort lombar sporit"
+    ]
+  },
+  {
+    id: 65,
+    category: "Fotolii",
+    type: "Fotoliu",
+    name: "Aura(Blue)",
+    img: "/img/aura-blue.webp",
+    images: [
+      "/img/aura-blue.webp"
+    ],
+    availableMaterials: [
+      "Catifea",
+      "In",
+      "Bouclé"
+    ],
+    availableColors: ["Blue"],
+    availableSizes: [
+      "Standard"
+    ],
+    price: "7 500",
+    inStock: true,
+    desc: "Fotoliul Aura combină simplitatea nordică cu un confort deosebit. Tapițeria de înaltă calitate și designul ergonomic oferă o prezență impunătoare în nuanțe reci.",
+    swatches: [
+      {
+        name: "Blue",
+        code: "#4A90E2",
+        productId: 65,
+        textureImg: "/img/textures/aura-blue-texture.webp",
+        textureDesc: "Material premium albastru, rezistent și fin la atingere."
+      },
+      {
+        name: "Cream White",
+        code: "#F5F2EB",
+        productId: 32,
+        textureImg: "/img/textures/texture_beige_boucle.webp",
+        textureDesc: "Bouclé alb fildeș texturat, aspect modern și organic."
+      },
+      {
+        name: "Pin",
+        code: "#E5D3B3",
+        type: "wood",
+        productId: 65,
+        textureImg: "/img/textures/aura-blue-texture-wood.jpg",
+        textureDesc: "Lemn de pin natur, aspect rustic și cald."
+      }
+    ],
+    features: [
+      "Design minimalist elegant",
+      "Tapițerie premium",
+      "Cadru stabil din lemn masiv",
       "Confort lombar sporit"
     ]
   },
